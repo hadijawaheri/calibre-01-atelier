@@ -1,100 +1,66 @@
-/**
- * ExplodedView — 2.5D CSS stage. Public contract: { progress: 0..1, strap }.
- * Replace the internals with an R3F <Canvas> (.glb) and keep the same props.
- */
-import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from "framer-motion";
+/** Photographic layered stage. Public contract stays { progress: MotionValue<0..1>, strap }. */
+import { AnimatePresence, motion, useMotionValue, useMotionValueEvent, useReducedMotion, useSpring, useTransform, type MotionValue } from "framer-motion";
 import { useState, type MouseEvent } from "react";
 import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { LAYERS, type LayerDef, type StrapId } from "./watch-layers";
 import { Strap } from "./Strap";
 
-const GAP = 52; // px per layer at full explosion
-
 function Layer({ layer, progress, active, setActive }: { layer: LayerDef; progress: MotionValue<number>; active: string | null; setActive: (id: string | null) => void }) {
-  const depth = (LAYERS.length - 1 - layer.index) * GAP;
-  const z = useTransform(progress, (p) => p * depth - layer.index * 2);
-  const blur = useTransform(progress, (p) => `blur(${Math.abs(p * (layer.index - 2.5)) * 0.35}px)`);
-  const hotOpacity = useTransform(progress, [0.35, 0.7], [0, 1]);
-  const labelX = useTransform(progress, [0, 1], [0, 1]);
-  const isActive = active === layer.id;
-
+  const offset = layer.index - 2.5;
+  const x = useTransform(progress, (p) => p * offset * 33);
+  const y = useTransform(progress, (p) => p * offset * 67);
+  const scale = useTransform(progress, [0, 1], [1.12, 0.88]);
+  const rotateX = useTransform(progress, [0, 1], [0, 48]);
+  const rotateZ = useTransform(progress, [0, 1], [0, -18]);
+  const opacity = useTransform(progress, [0.06, 0.28], [0, 1]);
+  const hotOpacity = useTransform(progress, [0.35, 0.65], [0, 1]);
+  const [enabled, setEnabled] = useState(false);
+  useMotionValueEvent(progress, "change", (p) => setEnabled(p > 0.35));
   return (
-    <motion.div className="absolute inset-0" style={{ z, filter: blur, transformStyle: "preserve-3d" }}>
-      <div className="absolute inset-0 rounded-full" style={{ boxShadow: "0 30px 60px -20px oklch(0 0 0 / 0.8)" }}>
-        {layer.art}
-      </div>
-      <motion.button
-        type="button"
-        aria-label={layer.hotspot.title}
-        onClick={() => setActive(isActive ? null : layer.id)}
-        onMouseEnter={() => setActive(layer.id)}
-        style={{ left: `${layer.hotspot.x}%`, top: `${layer.hotspot.y}%`, opacity: hotOpacity }}
-        className="absolute z-10 -translate-x-1/2 -translate-y-1/2"
-      >
-        <span className="relative flex h-6 w-6 items-center justify-center rounded-full border border-gold bg-background/80 text-gold shadow-gold">
-          <span className="absolute inset-0 animate-ping rounded-full border border-gold/50" />
-          <Plus className="h-3 w-3" />
-        </span>
-      </motion.button>
-      <motion.span style={{ opacity: labelX }} className="pointer-events-none absolute -right-36 top-1/2 hidden w-32 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground md:block">
-        <span className="text-gold">0{layer.index + 1}</span> — {layer.name}
-      </motion.span>
+    <motion.div className="watch-layer pointer-events-none absolute left-[25%] top-[25%] h-1/2 w-1/2" style={{ x, y, scale, rotateX, rotateZ, opacity, zIndex: 10 - layer.index }}>
+      <img src={layer.image} alt={layer.name} width={512} height={512} className={`watch-component pointer-events-none h-full w-full object-contain ${layer.id === "crystal" ? "opacity-40" : ""}`} draggable={false} />
+      <motion.div className="absolute z-10" style={{ left: `${layer.hotspot.x}%`, top: `${layer.hotspot.y}%`, opacity: hotOpacity }}>
+        <Button variant="outline" size="icon" tabIndex={enabled ? 0 : -1} disabled={!enabled} aria-label={layer.hotspot.title} aria-pressed={active === layer.id} onClick={() => setActive(active === layer.id ? null : layer.id)} className="pointer-events-auto h-7 w-7 rounded-full border-gold/60 bg-background/90 text-gold"><Plus /></Button>
+      </motion.div>
     </motion.div>
   );
 }
 
 export function ExplodedView({ progress, strap = "alligator" }: { progress: MotionValue<number>; strap?: StrapId }) {
   const [active, setActive] = useState<string | null>(null);
+  useMotionValueEvent(progress, "change", (p) => { if (p < 0.35) setActive(null); });
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
   const sx = useSpring(mx, { stiffness: 80, damping: 18 });
   const sy = useSpring(my, { stiffness: 80, damping: 18 });
-  const tiltX = useTransform(progress, (p) => 8 + p * 50);
-  const rotX = useTransform([tiltX, sy], ([t, y]) => (t as number) - (y as number) * 10);
-  const rotY = useTransform(sx, (x) => x * 14);
-  const rotZ = useTransform(progress, (p) => -p * 24);
-  const liftY = useTransform(progress, (p) => p * 110);
-  const strapOpacity = useTransform(progress, [0, 0.4], [1, 0.25]);
+  const reducedMotion = useReducedMotion();
+  const rotateY = useTransform(sx, (x) => reducedMotion ? 0 : x * 7);
+  const rotateX = useTransform(sy, (y) => reducedMotion ? 0 : -y * 5);
+  const assembledOpacity = useTransform(progress, [0, 0.25], [1, 0]);
+  const assembledScale = useTransform(progress, [0, 0.3], [1, 0.94]);
   const current = LAYERS.find((l) => l.id === active);
-
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     mx.set((e.clientX - r.left) / r.width - 0.5);
     my.set((e.clientY - r.top) / r.height - 0.5);
   };
-
   return (
-    <div
-      className="relative flex aspect-square w-full items-center justify-center overflow-hidden"
-      style={{ perspective: 1400 }}
-      onMouseMove={onMove}
-      onMouseLeave={() => { mx.set(0); my.set(0); setActive(null); }}
-    >
-      <div className="absolute inset-[15%] rounded-full bg-gold/10 blur-3xl" />
-      <motion.div
-        className="relative h-[62%] w-[62%]"
-        style={{ y: liftY, rotateX: rotX, rotateY: rotY, rotateZ: rotZ, transformStyle: "preserve-3d" }}
-      >
-        <motion.div style={{ opacity: strapOpacity, z: -10 }} className="pointer-events-none absolute left-1/2 top-1/2 h-[150%] w-[46%] -translate-x-1/2 -translate-y-1/2">
-          <Strap type={strap} className="h-full w-full" />
+    <div className="watch-studio relative aspect-square w-full" onMouseMove={onMove} onMouseLeave={() => { mx.set(0); my.set(0); }}>
+      <motion.div className="watch-stage absolute inset-0" style={{ rotateX, rotateY }}>
+        <motion.div className="pointer-events-none absolute inset-[3%]" style={{ opacity: assembledOpacity, scale: assembledScale }}>
+          <Strap type={strap} priority className="h-full w-full" />
         </motion.div>
-        {[...LAYERS].reverse().map((l) => (
-          <Layer key={l.id} layer={l} progress={progress} active={active} setActive={setActive} />
-        ))}
+        {[...LAYERS].reverse().map((layer) => <Layer key={layer.id} layer={layer} progress={progress} active={active} setActive={setActive} />)}
       </motion.div>
-
-      {current && (
-        <motion.div
-          key={current.id}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute bottom-2 left-1/2 w-72 -translate-x-1/2 border border-gold/30 bg-card/90 p-4 backdrop-blur"
-        >
-          <p className="eyebrow">{current.name}</p>
+      <AnimatePresence>
+        {current && <motion.div key={current.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="absolute bottom-0 left-1/2 z-20 w-[min(90%,320px)] -translate-x-1/2 border border-gold/30 bg-card/95 p-4 backdrop-blur" role="status">
+          <p className="eyebrow">0{current.index + 1} · {current.name}</p>
           <p className="mt-1 font-serif text-xl">{current.hotspot.title}</p>
           <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{current.hotspot.body}</p>
-        </motion.div>
-      )}
+          <Button variant="ghost" size="sm" onClick={() => setActive(null)} className="mt-2 h-6 px-0 text-xs text-gold">Close</Button>
+        </motion.div>}
+      </AnimatePresence>
     </div>
   );
 }
