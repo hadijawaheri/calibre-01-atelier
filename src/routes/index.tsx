@@ -1,24 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Nav, Hero, Anatomy, WristFit, Craft, Footer } from "@/components/kronos/Sections";
+import { ReservationDrawer } from "@/components/kronos/ReservationDrawer";
+import type { StrapId } from "@/components/kronos/watch-layers";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "KRONOS Atelier — Calibre 01 Flying Tourbillon" },
+      { name: "description", content: "Explore and reserve the KRONOS Calibre 01: a Swiss automatic flying tourbillon, limited to 88 pieces." },
+      { property: "og:title", content: "KRONOS Atelier — Calibre 01" },
+      { property: "og:description", content: "Engineering Eternity. A hand-finished Swiss flying tourbillon, edition of 88." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [open, setOpen] = useState(false);
+  const [strap, setStrap] = useState<StrapId>("alligator");
+  const reserve = () => setOpen(true);
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main>
+      <Nav onReserve={reserve} />
+      <Hero onReserve={reserve} />
+      <Anatomy />
+      <WristFit strap={strap} setStrap={setStrap} />
+      <Craft />
+      <Footer onReserve={reserve} />
+      <ReservationDrawer open={open} onClose={() => setOpen(false)} strap={strap} setStrap={setStrap} />
+    </main>
   );
 }
