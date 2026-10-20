@@ -1,0 +1,16 @@
+export const paths = {
+  home: "/",
+  watches: "/watches",
+  watch: (slug: string) => `/watches/${slug}`,
+  cart: "/cart",
+  checkout: "/checkout",
+  checkoutCallback: "/checkout/callback",
+  signIn: "/sign-in",
+  account: "/account",
+  orders: "/account/orders",
+  order: (id: string) => `/account/orders/${id}`,
+  profile: "/account/profile",
+  admin: "/admin",
+  adminOrders: "/admin/orders",
+  adminProducts: "/admin/products",
+} as const;

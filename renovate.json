@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    { "matchDepTypes": ["devDependencies"], "matchUpdateTypes": ["minor", "patch"], "groupName": "dev dependencies" },
+    { "matchPackageNames": ["typescript", "eslint", "@eslint/js"], "matchUpdateTypes": ["major"], "enabled": false }
+  ]
+}
