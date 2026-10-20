@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Watch previews use complete transparent raster renders for each strap to preserve the integrated lugs; exploded components use individual raster images referenced by metadata, keeping the MotionValue stage contract replaceable by a future GLB canvas.

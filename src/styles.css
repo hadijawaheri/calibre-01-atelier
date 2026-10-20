@@ -67,6 +67,9 @@
   --gradient-gold: linear-gradient(135deg, oklch(0.86 0.1 90), oklch(0.68 0.13 80), oklch(0.82 0.11 88));
   --gradient-metal: repeating-linear-gradient(90deg, oklch(1 0 0 / 2%) 0 1px, transparent 1px 3px);
   --shadow-gold: 0 0 60px -10px color-mix(in oklab, var(--gold) 45%, transparent);
+  --shadow-watch: drop-shadow(0 22px 18px oklch(0.03 0 0 / 0.7));
+  --shadow-component: drop-shadow(4px 22px 12px oklch(0.03 0 0 / 0.8));
+  --studio-light: radial-gradient(ellipse at 45% 42%, oklch(0.26 0.014 250 / 0.38), transparent 62%);
 }
 
 @layer base {
@@ -101,3 +104,15 @@
 @utility animate-spin-slow { animation: spin-slow 60s linear infinite; }
 @utility animate-spin-med { animation: spin-slow 12s linear infinite; }
 @utility animate-balance { animation: balance 0.25s ease-in-out infinite; }
+
+.watch-studio { background: var(--studio-light); perspective: 1600px; isolation: isolate; }
+.watch-stage { transform-style: preserve-3d; }
+.watch-photograph { filter: var(--shadow-watch); }
+.watch-component { filter: var(--shadow-component); }
+@media (max-width: 640px) {
+  #fit .watch-studio { height: 470px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-spin-slow, .animate-spin-med, .animate-balance { animation: none; }
+}

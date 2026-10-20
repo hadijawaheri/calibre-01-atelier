@@ -5,6 +5,7 @@ import { ExplodedView } from "./ExplodedView";
 import { STRAPS, Strap } from "./Strap";
 import { LAYERS, type StrapId } from "./watch-layers";
 import { useTicking } from "./useTicking";
+import { Button } from "@/components/ui/button";
 
 const btnGold = "inline-flex items-center gap-2 bg-gold-gradient px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.25em] text-primary-foreground transition hover:brightness-110";
 const btnGhost = "inline-flex items-center gap-2 border border-gold/40 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.25em] text-gold transition hover:bg-gold/10";
@@ -80,10 +81,10 @@ export function Hero({ onReserve }: { onReserve: () => void }) {
               className="w-full accent-[var(--gold)]"
             />
             <div className="flex justify-center gap-3">
-              <button onClick={toggle} className={btnGhost}>{val > 0.5 ? "Reassemble" : "Deconstruct"}</button>
-              <button onClick={() => setSound((s) => !s)} aria-label="Toggle ticking sound" className="border border-border px-4 text-gold hover:bg-gold/10">
+              <Button variant="outline" onClick={toggle} className={`${btnGhost} h-auto rounded-none`}>{val > 0.5 ? "Reassemble" : "Deconstruct"}</Button>
+              <Button variant="outline" size="icon" title="Toggle ticking sound" onClick={() => setSound((s) => !s)} aria-label="Toggle ticking sound" className="h-auto rounded-none border-border text-gold hover:bg-gold/10">
                 {sound ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -149,20 +150,14 @@ export function Anatomy() {
 }
 
 export function WristFit({ strap, setStrap }: { strap: StrapId; setStrap: (s: StrapId) => void }) {
-  const current = STRAPS.find((s) => s.id === strap)!;
+  const current = STRAPS.find((s) => s.id === strap) ?? STRAPS[0];
   return (
     <section id="fit" className="border-y border-border bg-card/40">
       <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-32 lg:grid-cols-2">
-        <div className="relative mx-auto flex h-[520px] w-full max-w-md items-center justify-center overflow-hidden">
-          <div className="absolute inset-x-0 top-1/2 h-48 -translate-y-1/2 rounded-[50%] bg-gradient-to-b from-muted to-background opacity-60 blur-sm" />
-          <motion.div key={strap} initial={{ opacity: 0, scaleY: 0.9 }} animate={{ opacity: 1, scaleY: 1 }} className="absolute h-full w-40">
+        <div className="watch-studio relative mx-auto flex h-[580px] w-full max-w-lg items-center justify-center overflow-hidden">
+          <motion.div key={strap} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="h-full w-full py-4">
             <Strap type={strap} className="h-full w-full" />
           </motion.div>
-          <div className="relative h-64 w-64 drop-shadow-2xl">
-            {[...LAYERS].reverse().map((l) => (
-              <div key={l.id} className="absolute inset-0">{l.art}</div>
-            ))}
-          </div>
         </div>
         <div>
           <p className="eyebrow">III — Fit & Finish</p>
@@ -170,20 +165,22 @@ export function WristFit({ strap, setStrap }: { strap: StrapId; setStrap: (s: St
           <p className="mt-4 max-w-md text-muted-foreground">42mm case, 10.8mm profile. Quick-release lugs let you change character in seconds.</p>
           <div className="mt-10 space-y-3">
             {STRAPS.map((s) => (
-              <button
+              <Button
+                variant="ghost"
+                aria-pressed={s.id === strap}
                 key={s.id}
                 onClick={() => setStrap(s.id)}
-                className={`flex w-full items-center justify-between border p-5 text-left transition ${s.id === strap ? "border-gold bg-gold/5" : "border-border hover:border-gold/40"}`}
+                className={`flex h-auto w-full items-center justify-between gap-4 whitespace-normal rounded-none border p-5 text-left transition ${s.id === strap ? "border-gold bg-gold/5" : "border-border hover:border-gold/40"}`}
               >
                 <div>
                   <p className="font-serif text-xl">{s.name}</p>
                   <p className="text-xs text-muted-foreground">{s.note}</p>
                 </div>
-                <span className="font-mono text-xs text-gold">{s.price ? `+ CHF ${s.price.toLocaleString()}` : "Included"}</span>
-              </button>
+                <span className="shrink-0 font-mono text-xs text-gold">{s.price ? `+ CHF ${s.price.toLocaleString()}` : "Included"}</span>
+              </Button>
             ))}
           </div>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Selected · <span className="text-gold">{current.name}</span></p>
+          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Selected · <span className="text-gold">{current?.name ?? "Matte Alligator"}</span></p>
         </div>
       </div>
     </section>
