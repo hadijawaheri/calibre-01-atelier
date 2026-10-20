@@ -8,7 +8,7 @@ import { Plus } from "lucide-react";
 import { LAYERS, type LayerDef, type StrapId } from "./watch-layers";
 import { Strap } from "./Strap";
 
-const GAP = 70; // px per layer at full explosion
+const GAP = 52; // px per layer at full explosion
 
 function Layer({ layer, progress, active, setActive }: { layer: LayerDef; progress: MotionValue<number>; active: string | null; setActive: (id: string | null) => void }) {
   const depth = (LAYERS.length - 1 - layer.index) * GAP;
@@ -53,6 +53,7 @@ export function ExplodedView({ progress, strap = "alligator" }: { progress: Moti
   const rotX = useTransform([tiltX, sy], ([t, y]) => (t as number) - (y as number) * 10);
   const rotY = useTransform(sx, (x) => x * 14);
   const rotZ = useTransform(progress, (p) => -p * 24);
+  const liftY = useTransform(progress, (p) => p * 110);
   const strapOpacity = useTransform(progress, [0, 0.4], [1, 0.25]);
   const current = LAYERS.find((l) => l.id === active);
 
@@ -72,7 +73,7 @@ export function ExplodedView({ progress, strap = "alligator" }: { progress: Moti
       <div className="absolute inset-[15%] rounded-full bg-gold/10 blur-3xl" />
       <motion.div
         className="relative h-[62%] w-[62%]"
-        style={{ rotateX: rotX, rotateY: rotY, rotateZ: rotZ, transformStyle: "preserve-3d" }}
+        style={{ y: liftY, rotateX: rotX, rotateY: rotY, rotateZ: rotZ, transformStyle: "preserve-3d" }}
       >
         <motion.div style={{ opacity: strapOpacity, z: -10 }} className="pointer-events-none absolute left-1/2 top-1/2 h-[150%] w-[46%] -translate-x-1/2 -translate-y-1/2">
           <Strap type={strap} className="h-full w-full" />
