@@ -64,7 +64,7 @@ export function ExplodedView({ progress, strap = "alligator" }: { progress: Moti
 
   return (
     <div
-      className="relative flex aspect-square w-full items-center justify-center"
+      className="relative flex aspect-square w-full items-center justify-center overflow-hidden"
       style={{ perspective: 1400 }}
       onMouseMove={onMove}
       onMouseLeave={() => { mx.set(0); my.set(0); setActive(null); }}
@@ -74,7 +74,7 @@ export function ExplodedView({ progress, strap = "alligator" }: { progress: Moti
         className="relative h-[62%] w-[62%]"
         style={{ rotateX: rotX, rotateY: rotY, rotateZ: rotZ, transformStyle: "preserve-3d" }}
       >
-        <motion.div style={{ opacity: strapOpacity, z: -10 }} className="absolute left-1/2 top-1/2 h-[230%] w-[46%] -translate-x-1/2 -translate-y-1/2">
+        <motion.div style={{ opacity: strapOpacity, z: -10 }} className="pointer-events-none absolute left-1/2 top-1/2 h-[150%] w-[46%] -translate-x-1/2 -translate-y-1/2">
           <Strap type={strap} className="h-full w-full" />
         </motion.div>
         {[...LAYERS].reverse().map((l) => (
