@@ -1,11 +1,33 @@
-import { HomeIntro, MovementFilm, MovementSides } from "@/features/home";
+import {
+  HomeBlueprint,
+  HomeFamilies,
+  HomeFeatures,
+  HomeFinale,
+  HomeGallery,
+  HomeHero,
+  HomeStatement,
+  HomeTimegrapher,
+  HomeWrist,
+  MovementFilm,
+  MovementFlight,
+  SmoothScroll,
+} from "@/features/home";
 
 export default function HomePage() {
   return (
     <>
+      <SmoothScroll />
+      <MovementFlight />
+      <HomeHero />
+      <HomeStatement />
+      <HomeWrist />
+      <HomeFeatures />
       <MovementFilm />
-      <MovementSides />
-      <HomeIntro />
+      <HomeGallery />
+      <HomeTimegrapher />
+      <HomeBlueprint />
+      <HomeFamilies />
+      <HomeFinale />
     </>
   );
 }

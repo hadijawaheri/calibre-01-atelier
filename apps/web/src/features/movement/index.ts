@@ -3,5 +3,13 @@ export { calibreBySlug, CALIBRES } from "./calibres";
 export { CalibreIndex } from "./components/calibre-index";
 export { CalibreProfile } from "./components/calibre-profile";
 export { MovementLab } from "./components/movement-lab";
+export {
+  ARBOR,
+  BALANCE_RADIUS,
+  ESCAPE_RADIUS,
+  MOVEMENT_RADIUS,
+  pitchRadius,
+  WHEEL,
+} from "./layout";
 export type { PartId, PartInfo } from "./parts";
 export { GROUP_LABELS, PART_BY_ID, PARTS } from "./parts";

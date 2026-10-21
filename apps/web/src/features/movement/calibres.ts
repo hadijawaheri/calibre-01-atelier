@@ -21,6 +21,8 @@ export interface CalibreInfo {
   howItWorks: string[];
   specs: { label: string; value: string }[];
   usedIn: WatchExample[];
+  /** One line per row of the family comparison on the home page. */
+  glance: { energy: string; accuracy: string; beat: string; signature: string };
   /** Whether a 3D model of this family is ready for the lab. */
   hasModel: boolean;
   /** The real movement's converted CAD file; without it the lab shows the procedural stand-in. */
@@ -75,6 +77,12 @@ export const CALIBRES: readonly CalibreInfo[] = [
         note: "در نسل اول، پیش از کالیبرهای اختصاصی تودور، نسخهٔ رگوله‌شدهٔ ۲۸۲۴ در آن کار می‌کرد.",
       },
     ],
+    glance: {
+      energy: "فنر، کوک با حرکت مچ",
+      accuracy: "حدود ±۱۲ ثانیه در روز؛ نسخهٔ کرونومتر ‎−۴ تا ‎+۶",
+      beat: "۸ ضربه در ثانیه",
+      signature: "روتور نیم‌دایره",
+    },
     hasModel: true,
   },
   {
@@ -120,6 +128,12 @@ export const CALIBRES: readonly CalibreInfo[] = [
         note: "۲٫۲۳ میلی‌متر با میکرو‌روتور پلاتینی؛ رکورددار باریک‌ترین موومنت اتوماتیک در زمان عرضه.",
       },
     ],
+    glance: {
+      energy: "فنر، اغلب کوک دستی",
+      accuracy: "چند ثانیه در روز، در حد موومنت‌های ممتاز",
+      beat: "معمولاً ۶ ضربه در ثانیه",
+      signature: "ضخامتی نزدیک به یک سکه",
+    },
     hasModel: false,
   },
   {
@@ -166,6 +180,12 @@ export const CALIBRES: readonly CalibreInfo[] = [
         note: "صفحه‌ای زیر صفحهٔ ساعت نور را به برق تبدیل می‌کند و باتری تعویض نمی‌خواهد.",
       },
     ],
+    glance: {
+      energy: "باتری یا نور",
+      accuracy: "حدود ±۱۵ ثانیه در ماه؛ کوارتز پردقت ±۱۰ در سال",
+      beat: "یک گام در ثانیه",
+      signature: "کریستال ۳۲٬۷۶۸ هرتزی",
+    },
     hasModel: false,
   },
   {
@@ -211,6 +231,12 @@ export const CALIBRES: readonly CalibreInfo[] = [
         note: "قاب اسپرت رویال اوک با قفسهٔ توربیون باز در موقعیت ساعت ۶.",
       },
     ],
+    glance: {
+      energy: "فنر، دستی یا اتوماتیک",
+      accuracy: "در حد کرونومتر؛ برتری در وضعیت عمودی",
+      beat: "معمولاً ۶ تا ۸ ضربه در ثانیه",
+      signature: "قفسهٔ چرخان",
+    },
     hasModel: false,
   },
 ];

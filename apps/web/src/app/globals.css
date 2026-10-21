@@ -158,3 +158,29 @@
     scroll-behavior: auto;
   }
 }
+
+/* The travelling movement drifts a little, like an object hanging in a showcase */
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* Amber light falling on a dark bench, as in a jeweller's window at night */
+@utility warm-glow {
+  background:
+    radial-gradient(
+      ellipse 60% 55% at 50% 58%,
+      color-mix(in oklab, var(--gold) 26%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 90% 70% at 50% 110%,
+      color-mix(in oklab, var(--gold) 14%, transparent),
+      transparent 70%
+    );
+}

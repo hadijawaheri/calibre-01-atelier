@@ -22,47 +22,58 @@ async function expectAccessible(page: Page) {
 
 test.setTimeout(60_000);
 
+/** Jumps straight to a point of the page; the home page's own inertial scrolling would glide there. */
+async function jumpTo(page: Page, selector: string, at: "top" | "end") {
+  await page.evaluate(
+    ([selector, at]) => {
+      const section = document.querySelector<HTMLElement>(selector!)!;
+      const top = section.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: at === "top" ? top : top + section.offsetHeight - window.innerHeight,
+        behavior: "instant",
+      });
+    },
+    [selector, at],
+  );
+}
+
 test("home tells the movement's story and leads to the lab", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { level: 1, name: "قلبی که بی‌وقفه می‌تپد" }),
+    page.getByRole("heading", { level: 1, name: "کرونوس، دانشنامهٔ فارسی ساعت" }),
   ).toBeVisible();
-  await expect(page.locator("canvas").first()).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "فقط یک ساعت نیست." })).toBeAttached();
+  await expect(page.getByRole("heading", { level: 2, name: "با نیروی مچ شما" })).toBeAttached();
+  await expect(page.locator("canvas").first()).toBeAttached();
   await expectAccessible(page);
 
-  // Jump to the last chapter while the stage is still pinned; the site's own smooth scrolling would glide there
-  const story = page.getByRole("region", { name: "داستان یک موومنت" });
-  await page.evaluate(() => {
-    const section = document.querySelector<HTMLElement>("section[aria-label]")!;
-    window.scrollTo({
-      top: section.offsetTop + section.scrollHeight - window.innerHeight,
-      behavior: "instant",
-    });
-  });
-  const enter = story.getByRole("link", { name: "ورود به آزمایشگاه" });
-  // Software WebGL on CI renders few frames a second, and the chapter follows the scroll on the next frame
+  await jumpTo(page, '[data-stage="finale"]', "end");
+  const finale = page.getByRole("region", { name: "دو رو، یک قلب" });
+  const enter = finale.getByRole("link", { name: "ورود به آزمایشگاه" });
   await expect(enter).toBeInViewport({ timeout: 20_000 });
-  await expect(
-    story.locator("article").filter({ has: page.getByRole("link", { name: "ورود به آزمایشگاه" }) }),
-  ).toHaveCSS("opacity", "1", { timeout: 20_000 });
   await enter.click();
   await expect(page).toHaveURL(/\/lab\/automatic$/, { timeout: 15_000 });
   expect(errors).toEqual([]);
 });
 
-test("the photographs open one into the next as you scroll", async ({ page }) => {
+test("the strip of photographs slides past as you scroll", async ({ page }) => {
   await page.goto("/");
-  const sides = page.getByRole("region", { name: "موومنت از دو رو و از نزدیک" });
-  await expect(sides.getByRole("img", { name: /از سمت پشت/ })).toBeAttached();
-  await page.evaluate(() => {
-    const section = document.querySelector<HTMLElement>('section[aria-labelledby="sides-title"]')!;
-    window.scrollTo({
-      top: section.offsetTop + section.scrollHeight - window.innerHeight,
-      behavior: "instant",
-    });
-  });
-  await expect(sides.getByText("جایی که زمان ساخته می‌شود")).toBeInViewport({ timeout: 20_000 });
+  const gallery = page.getByRole("region", { name: "قطعه‌به‌قطعه" });
+  await expect(gallery.getByRole("img", { name: /از سمت پشت/ })).toBeAttached();
+  const last = gallery.getByText("دوباره، یک ماشین");
+  await expect(last).not.toBeInViewport();
+  await jumpTo(page, '[data-stage="gallery"]', "end");
+  await expect(last).toBeInViewport({ timeout: 20_000 });
+});
+
+test("the home page compares the four families and links each to the lab", async ({ page }) => {
+  await page.goto("/");
+  const families = page.getByRole("region", { name: "چهار خانوادهٔ موومنت" });
+  await expect(families.getByRole("link")).toHaveCount(4);
+  await jumpTo(page, '[data-stage="families"]', "top");
+  await families.getByRole("link", { name: /کوارتز/ }).click();
+  await expect(page).toHaveURL(/\/lab\/quartz$/, { timeout: 15_000 });
 });
 
 test("the film frames are served", async ({ request }) => {
@@ -139,4 +150,14 @@ test("a family without its real model yet shows its facts, not a made-up model",
 test("unknown calibres are a 404", async ({ page }) => {
   const response = await page.goto("/lab/no-such-calibre");
   expect(response?.status()).toBe(404);
+});
+
+test("visitors who prefer less motion get the still photograph instead of the travelling one", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  await expect(page.getByRole("img", { name: /موومنت اتوماتیک سوئیسی از سمت پشت/ })).toBeVisible();
+  await expect(page.locator("html")).not.toHaveAttribute("data-flight", "on");
+  await expectAccessible(page);
 });

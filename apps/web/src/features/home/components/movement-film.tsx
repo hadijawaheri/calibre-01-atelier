@@ -172,7 +172,12 @@ export function MovementFilm() {
   });
 
   return (
-    <section ref={track} aria-label="داستان یک موومنت" className="relative h-[520vh]">
+    <section
+      ref={track}
+      data-stage="film"
+      aria-label="داستان یک موومنت"
+      className="relative h-[520vh]"
+    >
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden lg:block">
         <div className="relative mt-16 h-[46dvh] w-full shrink-0 lg:absolute lg:inset-0 lg:mt-0 lg:h-auto">
           {/* The first frame paints with the page; the canvas takes over once the film starts loading */}
@@ -203,15 +208,9 @@ export function MovementFilm() {
                 )}
               >
                 <p className="eyebrow">{chapter.eyebrow}</p>
-                {index === 0 ? (
-                  <h1 className="text-3xl leading-tight font-semibold text-balance sm:text-5xl">
-                    {chapter.title}
-                  </h1>
-                ) : (
-                  <h2 className="text-2xl leading-tight font-semibold text-balance sm:text-4xl">
-                    {chapter.title}
-                  </h2>
-                )}
+                <h2 className="text-2xl leading-tight font-semibold text-balance sm:text-4xl">
+                  {chapter.title}
+                </h2>
                 <p className="leading-8 text-muted-foreground">{chapter.body}</p>
                 {index === CHAPTERS.length - 1 && (
                   <Button
