@@ -21,7 +21,7 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="right" className="w-full max-w-xs">
         <SheetHeader>
-          <SheetTitle className="font-display text-2xl">آتلیه کرونوس</SheetTitle>
+          <SheetTitle className="font-display text-2xl">کرونوس</SheetTitle>
         </SheetHeader>
         <nav aria-label="منوی اصلی" className="flex flex-col px-4">
           {NAV_LINKS.map((link, index) => (

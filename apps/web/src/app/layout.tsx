@@ -22,10 +22,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html
       lang="fa"
       dir="rtl"
+      data-scroll-behavior="smooth"
       suppressHydrationWarning
       className={cn("antialiased", vazirmatn.variable, cormorant.variable, jetbrains.variable)}
     >
-      <body className="bg-background text-foreground min-h-dvh font-sans">
+      <body className="min-h-dvh bg-background font-sans text-foreground">
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

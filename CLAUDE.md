@@ -1,4 +1,4 @@
-# Kronos Atelier — Agent Rules
+# Kronos — Agent Rules
 
 Source of truth: PROJECT_BLUEPRINT_SHADCN.md (the project blueprint). This file is the short, always-loaded subset.
 
@@ -17,8 +17,9 @@ Source of truth: PROJECT_BLUEPRINT_SHADCN.md (the project blueprint). This file 
 - Request/response shapes live ONLY in packages/contracts. Never redefine them in an app.
 - API envelope: `{ data }` | `{ data, meta }` | `ApiErrorBody`. Never return raw documents; use mappers.
 - The browser only talks to `/api/*` on the web origin (Next rewrite). Tokens are httpOnly cookies.
-- Money is integer Rial everywhere; the UI shows Toman via `formatToman`. Prices are always recomputed by the API.
-- The product's collection field is `series` (`collection` is reserved on Mongoose documents); the URL keeps `?collection=`.
+- The site is a watch reference (no shop, see ADR 0005). The API is kept for accounts and community features.
+- 3D lives in `apps/web/src/features/movement/three`, loaded client-only. Real movements come from CAD via
+  `apps/web/scripts/step-to-glb.mjs`; never ship a hand-drawn model as a real calibre.
 
 ## Code
 
