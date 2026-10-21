@@ -6,13 +6,13 @@
     "node": ">=22.12"
   },
   "scripts": {
-    "dev": "pnpm -r --parallel dev",
-    "build": "pnpm --filter @kronos/contracts build && pnpm -r --filter '!@kronos/contracts' build",
+    "dev": "pnpm --filter @kronos/contracts build && pnpm -r --parallel dev",
+    "build": "pnpm --filter @kronos/contracts build && pnpm -r --filter \"!@kronos/contracts\" build",
     "typecheck": "pnpm --filter @kronos/contracts build && pnpm -r typecheck",
     "lint": "eslint .",
     "test": "pnpm --filter @kronos/contracts build && pnpm -r test",
     "format": "prettier --write .",
-    "seed": "pnpm --filter @kronos/api seed",
+    "seed": "pnpm --filter @kronos/contracts build && pnpm --filter @kronos/api seed",
     "prepare": "husky"
   },
   "devDependencies": {
