@@ -6,6 +6,7 @@
     "node": ">=22.12"
   },
   "scripts": {
+    "dev:all": "pnpm build && node scripts/start-dev.mjs",
     "dev": "pnpm --filter @kronos/contracts build && pnpm -r --parallel dev",
     "build": "pnpm --filter @kronos/contracts build && pnpm -r --filter \"!@kronos/contracts\" build",
     "typecheck": "pnpm --filter @kronos/contracts build && pnpm -r typecheck",
