@@ -17,3 +17,7 @@ The centre of the site is the movement lab. The owner asked for real movements, 
   studio darkens while they float. Lighting is built from drei Lightformers, so no HDR file is fetched.
 - Kinematics (beat rate, train ratios, balance amplitude) live in plain functions with unit tests and drive both the
   procedural and the CAD model.
+
+The home page uses the owner's film of a real automatic movement instead of the procedural model: the film is cut into
+240 WebP frames (two widths) and drawn on a canvas by scroll position, loading coarse to fine so scrubbing works before
+every frame has arrived. Frames beat seeking a `<video>`, which stutters on most browsers when scrubbed.

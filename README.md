@@ -16,6 +16,17 @@
 | `packages/contracts` | schemaهای Zod مشترک میان API و وب                                                     |
 | `infra`              | PM2، Caddy و docker-compose برای MongoDB محلی                                         |
 
+## صفحهٔ اول
+
+فیلم واقعی باز و بسته شدن یک موومنت اتوماتیک با اسکرول جلو و عقب می‌رود. فیلم به ۲۴۰ فریم WebP در دو اندازه
+تبدیل شده (`apps/web/public/media/movement-film`) و روی canvas کشیده می‌شود. بعد از آن، عکس‌های پشت، زیر صفحه و
+نمای نزدیک بالانس با اسکرول روی هم باز می‌شوند. فریم‌ها با این دستور از فایل ویدیو ساخته می‌شوند:
+
+```bash
+ffmpeg -i film.mp4 -vf scale=1280:-2 -c:v libwebp -quality 72 public/media/movement-film/lg/%03d.webp
+ffmpeg -i film.mp4 -vf scale=720:-2 -c:v libwebp -quality 72 public/media/movement-film/sm/%03d.webp
+```
+
 ## آزمایشگاه موومنت
 
 - چهار خانواده: اتوماتیک استاندارد (ETA 2824-2 / Sellita SW200)، فوق‌باریک، کوارتز و توربیون؛ هر کدام با سازوکار،

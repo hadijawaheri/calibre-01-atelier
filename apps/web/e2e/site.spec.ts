@@ -51,6 +51,28 @@ test("home tells the movement's story and leads to the lab", async ({ page }) =>
   expect(errors).toEqual([]);
 });
 
+test("the photographs open one into the next as you scroll", async ({ page }) => {
+  await page.goto("/");
+  const sides = page.getByRole("region", { name: "موومنت از دو رو و از نزدیک" });
+  await expect(sides.getByRole("img", { name: /از سمت پشت/ })).toBeAttached();
+  await page.evaluate(() => {
+    const section = document.querySelector<HTMLElement>('section[aria-labelledby="sides-title"]')!;
+    window.scrollTo({
+      top: section.offsetTop + section.scrollHeight - window.innerHeight,
+      behavior: "instant",
+    });
+  });
+  await expect(sides.getByText("جایی که زمان ساخته می‌شود")).toBeInViewport({ timeout: 20_000 });
+});
+
+test("the film frames are served", async ({ request }) => {
+  for (const path of ["/media/movement-film/lg/001.webp", "/media/movement-film/sm/240.webp"]) {
+    const response = await request.get(path);
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("image/webp");
+  }
+});
+
 test("the lab lists the four movement families", async ({ page }) => {
   await page.goto("/lab");
   for (const name of ["اتوماتیک استاندارد سوئیسی", "مکانیکی فوق‌باریک", "کوارتز", "توربیون"]) {

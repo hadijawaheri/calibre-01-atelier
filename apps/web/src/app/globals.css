@@ -35,6 +35,8 @@
   --color-gold: var(--gold);
   --color-gold-foreground: var(--gold-foreground);
   --color-surface: var(--surface);
+  --color-studio: var(--studio);
+  --color-studio-foreground: var(--studio-foreground);
 }
 
 /* Ivory (light). Gold is darkened so text on ivory keeps AA contrast. */
@@ -63,6 +65,9 @@
   --gold: oklch(0.52 0.1 78);
   --gold-foreground: oklch(0.985 0.005 85);
   --surface: oklch(0.95 0.01 85);
+  /* The white cyclorama of the product photography and the film */
+  --studio: oklch(1 0 0);
+  --studio-foreground: oklch(0.2 0.01 60);
   --gradient-gold: linear-gradient(
     135deg,
     oklch(0.62 0.1 85),
@@ -98,6 +103,8 @@
   --gold: oklch(0.79 0.11 85);
   --gold-foreground: oklch(0.15 0.01 285);
   --surface: oklch(0.155 0.005 285);
+  --studio: oklch(1 0 0);
+  --studio-foreground: oklch(0.2 0.01 60);
   --gradient-gold: linear-gradient(
     135deg,
     oklch(0.88 0.09 90),

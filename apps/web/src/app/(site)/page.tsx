@@ -1,10 +1,10 @@
-import { HomeIntro } from "@/features/home";
-import { HeroMovement } from "@/features/movement";
+import { HomeIntro, MovementFilm, MovementSides } from "@/features/home";
 
 export default function HomePage() {
   return (
     <>
-      <HeroMovement />
+      <MovementFilm />
+      <MovementSides />
       <HomeIntro />
     </>
   );
