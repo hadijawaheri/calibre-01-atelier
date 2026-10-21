@@ -18,7 +18,10 @@ const envSchema = z
     // Public origin of the web app; payment gateways redirect the shopper back here
     PUBLIC_WEB_URL: z.url().default("http://localhost:7782"),
     SMS_PROVIDER: z.enum(["console", "melipayamak"]).default("console"),
-    OTP_FIXED_CODE: z.string().regex(/^\d{6}$/).optional(),
+    OTP_FIXED_CODE: z
+      .string()
+      .regex(/^\d{6}$/)
+      .optional(),
     PAYMENT_PROVIDER: z.enum(["fake", "zarinpal"]).default("fake"),
     THROTTLE_ENABLED: z
       .enum(["true", "false"])
@@ -42,5 +45,7 @@ const envSchema = z
 export type Env = z.infer<typeof envSchema>;
 
 export function validateEnv(raw: Record<string, unknown>): Env {
-  return envSchema.parse(raw);
+  // `KEY=` copied from .env.example means "not set", not an empty value to validate
+  const present = Object.fromEntries(Object.entries(raw).filter(([, value]) => value !== ""));
+  return envSchema.parse(present);
 }
