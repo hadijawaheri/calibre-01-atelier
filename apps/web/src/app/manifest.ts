@@ -1,0 +1,18 @@
+import type { MetadataRoute } from "next";
+
+import { SITE_NAME } from "@/lib/seo";
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: SITE_NAME,
+    short_name: "کرونوس",
+    description: "ساعت‌های مکانیکی دست‌ساز آتلیه کرونوس",
+    start_url: "/",
+    display: "standalone",
+    dir: "rtl",
+    lang: "fa",
+    background_color: "#0e0e10",
+    theme_color: "#0e0e10",
+    icons: [{ src: "/icon.svg", sizes: "any", type: "image/svg+xml" }],
+  };
+}

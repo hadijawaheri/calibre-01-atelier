@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 import { useCart } from "./store";
 
+const subscribe = (onChange: () => void) => useCart.persist.onFinishHydration(onChange);
+const getSnapshot = () => useCart.persist.hasHydrated();
+// The server and the first client render never see the persisted cart
+const getServerSnapshot = () => false;
+
 /** True once the persisted cart has been read from localStorage. */
 export function useCartHydrated(): boolean {
-  const [hydrated, setHydrated] = useState(() => useCart.persist.hasHydrated());
   useEffect(() => {
-    const unsubscribe = useCart.persist.onFinishHydration(() => setHydrated(true));
     if (!useCart.persist.hasHydrated()) void useCart.persist.rehydrate();
-    else setHydrated(true);
-    return unsubscribe;
   }, []);
-  return hydrated;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 }

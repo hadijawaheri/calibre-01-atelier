@@ -1,7 +1,7 @@
+import type { Role } from "@kronos/contracts";
 import type { ExecutionContext } from "@nestjs/common";
 import { ForbiddenException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import type { Role } from "@kronos/contracts";
 import { describe, expect, it } from "vitest";
 
 import { RolesGuard } from "./roles.guard.js";

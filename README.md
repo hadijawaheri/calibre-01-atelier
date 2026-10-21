@@ -1,54 +1,56 @@
-# Calibre 01 Atelier
+# آتلیه کرونوس
 
-Create a cinematic, ultra-luxury e-commerce landing page for an haute-horlogerie Swiss automatic timepiece called "KRONOS Atelier - Calibre 01".
+فروشگاه آنلاین ساعت‌های مکانیکی لوکس، فارسی و راست‌به‌چپ. صفحه‌ی اول با انیمیشنی باز می‌شود که درِ پشت ساعت را باز
+می‌کند و موتور را لایه‌به‌لایه نشان می‌دهد؛ این موتور از کالیبر واقعی **Zenith El Primero 400** (۱۹۶۹، ۳۶٬۰۰۰ ضربان در
+ساعت، ۳۱ یاقوت) الهام گرفته است. کرونوس برندی ساختگی است و هیچ وابستگی‌ای به Zenith ندارد.
 
-Theme & Visual Direction:
-- Theme: Deep Obsidian & Onyx dark mode (#08080A, #121214) with subtle brushed metallic textures.
-- Accents: Horological Champagne Gold (#D4AF37), polished titanium accents, and deep sapphire reflections.
-- Typography: Editorial serif headings (Playfair / Cormorant style) paired with precise technical sans-serif for caliper specs and movement parameters.
+ساختار و قواعد کد از PROJECT_BLUEPRINT_SHADCN.md پیروی می‌کند؛ خلاصه‌اش در [CLAUDE.md](./CLAUDE.md) و تصمیم‌ها در
+[docs/adr](./docs/adr) است.
 
-Hero Section - Interactive Exploded View Showcase:
-- An ultra-sleek, interactive 3D Exploded View demonstration of the automatic timepiece.
-- Layer Breakdown: Visually separate the watch components along the Z-axis in an interactive layered stack:
-  1. Top Layer: Domed anti-reflective Sapphire Crystal.
-  2. Bezel & Dial: Skeletonized dial with applied rose-gold indices and luminescent hands.
-  3. Complications: Flying Tourbillon and date wheel assembly.
-  4. Automatic Movement: The mechanical Calibre 01 heart, escapement, and balance wheel with subtle rotational CSS animations.
-  5. Skeletonized Rotor & Bridges: 22K gold oscillating weight.
-  6. Case Back & Strap: Titanium exhibition caseback transitioning into a supple alligator leather / integrated steel bracelet on a simulated wrist contour.
-- Interactivity:
-  - Provide a scrubbable slider or scroll-driven state ("Deconstruct / Reassemble") that expands the parts outward along the Z-axis with depth blur and shadows, then smoothly snaps them back together into the fully assembled watch.
-  - Interactive hotspot pins on individual layers (e.g., "Co-Axial Escapement", "4Hz / 28,800 vph", "72-Hour Power Reserve") that reveal technical tooltips on click/hover.
-  - A subtle 3D parallax tilt effect following mouse movement.
+## ساختار
 
-Key Page Sections:
-1. Architectural Hero: Exploded showcase container with "Engineering Eternity" headline, audio toggle for mechanical ticking sound effects (UI toggle), CTA buttons ("Reserve Timepiece", "Explore Calibre"), and certified Swiss-Made trust metrics.
-2. The Anatomy of Calibre 01: Interactive technical breakdown grid with live stats (Jewels: 33, Frequency: 4Hz, Water Resistance: 100m, Power Reserve gauge with dynamic progress bar).
-3. Wrist Fit & Finish Visualizer: Interactive toggle previewing the assembled watch on different strap options (Matte Alligator, Brushed Titanium, Milanese Mesh).
-4. Craftsmanship Storytelling: High-end editorial showcase explaining hand-finishing, Côtes de Genève engravings, and artisan assembly.
-5. Bespoke Atelier Checkout / Reservation Drawer: Minimalist order configuration modal with serial number reservation, engraving customization input, and sleek payment breakdown.
+| مسیر                 | چیست                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------- |
+| `apps/api`           | NestJS 12 روی پورت 7781، MongoDB با Mongoose، ورود پیامکی (OTP) و توکن در کوکی httpOnly |
+| `apps/web`           | Next.js 16 روی پورت 7782، shadcn/ui راست‌به‌چپ، TanStack Query، nuqs، motion            |
+| `packages/contracts` | schemaهای Zod مشترک میان API و وب                                                       |
+| `infra`              | PM2، Caddy و docker-compose برای MongoDB محلی                                           |
 
-Tech & Implementation:
-- Modern React, Tailwind CSS, Lucide icons, Framer Motion for smooth assembly/disassembly animations, and modular component hierarchy.
-- Code should be clean, modular, and designed so that the exploded view canvas container can easily be swapped with a real Three.js / React Three Fiber (.glb) canvas later.
+## امکانات
 
-This project was built with [Lovable](https://lovable.dev).
+- کاتالوگ با فیلتر کلکسیون، جنس قاب و موتور، جستجو، مرتب‌سازی و صفحه‌بندی، همه در نشانی صفحه
+- صفحه‌ی محصول با گالری، انتخاب بند، حکاکی پشت قاب، مشخصات فنی و داده‌ی ساختاریافته‌ی JSON-LD
+- سبد خرید ماندگار، تسویه با رزرو موجودی ۳۰ دقیقه‌ای، درگاه پرداخت (در توسعه، درگاه آزمایشی)
+- حساب کاربری: سفارش‌ها، پرداخت دوباره یا لغو، ویرایش مشخصات
+- پنل مدیریت: سفارش‌ها و تغییر وضعیت، ساخت و ویرایش و حذف محصول
+- پوسته‌ی تیره و روشن، موبایل از ۳۲۰ پیکسل، دسترس‌پذیری بررسی‌شده با axe
 
-## Build with Lovable
+## راه‌اندازی محلی
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/87085a43-c79b-41bf-87f5-12f6af6cfae9).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+```bash
+nvm use                       # Node 22
+corepack enable
+pnpm install
+docker compose -f infra/docker-compose.yml up -d    # MongoDB به‌صورت replica set روی 27018
+cp apps/api/.env.example apps/api/.env              # دو secret را با openssl rand -base64 48 پر کنید
+cp apps/web/.env.example apps/web/.env.local
+pnpm seed                     # هشت ساعت نمونه و دسترسی مدیر برای SEED_ADMIN_MOBILE
+pnpm dev                      # http://localhost:7782
 ```
+
+در حالت توسعه کد ورود در لاگ API چاپ می‌شود (یا اگر `OTP_FIXED_CODE` را بدهید، همان کد است) و پرداخت به یک درگاه
+آزمایشی می‌رود. هر دو در `NODE_ENV=production` ممنوع‌اند و اپ بدون پیامک و درگاه واقعی بالا نمی‌آید.
+
+## بررسی
+
+```bash
+pnpm typecheck && pnpm lint && pnpm test && pnpm build
+pnpm --filter @kronos/web test:e2e    # روی سایت در حال اجرا با OTP_FIXED_CODE=123456
+```
+
+## استقرار
+
+`scripts/deploy.sh` روی سرور: نصب، بیلد و reload با PM2؛ Caddy جلوی وب است و TLS را خودکار می‌گیرد. جزئیات در بخش
+۱۳ بلوپرینت و `infra/`.
+
+پیش از اولین استقرار باید یک `SmsProvider` و یک `PaymentProvider` واقعی (مثلاً زرین‌پال) پیاده شوند.

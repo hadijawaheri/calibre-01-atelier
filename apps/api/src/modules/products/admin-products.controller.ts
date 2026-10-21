@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from "@nestjs/common";
 import type { ApiResponse, PaginatedResponse, ProductDto } from "@kronos/contracts";
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query } from "@nestjs/common";
 
 import { ParseObjectIdPipe } from "../../common/database/object-id.pipe.js";
 import { Roles } from "../../common/decorators/roles.decorator.js";

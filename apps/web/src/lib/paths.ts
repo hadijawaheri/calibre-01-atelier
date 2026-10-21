@@ -12,5 +12,8 @@ export const paths = {
   profile: "/account/profile",
   admin: "/admin",
   adminOrders: "/admin/orders",
+  adminOrder: (id: string) => `/admin/orders/${id}`,
   adminProducts: "/admin/products",
+  adminProduct: (id: string) => `/admin/products/${id}`,
+  adminNewProduct: "/admin/products/new",
 } as const;

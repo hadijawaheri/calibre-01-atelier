@@ -1,5 +1,5 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type TestAgent from "supertest/lib/agent.js";
+import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { productInput } from "./utils/fixtures.js";
 import { createTestApp, type TestApp } from "./utils/test-app.js";
@@ -12,7 +12,12 @@ describe("products (e2e)", () => {
     t = await createTestApp();
     admin = await t.login("09350000001", "admin");
     const products = [
-      productInput({ slug: "alpha-tourbillon", series: "tourbillon", price: 90_000_000_000, isFeatured: true }),
+      productInput({
+        slug: "alpha-tourbillon",
+        series: "tourbillon",
+        price: 90_000_000_000,
+        isFeatured: true,
+      }),
       productInput({ slug: "beta-diver", series: "diver", price: 30_000_000_000, stock: 0 }),
       productInput({
         slug: "gamma-dress",

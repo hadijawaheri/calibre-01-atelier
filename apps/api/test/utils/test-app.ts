@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
 
+import type { Role } from "@kronos/contracts";
 import type { NestExpressApplication } from "@nestjs/platform-express";
 import { Test } from "@nestjs/testing";
-import type { Role } from "@kronos/contracts";
 import supertest from "supertest";
 import type TestAgent from "supertest/lib/agent.js";
 import { inject } from "vitest";

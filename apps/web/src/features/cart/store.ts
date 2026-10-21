@@ -1,4 +1,4 @@
-import type { DialLayout, CaseMaterial } from "@kronos/contracts";
+import type { CaseMaterial, DialLayout } from "@kronos/contracts";
 import { ENGRAVING_PRICE, MAX_QUANTITY_PER_ITEM } from "@kronos/contracts";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
@@ -38,11 +38,14 @@ export const lineKey = (line: Pick<CartLine, "productId" | "strapId" | "engravin
 export const linePrice = (line: CartLine): number =>
   (line.unitPrice + line.strapPrice + (line.engraving ? ENGRAVING_PRICE : 0)) * line.quantity;
 
-export const cartTotal = (lines: CartLine[]): number => lines.reduce((sum, line) => sum + linePrice(line), 0);
+export const cartTotal = (lines: CartLine[]): number =>
+  lines.reduce((sum, line) => sum + linePrice(line), 0);
 
-export const cartCount = (lines: CartLine[]): number => lines.reduce((sum, line) => sum + line.quantity, 0);
+export const cartCount = (lines: CartLine[]): number =>
+  lines.reduce((sum, line) => sum + line.quantity, 0);
 
-const clampQuantity = (quantity: number) => Math.min(MAX_QUANTITY_PER_ITEM, Math.max(1, Math.round(quantity)));
+const clampQuantity = (quantity: number) =>
+  Math.min(MAX_QUANTITY_PER_ITEM, Math.max(1, Math.round(quantity)));
 
 export const useCart = create<CartState>()(
   persist(
@@ -56,7 +59,9 @@ export const useCart = create<CartState>()(
           if (existing) {
             return {
               lines: state.lines.map((item) =>
-                item.key === key ? { ...item, quantity: clampQuantity(item.quantity + quantity) } : item,
+                item.key === key
+                  ? { ...item, quantity: clampQuantity(item.quantity + quantity) }
+                  : item,
               ),
             };
           }
@@ -64,7 +69,9 @@ export const useCart = create<CartState>()(
         }),
       setQuantity: (key, quantity) =>
         set((state) => ({
-          lines: state.lines.map((item) => (item.key === key ? { ...item, quantity: clampQuantity(quantity) } : item)),
+          lines: state.lines.map((item) =>
+            item.key === key ? { ...item, quantity: clampQuantity(quantity) } : item,
+          ),
         })),
       remove: (key) => set((state) => ({ lines: state.lines.filter((item) => item.key !== key) })),
       clear: () => set({ lines: [] }),

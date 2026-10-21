@@ -1,6 +1,6 @@
+import type { Role, UserDto } from "@kronos/contracts";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import type { Role, UserDto } from "@kronos/contracts";
 import { Model } from "mongoose";
 
 import type { UpdateProfileDto } from "./dto/update-profile.dto.js";

@@ -38,7 +38,13 @@ interface OptionGroupProps<T extends string> {
   onChange: (next: T[]) => void;
 }
 
-function OptionGroup<T extends string>({ legend, options, labels, selected, onChange }: OptionGroupProps<T>) {
+function OptionGroup<T extends string>({
+  legend,
+  options,
+  labels,
+  selected,
+  onChange,
+}: OptionGroupProps<T>) {
   const id = useId();
   return (
     <FieldSet>
@@ -50,7 +56,9 @@ function OptionGroup<T extends string>({ legend, options, labels, selected, onCh
               id={`${id}-${option}`}
               checked={selected.includes(option)}
               onCheckedChange={(checked) =>
-                onChange(checked ? [...selected, option] : selected.filter((value) => value !== option))
+                onChange(
+                  checked ? [...selected, option] : selected.filter((value) => value !== option),
+                )
               }
             />
             <FieldLabel htmlFor={`${id}-${option}`} className="font-normal">
@@ -67,7 +75,8 @@ function FilterFields() {
   const [params, setParams] = useCatalogParams();
   const id = useId();
   // Any filter change goes back to the first page
-  const update = (patch: Partial<typeof params>) => setParams({ ...patch, page: null });
+  const update = (patch: { [K in keyof typeof params]?: (typeof params)[K] | null }) =>
+    setParams({ ...patch, page: null });
 
   return (
     <FieldGroup>
@@ -111,7 +120,12 @@ function FilterFields() {
 
 export function useActiveFilterCount(): number {
   const [params] = useCatalogParams();
-  return params.collection.length + params.material.length + params.movement.length + (params.inStock ? 1 : 0);
+  return (
+    params.collection.length +
+    params.material.length +
+    params.movement.length +
+    (params.inStock ? 1 : 0)
+  );
 }
 
 export function CatalogFilters() {
@@ -159,7 +173,14 @@ export function ClearFiltersButton() {
       variant="ghost"
       disabled={active === 0}
       onClick={() =>
-        setParams({ collection: null, material: null, movement: null, inStock: null, q: null, page: null })
+        setParams({
+          collection: null,
+          material: null,
+          movement: null,
+          inStock: null,
+          q: null,
+          page: null,
+        })
       }
     >
       پاک کردن فیلترها

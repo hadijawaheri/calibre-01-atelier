@@ -1,5 +1,3 @@
-import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
-import { InjectModel } from "@nestjs/mongoose";
 import type {
   PaginatedResponse,
   PaginationQuery,
@@ -8,6 +6,8 @@ import type {
   ProductSummaryDto,
 } from "@kronos/contracts";
 import { pageMeta } from "@kronos/contracts";
+import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
 import type { QueryFilter, SortOrder } from "mongoose";
 import { Model, mongo } from "mongoose";
 

@@ -1,6 +1,3 @@
-import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { InjectConnection, InjectModel } from "@nestjs/mongoose";
 import type {
   OrderDto,
   OrderListQuery,
@@ -9,8 +6,11 @@ import type {
   StartPaymentDto,
 } from "@kronos/contracts";
 import { ADMIN_STATUS_TRANSITIONS, ORDER_STATUS_LABELS, pageMeta } from "@kronos/contracts";
-import type { ClientSession, QueryFilter } from "mongoose";
-import { Connection, Model, Types } from "mongoose";
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { InjectConnection, InjectModel } from "@nestjs/mongoose";
+import type { ClientSession, Connection, QueryFilter } from "mongoose";
+import { Model, Types } from "mongoose";
 
 import { AppException } from "../../common/app-exception.js";
 import type { Env } from "../../config/env.js";
@@ -54,7 +54,8 @@ export class OrdersService {
           .findOne({ _id: input.productId, isPublished: true })
           .session(session)
           .lean();
-        if (!product) throw new AppException(404, "NOT_FOUND", "یکی از ساعت‌های سبد دیگر موجود نیست");
+        if (!product)
+          throw new AppException(404, "NOT_FOUND", "یکی از ساعت‌های سبد دیگر موجود نیست");
 
         const strap = product.straps.find((option) => option.id === input.strapId);
         if (!strap) throw new BadRequestException(`بند انتخاب‌شده برای ${product.name} معتبر نیست`);
@@ -115,13 +116,17 @@ export class OrdersService {
   }
 
   async getMine(userId: string, id: string): Promise<OrderDto> {
-    const order = await this.orderModel.findOne({ _id: id, userId: new Types.ObjectId(userId) }).lean();
+    const order = await this.orderModel
+      .findOne({ _id: id, userId: new Types.ObjectId(userId) })
+      .lean();
     if (!order) throw notFound();
     return toOrderDto(order);
   }
 
   async startPayment(userId: string, id: string): Promise<StartPaymentDto> {
-    const order = await this.orderModel.findOne({ _id: id, userId: new Types.ObjectId(userId) }).lean();
+    const order = await this.orderModel
+      .findOne({ _id: id, userId: new Types.ObjectId(userId) })
+      .lean();
     if (!order) throw notFound();
     if (order.status !== "pending_payment") {
       throw new AppException(409, "CONFLICT", "این سفارش در انتظار پرداخت نیست");
@@ -131,7 +136,10 @@ export class OrdersService {
       throw new AppException(409, "CONFLICT", "مهلت پرداخت این سفارش تمام شده است");
     }
 
-    const callbackUrl = new URL("/checkout/callback", this.config.get("PUBLIC_WEB_URL", { infer: true }));
+    const callbackUrl = new URL(
+      "/checkout/callback",
+      this.config.get("PUBLIC_WEB_URL", { infer: true }),
+    );
     const { authority, redirectUrl } = await this.payments.start({
       orderId: order._id.toString(),
       orderNumber: order.number,
@@ -147,7 +155,9 @@ export class OrdersService {
   }
 
   async verifyPayment(userId: string, dto: VerifyPaymentDto): Promise<OrderDto> {
-    const order = await this.orderModel.findOne({ _id: dto.orderId, userId: new Types.ObjectId(userId) }).lean();
+    const order = await this.orderModel
+      .findOne({ _id: dto.orderId, userId: new Types.ObjectId(userId) })
+      .lean();
     if (!order) throw notFound();
     // The gateway may redirect twice (refresh, back button): a paid order stays paid
     if (order.status !== "pending_payment") return toOrderDto(order);
@@ -176,7 +186,9 @@ export class OrdersService {
   }
 
   async cancelMine(userId: string, id: string): Promise<OrderDto> {
-    const order = await this.orderModel.findOne({ _id: id, userId: new Types.ObjectId(userId) }).lean();
+    const order = await this.orderModel
+      .findOne({ _id: id, userId: new Types.ObjectId(userId) })
+      .lean();
     if (!order) throw notFound();
     const cancelled = await this.cancel(order._id, ["pending_payment"]);
     if (!cancelled) throw new AppException(409, "CONFLICT", "فقط سفارش پرداخت‌نشده قابل لغو است");
@@ -188,7 +200,11 @@ export class OrdersService {
     if (query.status) filter.status = query.status;
     if (query.search) {
       const pattern = new RegExp(escapeRegex(query.search), "i");
-      filter.$or = [{ number: pattern }, { "shipping.mobile": pattern }, { "shipping.fullName": pattern }];
+      filter.$or = [
+        { number: pattern },
+        { "shipping.mobile": pattern },
+        { "shipping.fullName": pattern },
+      ];
     }
     return this.paginate(filter, query);
   }

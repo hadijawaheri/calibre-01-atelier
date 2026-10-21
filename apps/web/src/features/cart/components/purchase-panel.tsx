@@ -8,7 +8,15 @@ import { useId, useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Field, FieldContent, FieldDescription, FieldLabel, FieldLegend, FieldSet, FieldTitle } from "@/components/ui/field";
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldLabel,
+  FieldLegend,
+  FieldSet,
+  FieldTitle,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
@@ -61,9 +69,15 @@ export function PurchasePanel({ product }: { product: ProductDto }) {
               <Field orientation="horizontal">
                 <FieldContent>
                   <FieldTitle>{option.name}</FieldTitle>
-                  <FieldDescription>{option.price > 0 ? `+ ${formatToman(option.price)}` : "بدون هزینه‌ی اضافه"}</FieldDescription>
+                  <FieldDescription>
+                    {option.price > 0 ? `+ ${formatToman(option.price)}` : "بدون هزینه‌ی اضافه"}
+                  </FieldDescription>
                 </FieldContent>
-                <RadioGroupItem value={option.id} id={`${id}-${option.id}`} />
+                <RadioGroupItem
+                  value={option.id}
+                  id={`${id}-${option.id}`}
+                  aria-label={option.name}
+                />
               </Field>
             </FieldLabel>
           ))}
@@ -74,10 +88,12 @@ export function PurchasePanel({ product }: { product: ProductDto }) {
         <Field orientation="horizontal">
           <FieldContent>
             <FieldLabel htmlFor={`${id}-engrave`}>
-              <PenLine className="text-gold size-4" />
+              <PenLine className="size-4 text-gold" />
               حکاکی دستی پشت قاب
             </FieldLabel>
-            <FieldDescription>{formatToman(ENGRAVING_PRICE)}، با قلم فولادی و به دست استادکار حکاک</FieldDescription>
+            <FieldDescription>
+              {formatToman(ENGRAVING_PRICE)}، با قلم فولادی و به دست استادکار حکاک
+            </FieldDescription>
           </FieldContent>
           <Switch id={`${id}-engrave`} checked={engrave} onCheckedChange={setEngrave} />
         </Field>
@@ -101,15 +117,20 @@ export function PurchasePanel({ product }: { product: ProductDto }) {
         )}
       </FieldSet>
 
-      <div className="border-border flex flex-col gap-4 border-t pt-6">
+      <div className="flex flex-col gap-4 border-t border-border pt-6">
         <div className="flex items-baseline justify-between">
-          <span className="text-muted-foreground text-sm">مبلغ نهایی</span>
+          <span className="text-sm text-muted-foreground">مبلغ نهایی</span>
           <span className="font-display text-3xl tabular-nums">{formatToman(total)}</span>
         </div>
-        <Button size="lg" className="h-12 text-base" disabled={soldOut || !strap} onClick={addToCart}>
+        <Button
+          size="lg"
+          className="h-12 text-base"
+          disabled={soldOut || !strap}
+          onClick={addToCart}
+        >
           {soldOut ? "ناموجود" : "افزودن به سبد"}
         </Button>
-        <ul className="text-muted-foreground flex flex-col gap-2 text-xs">
+        <ul className="flex flex-col gap-2 text-xs text-muted-foreground">
           {[
             "ضمانت بین‌المللی پنج‌ساله و گواهی اصالت امضاشده",
             "ارسال بیمه‌شده و رایگان با پیک اختصاصی در سراسر ایران",
@@ -118,7 +139,7 @@ export function PurchasePanel({ product }: { product: ProductDto }) {
               : "تحویل در جعبه‌ی چوب گردو با کیت نگهداری",
           ].map((item) => (
             <li key={item} className="flex items-center gap-2">
-              <Check className="text-gold size-3.5" />
+              <Check className="size-3.5 text-gold" />
               {item}
             </li>
           ))}

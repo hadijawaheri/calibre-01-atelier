@@ -6,8 +6,8 @@ import {
   animate,
   AnimatePresence,
   motion,
-  useMotionValue,
   useAnimationFrame,
+  useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useSpring,
@@ -26,36 +26,39 @@ import type { LayerId, LayerSpec } from "../calibre";
 import { LAYERS, REFERENCE_CALIBRE } from "../calibre";
 import { useTicking } from "../use-ticking";
 import { ChronographPanel } from "./chronograph-panel";
+import styles from "./movement.module.css";
 import {
   BridgesLayer,
-  CaseLayer,
   CasebackLayer,
+  CaseLayer,
   MovementDefs,
   PlateLayer,
   RegulatorLayer,
   RotorLayer,
   TrainLayer,
 } from "./movement-art";
-import styles from "./movement.module.css";
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
-const LAYER_GAP = 112;
+/** Spread between layers as a share of the stage width, so small screens keep the stack inside */
+const LAYER_GAP_RATIO = 0.175;
 const PINS_FROM = 0.82;
 
 interface LayerProps {
   spec: LayerSpec;
   progress: MotionValue<number>;
+  gap: MotionValue<number>;
   dimmed: boolean;
   anchorRef: (node: HTMLSpanElement | null) => void;
   children: React.ReactNode;
 }
 
-function Layer({ spec, progress, dimmed, anchorRef, children }: LayerProps) {
+function Layer({ spec, progress, gap, dimmed, anchorRef, children }: LayerProps) {
   const isCaseback = spec.id === "caseback";
-  const z = useTransform(progress, (p) => {
+  const z = useTransform(() => {
+    const p = progress.get();
     // A small constant offset keeps coplanar layers from z-fighting while assembled
-    const spread = spec.depth * 0.6 + clamp01((p - 0.3) / 0.7) * (spec.depth - 3) * LAYER_GAP;
-    return isCaseback ? spread + clamp01(p / 0.3) * 280 : spread;
+    const spread = spec.depth * 0.6 + clamp01((p - 0.3) / 0.7) * (spec.depth - 3) * gap.get();
+    return isCaseback ? spread + clamp01(p / 0.3) * gap.get() * 2.5 : spread;
   });
   const rotateZ = useTransform(progress, (p) => (isCaseback ? -70 * clamp01(p / 0.3) : 0));
   const opacity = useTransform(progress, (p) => (isCaseback ? 1 - clamp01((p - 0.14) / 0.16) : 1));
@@ -124,6 +127,17 @@ export function MovementShowcase() {
   const playback = useRef<AnimationPlaybackControls | null>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const { anchorRef, pinRef } = usePinTracking(stageRef);
+  const gap = useMotionValue(112);
+
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry) gap.set(entry.contentRect.width * LAYER_GAP_RATIO);
+    });
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, [gap]);
 
   useTicking(sound && running, slowMotion ? 1 : REFERENCE_CALIBRE.beatsPerSecond);
 
@@ -138,7 +152,11 @@ export function MovementShowcase() {
       progress.set(1);
       return;
     }
-    playback.current = animate(progress, 1, { duration: 4.2, delay: 0.7, ease: [0.65, 0, 0.35, 1] });
+    playback.current = animate(progress, 1, {
+      duration: 4.2,
+      delay: 0.7,
+      ease: [0.65, 0, 0.35, 1],
+    });
     return () => playback.current?.stop();
   }, [progress, reducedMotion]);
 
@@ -187,7 +205,10 @@ export function MovementShowcase() {
     <div className="flex flex-col gap-6">
       <div
         ref={stageRef}
-        className={cn("studio-light relative aspect-square w-full touch-pan-y select-none", styles.stage)}
+        className={cn(
+          "relative aspect-square w-full touch-pan-y select-none studio-light",
+          styles.stage,
+        )}
         style={
           {
             perspective: "1800px",
@@ -213,6 +234,7 @@ export function MovementShowcase() {
               key={spec.id}
               spec={spec}
               progress={progress}
+              gap={gap}
               dimmed={active !== null && active !== spec.id}
               anchorRef={anchorRef(spec.id)}
             >
@@ -222,8 +244,14 @@ export function MovementShowcase() {
         </motion.div>
 
         {/* Physical `left`: positions come from getBoundingClientRect, which is not direction-aware */}
+        {}
         {LAYERS.filter((spec) => spec.pin).map((spec, index) => (
-          <div key={spec.id} ref={pinRef(spec.id)} className="absolute top-0 left-0 will-change-transform">
+          <div
+            key={spec.id}
+            ref={pinRef(spec.id)}
+            className="absolute will-change-transform"
+            style={{ top: 0, left: 0 }}
+          >
             <Button
               type="button"
               size="icon-sm"
@@ -233,7 +261,7 @@ export function MovementShowcase() {
               aria-pressed={active === spec.id}
               onClick={() => setActive(active === spec.id ? null : spec.id)}
               className={cn(
-                "bg-gold text-gold-foreground ring-gold/30 hover:bg-gold -translate-x-1/2 -translate-y-1/2 rounded-full text-sm font-medium shadow-lg ring-4 transition-[opacity,box-shadow] duration-500 hover:ring-8",
+                "-translate-x-1/2 -translate-y-1/2 rounded-full bg-gold text-sm font-medium text-gold-foreground shadow-lg ring-4 ring-gold/30 transition-[opacity,box-shadow] duration-500 hover:bg-gold hover:ring-8",
                 pinsEnabled ? "opacity-100" : "pointer-events-none opacity-0",
                 active === spec.id && "ring-8",
               )}
@@ -250,21 +278,21 @@ export function MovementShowcase() {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className="border-gold/30 bg-card/95 absolute inset-x-4 bottom-2 mx-auto flex max-w-sm flex-col gap-1 border p-4 backdrop-blur"
+              className="absolute inset-x-4 bottom-2 mx-auto flex max-w-sm flex-col gap-1 border border-gold/30 bg-card/95 p-4 backdrop-blur"
               role="status"
             >
               <p className="eyebrow">{current.title}</p>
               <p className="font-display text-2xl">{current.fact}</p>
-              <p className="text-muted-foreground text-sm leading-7">{current.detail}</p>
+              <p className="text-sm leading-7 text-muted-foreground">{current.detail}</p>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
       <div className="mx-auto flex w-full max-w-md flex-col gap-4">
-        <div className="text-muted-foreground flex items-center justify-between text-xs">
+        <div className="flex items-center justify-between text-xs text-muted-foreground">
           <span>بسته</span>
-          <span className="text-gold font-mono tabular-nums" dir="ltr">
+          <span className="font-mono text-gold tabular-nums" dir="ltr">
             {Math.round(value * 100)}%
           </span>
           <span>باز</span>
@@ -274,11 +302,16 @@ export function MovementShowcase() {
           min={0}
           max={100}
           step={0.5}
-          aria-label="میزان باز شدن موومنت"
+          thumbLabel="میزان باز شدن موومنت"
           onValueChange={([next]) => scrubTo((next ?? 0) / 100)}
         />
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <Button type="button" variant="outline" onClick={toggleOpen} className="border-gold/40 text-gold rounded-none">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={toggleOpen}
+            className="rounded-none border-gold/40 text-gold"
+          >
             {value > 0.5 ? "بستن درِ پشت" : "باز کردن موومنت"}
           </Button>
           <Button
@@ -298,7 +331,12 @@ export function MovementShowcase() {
           >
             <Snail />
           </Toggle>
-          <Toggle pressed={sound} onPressedChange={setSound} aria-label="صدای تیک‌تاک" title="صدای تیک‌تاک">
+          <Toggle
+            pressed={sound}
+            onPressedChange={setSound}
+            aria-label="صدای تیک‌تاک"
+            title="صدای تیک‌تاک"
+          >
             {sound ? <Volume2 /> : <VolumeX />}
           </Toggle>
         </div>

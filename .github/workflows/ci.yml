@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      # API e2e tests start an in-memory MongoDB replica set; mongodb-memory-server downloads it here
+      - run: pnpm test
+        env:
+          MONGOMS_VERSION: "8.0.4"
+      - run: pnpm build
+      - run: pnpm audit --prod
+        continue-on-error: true
+
+  e2e:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Start a single-node replica set
+        run: |
+          docker run -d --name mongo-rs -p 27019:27019 mongo:8.0 --replSet rs0 --port 27019 --bind_ip_all
+          for i in $(seq 1 30); do
+            docker exec mongo-rs mongosh --port 27019 --quiet --eval "try { rs.status().ok } catch (e) { rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: '127.0.0.1:27019' }] }).ok }" && break
+            sleep 2
+          done
+      - name: Configure the API
+        run: |
+          cp apps/api/.env.example apps/api/.env
+          sed -i "s#^DATABASE_URL=.*#DATABASE_URL=mongodb://127.0.0.1:27019/kronos?replicaSet=rs0#" apps/api/.env
+          sed -i "s#^JWT_ACCESS_SECRET=.*#JWT_ACCESS_SECRET=$(openssl rand -base64 48)#" apps/api/.env
+          sed -i "s#^OTP_HMAC_SECRET=.*#OTP_HMAC_SECRET=$(openssl rand -base64 48)#" apps/api/.env
+          sed -i "s#^OTP_FIXED_CODE=.*#OTP_FIXED_CODE=123456#" apps/api/.env
+          sed -i "s#^THROTTLE_ENABLED=.*#THROTTLE_ENABLED=false#" apps/api/.env
+      - run: pnpm build
+      - run: pnpm seed
+      - run: pnpm --filter @kronos/web exec playwright install --with-deps chromium
+      - name: Start API and web
+        run: |
+          (cd apps/api && node --env-file=.env dist/main.js &)
+          (cd apps/web && PORT=7782 HOSTNAME=127.0.0.1 INTERNAL_API_URL=http://127.0.0.1:7781 node .next/standalone/apps/web/server.js &)
+          npx --yes wait-on http://127.0.0.1:7781/health/ready http://127.0.0.1:7782
+      - run: pnpm --filter @kronos/web test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: apps/web/test-results

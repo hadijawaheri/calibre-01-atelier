@@ -1,8 +1,8 @@
+import type { ApiResponse, UserDto } from "@kronos/contracts";
+import { COOKIE_NAMES } from "@kronos/contracts";
 import { Body, Controller, Get, HttpCode, Post, Req, Res } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { Throttle } from "@nestjs/throttler";
-import type { ApiResponse, UserDto } from "@kronos/contracts";
-import { COOKIE_NAMES } from "@kronos/contracts";
 import type { Request, Response } from "express";
 
 import { CurrentUser } from "../../common/decorators/current-user.decorator.js";

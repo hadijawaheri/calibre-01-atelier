@@ -1,6 +1,6 @@
-import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import type { OrderStatus, ShippingAddress } from "@kronos/contracts";
 import { ORDER_STATUSES } from "@kronos/contracts";
+import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import type { HydratedDocument } from "mongoose";
 import { Types } from "mongoose";
 

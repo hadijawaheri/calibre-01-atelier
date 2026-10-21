@@ -1,7 +1,7 @@
 import type { ProductDto } from "@kronos/contracts";
 
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
 import { paths } from "@/lib/paths";
+import { SITE_NAME, SITE_URL } from "@/lib/seo";
 
 export function ProductJsonLd({ product }: { product: ProductDto }) {
   const data = {

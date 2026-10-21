@@ -1,4 +1,3 @@
-import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import type {
   CaseMaterial,
   Collection,
@@ -7,6 +6,7 @@ import type {
   StrapOption,
 } from "@kronos/contracts";
 import { CASE_MATERIALS, COLLECTIONS, DIAL_LAYOUTS, MOVEMENT_TYPES } from "@kronos/contracts";
+import { Prop, raw, Schema, SchemaFactory } from "@nestjs/mongoose";
 import type { HydratedDocument, Types } from "mongoose";
 
 import { softDeletePlugin } from "../../../common/database/soft-delete.plugin.js";

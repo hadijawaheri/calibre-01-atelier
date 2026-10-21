@@ -1,7 +1,7 @@
 import { Controller, Get, VERSION_NEUTRAL } from "@nestjs/common";
-import { SkipThrottle } from "@nestjs/throttler";
 import type { HealthCheckResult } from "@nestjs/terminus";
 import { HealthCheck, HealthCheckService, MongooseHealthIndicator } from "@nestjs/terminus";
+import { SkipThrottle } from "@nestjs/throttler";
 
 import { Public } from "../common/decorators/public.decorator.js";
 

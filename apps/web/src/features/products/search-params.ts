@@ -1,4 +1,5 @@
 import { CASE_MATERIALS, COLLECTIONS, MOVEMENT_TYPES, PRODUCT_SORTS } from "@kronos/contracts";
+import type { inferParserType } from "nuqs/server";
 import {
   createSearchParamsCache,
   parseAsArrayOf,
@@ -20,7 +21,7 @@ export const catalogParsers = {
 };
 
 export const catalogCache = createSearchParamsCache(catalogParsers);
-export type CatalogParams = ReturnType<typeof catalogCache.parse>;
+export type CatalogParams = inferParserType<typeof catalogParsers>;
 
 export const CATALOG_PAGE_SIZE = 9;
 

@@ -1,13 +1,13 @@
+import { productInputSchema } from "@kronos/contracts";
 import { NestFactory } from "@nestjs/core";
 import { getModelToken } from "@nestjs/mongoose";
-import { productInputSchema } from "@kronos/contracts";
 import type { Model } from "mongoose";
 
 import { AppModule } from "./app.module.js";
 import { validateEnv } from "./config/env.js";
-import { UsersService } from "./modules/users/users.service.js";
 import type { ProductDocument } from "./modules/products/schemas/product.schema.js";
 import { Product } from "./modules/products/schemas/product.schema.js";
+import { UsersService } from "./modules/users/users.service.js";
 import { CATALOG } from "./seed/catalog.js";
 
 // Non-destructive: inserts missing watches by slug and never overwrites stock or edits

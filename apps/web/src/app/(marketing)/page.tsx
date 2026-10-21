@@ -1,9 +1,24 @@
-import { MovementShowcase } from "@/features/movement";
+import {
+  AtelierCraft,
+  CalibreStory,
+  CollectionsStrip,
+  FeaturedWatches,
+  Hero,
+  Services,
+} from "@/features/marketing";
+import { listFeaturedProducts } from "@/features/products/api";
 
-export default function HomePage() {
+export default async function HomePage() {
+  // The page stays up when the API is down; only the featured strip degrades
+  const featured = await listFeaturedProducts(3).catch(() => null);
   return (
-    <main className="mx-auto max-w-3xl p-6">
-      <MovementShowcase />
-    </main>
+    <>
+      <Hero />
+      <FeaturedWatches products={featured} />
+      <CalibreStory />
+      <CollectionsStrip />
+      <AtelierCraft />
+      <Services />
+    </>
   );
 }

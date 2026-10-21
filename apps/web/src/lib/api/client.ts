@@ -34,6 +34,7 @@ export async function api<T>(path: string, { json, ...init }: ApiInit = {}): Pro
       res = await send();
     } else if (typeof window !== "undefined") {
       // Hard navigation on purpose: drops all client state of the expired session
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
       window.location.assign(
         `${paths.signIn}?next=${encodeURIComponent(window.location.pathname)}`,
       );
