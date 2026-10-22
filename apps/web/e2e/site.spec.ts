@@ -161,3 +161,24 @@ test("visitors who prefer less motion get the still photograph instead of the tr
   await expect(page.locator("html")).not.toHaveAttribute("data-flight", "on");
   await expectAccessible(page);
 });
+
+test("the lab starts with the movement stopped for visitors who prefer less motion", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/lab/automatic");
+  await expect(page.getByRole("radio", { name: "توقف" })).toHaveAttribute("aria-checked", "true");
+});
+
+test("calibre pages describe themselves to search engines and link previews", async ({ page }) => {
+  await page.goto("/lab/quartz");
+  const jsonLd = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+  ) as { "@type"?: string; headline?: string };
+  expect(jsonLd).toMatchObject({ "@type": "TechArticle", headline: "کوارتز" });
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+    "content",
+    /opengraph-image/,
+  );
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/lab\/quartz$/);
+});

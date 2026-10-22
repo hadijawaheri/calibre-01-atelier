@@ -1,6 +1,6 @@
 # 0004. Small deviations from the blueprint
 
-Status: accepted
+Status: partly superseded by 0005 (the catalogue, its `series` field and its cache tags left with the shop; the Node 22 pin stands)
 
 - The product collection is stored as `series`: `collection` is a reserved property on Mongoose documents and broke
   typing. The public URL and the contracts' constant names keep "collection".

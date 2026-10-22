@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: SITE_NAME,
     short_name: "کرونوس",
-    description: "ساعت‌های مکانیکی دست‌ساز آتلیه کرونوس",
+    description: "دانشنامهٔ فارسی ساعت‌های مکانیکی و آزمایشگاه موومنت",
     start_url: "/",
     display: "standalone",
     dir: "rtl",

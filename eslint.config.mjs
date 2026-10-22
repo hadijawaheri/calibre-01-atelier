@@ -65,6 +65,12 @@ export default defineConfig([
             "Literal[value=/(^|\\s)(ml|mr|pl|pr|left|right|text-left|text-right|rounded-l|rounded-r|border-l|border-r)-/]",
           message: "از کلاس‌های منطقی استفاده کنید (ms/me/ps/pe/start/end).",
         },
+        // Same check inside template literals, e.g. cn(`... ${x}`)
+        {
+          selector:
+            "TemplateElement[value.raw=/(^|\\s)(ml|mr|pl|pr|left|right|text-left|text-right|rounded-l|rounded-r|border-l|border-r)-/]",
+          message: "از کلاس‌های منطقی استفاده کنید (ms/me/ps/pe/start/end).",
+        },
       ],
     },
   },

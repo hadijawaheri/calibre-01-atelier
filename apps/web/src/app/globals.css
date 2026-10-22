@@ -184,3 +184,12 @@
       transparent 70%
     );
 }
+
+/* Studio light on the photographed movement. It is the same physical light in every theme, so it lives
+   outside the theme blocks. */
+:root {
+  --object-shadow: 0 40px 60px oklch(0 0 0 / 0.6);
+  --object-shadow-hero: 0 50px 70px oklch(0 0 0 / 0.65);
+  --object-contact: oklch(0 0 0 / 0.45);
+  --object-sheen: oklch(1 0 0 / 0.28);
+}

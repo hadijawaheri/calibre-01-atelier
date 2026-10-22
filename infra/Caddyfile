@@ -2,9 +2,13 @@
 {$SITE_ADDRESS:http://localhost:8080} {
 	encode zstd gzip
 
-	# Long-lived caching for hashed build assets and the watch photography
-	@static path /_next/static/* /watches/*
+	# Hashed build assets never change under the same name
+	@static path /_next/static/*
 	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# Film frames and photographs keep their names when replaced, so a week, not forever
+	@media path /media/*
+	header @media Cache-Control "public, max-age=604800"
 
 	# Only the web app is public; it proxies /api/* to the API on loopback
 	reverse_proxy 127.0.0.1:7782 {

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useSyncExternalStore } from "react";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 
 import type { PartId } from "../parts";
@@ -19,7 +20,7 @@ function StagePoster({ busy = false, message }: { busy?: boolean; message?: stri
   return (
     <div className="absolute inset-0 grid place-items-center" aria-busy={busy || undefined}>
       <div className="flex flex-col items-center gap-4 text-center">
-        <div className="size-40 rounded-full border border-border bg-[radial-gradient(circle_at_40%_35%,var(--color-muted),transparent_70%)] motion-safe:animate-pulse" />
+        <Skeleton className="size-40 rounded-full motion-reduce:animate-none" />
         {message && <p className="max-w-xs text-sm leading-7 text-muted-foreground">{message}</p>}
       </div>
     </div>

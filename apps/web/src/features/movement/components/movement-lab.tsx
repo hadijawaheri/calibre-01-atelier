@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
 import type { CalibreInfo } from "../calibres";
@@ -79,9 +80,17 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
   const [selected, setSelected] = useState<PartId | null>(null);
   const [explode, setExplode] = useState(0);
   const [lifted, setLifted] = useState(false);
-  const [speed, setSpeed] = useState("1");
+  const [chosenSpeed, setChosenSpeed] = useState<string | null>(null);
   const [energy, setEnergy] = useState(false);
   const [playing, setPlaying] = useState(false);
+  const reduceMotion = usePrefersReducedMotion();
+
+  // A visitor who asked for less motion finds the movement stopped; the speed control can still start it
+  const speed = chosenSpeed ?? (reduceMotion ? "0" : "1");
+
+  useEffect(() => {
+    controls.current.timeScale = Number(speed);
+  }, [speed]);
 
   useEffect(() => {
     if (!playing) return;
@@ -137,8 +146,7 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
 
   const changeSpeed = (value: string) => {
     if (!value) return;
-    setSpeed(value);
-    controls.current.timeScale = Number(value);
+    setChosenSpeed(value);
   };
 
   const toggleEnergy = (value: boolean) => {
@@ -155,7 +163,7 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
     select(null);
     changeExplode(0);
     toggleLift(false);
-    changeSpeed("1");
+    setChosenSpeed(null);
     toggleEnergy(false);
     controls.current.view = { ...HOME_VIEW };
   };

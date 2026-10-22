@@ -1,17 +1,11 @@
 "use client";
 
 import type { MotionValue } from "motion/react";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
 /** Where the movement is, how big and which way up, while one stage of the page is centred on screen. */
@@ -162,11 +156,11 @@ function Face({ src, back = false }: { src: string; back?: boolean }) {
         fill
         priority={!back}
         sizes="(max-width: 1023px) 108vw, 64rem"
-        className="object-contain drop-shadow-[0_40px_60px_oklch(0_0_0/0.6)]"
+        className="object-contain drop-shadow-(--object-shadow)"
       />
       {/* A studio softbox sliding across the metal as it turns, clipped to the movement's own outline */}
       <div
-        className="absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,oklch(1_0_0/0.28)_48%,transparent_60%)] bg-size-[300%_100%] bg-(position:--sheen) [mask-mode:alpha] [mask-size:contain] [mask-position:center] [mask-repeat:no-repeat] mix-blend-overlay"
+        className="absolute inset-0 bg-[linear-gradient(105deg,transparent_35%,var(--object-sheen)_48%,transparent_60%)] bg-size-[300%_100%] bg-(position:--sheen) [mask-mode:alpha] [mask-size:contain] [mask-position:center] [mask-repeat:no-repeat] mix-blend-overlay"
         style={{ maskImage: `url(${src})` }}
       />
     </div>
@@ -206,7 +200,7 @@ function Flight({
       >
         <motion.div
           aria-hidden
-          className="absolute inset-x-[18%] -bottom-[14%] h-[18%] rounded-[50%] bg-black/45 blur-2xl"
+          className="absolute inset-x-[18%] -bottom-[14%] h-[18%] rounded-[50%] bg-(--object-contact) blur-2xl"
           style={{ scaleY: shadow }}
         />
         <motion.div
@@ -227,7 +221,7 @@ function Flight({
  * the text, turns over to show its dial side, and hands over to the film where it comes apart.
  */
 export function MovementFlight() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
   const [track, setTrack] = useState<Track | null>(null);
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);

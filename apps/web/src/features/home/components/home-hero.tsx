@@ -34,7 +34,7 @@ export function HomeHero() {
             fill
             priority
             sizes="(max-width: 1023px) 108vw, 60rem"
-            className="object-contain drop-shadow-[0_50px_70px_oklch(0_0_0/0.65)]"
+            className="object-contain drop-shadow-(--object-shadow-hero)"
           />
         </div>
       </div>

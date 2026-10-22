@@ -1,8 +1,8 @@
 export type { CalibreInfo } from "./calibres";
 export { calibreBySlug, CALIBRES } from "./calibres";
 export { CalibreIndex } from "./components/calibre-index";
+export { calibreMetadata, CalibrePage } from "./components/calibre-page";
 export { CalibreProfile } from "./components/calibre-profile";
-export { MovementLab } from "./components/movement-lab";
 export {
   ARBOR,
   BALANCE_RADIUS,

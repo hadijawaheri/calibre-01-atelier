@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
+import { publicEnv } from "./public-env";
+
 export const SITE_NAME = "کرونوس";
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:7782";
+export const SITE_URL = publicEnv.NEXT_PUBLIC_SITE_URL;
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(SITE_URL),

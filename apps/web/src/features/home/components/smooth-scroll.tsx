@@ -3,8 +3,9 @@
 import "lenis/dist/lenis.css";
 
 import Lenis from "lenis";
-import { useReducedMotion } from "motion/react";
 import { useEffect } from "react";
+
+import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 
 /**
  * Inertial scrolling for the home page only: the wheel eases into motion and glides to a stop, so the
@@ -12,7 +13,7 @@ import { useEffect } from "react";
  * left alone because its canvas needs the wheel for zooming.
  */
 export function SmoothScroll() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   useEffect(() => {
     if (reduceMotion) return;
