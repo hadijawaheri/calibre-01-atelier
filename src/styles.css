@@ -1,11 +1,9 @@
 @import "tailwindcss" source(none);
-@source "../src";
 @import "tw-animate-css";
-
+@source "../src";
 @custom-variant dark (&:is(.dark *));
-
 @theme inline {
-  --font-serif: "Cormorant Garamond", "Playfair Display", serif;
+  --font-serif: "Cormorant Garamond", serif;
   --font-sans: "Manrope", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --radius-sm: calc(var(--radius) - 4px);
@@ -37,82 +35,101 @@
   --color-onyx: var(--onyx);
   --color-lume: var(--lume);
 }
-
 :root {
   --radius: 0.25rem;
-  --background: oklch(0.12 0.004 285);
-  --foreground: oklch(0.93 0.01 85);
-  --card: oklch(0.17 0.004 285);
-  --card-foreground: oklch(0.93 0.01 85);
-  --popover: oklch(0.17 0.004 285);
-  --popover-foreground: oklch(0.93 0.01 85);
+  --background: oklch(0.137 0.005 285);
+  --foreground: oklch(0.91 0.006 85);
+  --card: oklch(0.167 0.006 285);
+  --card-foreground: var(--foreground);
+  --popover: var(--card);
+  --popover-foreground: var(--foreground);
   --primary: oklch(0.76 0.13 88);
-  --primary-foreground: oklch(0.12 0.004 285);
+  --primary-foreground: var(--background);
   --secondary: oklch(0.2 0.005 285);
-  --secondary-foreground: oklch(0.93 0.01 85);
-  --muted: oklch(0.2 0.005 285);
-  --muted-foreground: oklch(0.62 0.01 85);
-  --accent: oklch(0.22 0.006 285);
-  --accent-foreground: oklch(0.93 0.01 85);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--secondary);
+  --muted-foreground: oklch(0.64 0.005 85);
+  --accent: oklch(0.26 0.006 285);
+  --accent-foreground: var(--foreground);
   --destructive: oklch(0.6 0.2 27);
-  --border: oklch(1 0 0 / 9%);
-  --input: oklch(1 0 0 / 12%);
-  --ring: oklch(0.76 0.13 88);
-  --gold: oklch(0.76 0.13 88);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: var(--gold);
+  --gold: oklch(0.757 0.128 88);
   --rose: oklch(0.74 0.08 40);
-  --titanium: oklch(0.72 0.01 250);
+  --titanium: oklch(0.8 0.008 250);
   --sapphire: oklch(0.45 0.14 260);
-  --onyx: oklch(0.09 0.003 285);
+  --onyx: oklch(0.1 0.003 285);
   --lume: oklch(0.88 0.12 150);
-  --gradient-gold: linear-gradient(135deg, oklch(0.86 0.1 90), oklch(0.68 0.13 80), oklch(0.82 0.11 88));
-  --gradient-metal: repeating-linear-gradient(90deg, oklch(1 0 0 / 2%) 0 1px, transparent 1px 3px);
-  --shadow-gold: 0 0 60px -10px color-mix(in oklab, var(--gold) 45%, transparent);
-  --shadow-watch: drop-shadow(0 22px 18px oklch(0.03 0 0 / 0.7));
+  --shadow-watch: drop-shadow(0 26px 22px oklch(0.03 0 0 / 0.75));
   --shadow-component: drop-shadow(4px 22px 12px oklch(0.03 0 0 / 0.8));
-  --studio-light: radial-gradient(ellipse at 45% 42%, oklch(0.26 0.014 250 / 0.38), transparent 62%);
+  --studio-light: radial-gradient(ellipse at 50% 48%, oklch(0.3 0.008 250 / 0.32), transparent 66%);
+  --exhibition-glow: radial-gradient(ellipse at 50% 45%, oklch(0.21 0.007 250 / 0.24), transparent 65%);
+  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
-
 @layer base {
-  * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
-  body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
-    font-family: var(--font-sans);
-    background-image: var(--gradient-metal);
-  }
+  * { border-color: var(--border); }
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+  body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); font-size: 16px; letter-spacing: 0; }
+  button, a, input, summary { -webkit-tap-highlight-color: transparent; }
+  button, a, summary { transition-duration: 1s; transition-timing-function: var(--motion-ease); }
+  ::selection { background: var(--accent); color: var(--foreground); }
 }
-
-@utility text-gold-gradient {
-  background: var(--gradient-gold);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-@utility bg-gold-gradient { background: var(--gradient-gold); }
-@utility shadow-gold { box-shadow: var(--shadow-gold); }
-@utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-}
-
-@keyframes spin-slow { to { transform: rotate(360deg); } }
-@keyframes balance { 0%,100% { transform: rotate(-110deg); } 50% { transform: rotate(110deg); } }
-@utility animate-spin-slow { animation: spin-slow 60s linear infinite; }
-@utility animate-spin-med { animation: spin-slow 12s linear infinite; }
-@utility animate-balance { animation: balance 0.25s ease-in-out infinite; }
-
-.watch-studio { background: var(--studio-light); perspective: 1600px; isolation: isolate; }
+@utility eyebrow { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); }
+@utility micro { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; letter-spacing: 0.25em; text-transform: uppercase; }
+.display { font-family: var(--font-serif); font-size: 56px; line-height: 1.05; font-weight: 300; letter-spacing: 0; }
+.display em { font-weight: 300; }
+.brand { font-family: var(--font-serif); font-size: 16px; letter-spacing: 0.25em; white-space: nowrap; }
+.brand span { font-family: var(--font-mono); font-size: 12px; }
+.nav-link { color: var(--muted-foreground); }
+.nav-link:hover { color: var(--foreground); }
+.flagship { padding-top: 128px; padding-bottom: 48px; background: var(--exhibition-glow); }
+.flagship-stage { width: min(100%, 560px); height: 400px; margin-top: 24px; }
+.hero-caption { position: absolute; top: 42%; width: 250px; font-size: 12px; line-height: 1.8; }
+.hero-caption-left { right: calc(100% + 24px); }
+.hero-caption-right { left: calc(100% + 24px); }
+.watch-studio { background: var(--studio-light); perspective: 1800px; isolation: isolate; }
 .watch-stage { transform-style: preserve-3d; }
 .watch-photograph { filter: var(--shadow-watch); }
 .watch-component { filter: var(--shadow-component); }
+.inspection-cursor { display: flex; width: 80px; height: 80px; align-items: center; justify-content: center; margin-left: -40px; margin-top: -40px; border: 1px solid var(--border); border-radius: 50%; color: var(--foreground); font: 12px var(--font-mono); text-transform: uppercase; letter-spacing: 0; background: color-mix(in oklab, var(--background) 15%, transparent); }
+.atelier-range { appearance: none; height: 1px; background: var(--input); cursor: ew-resize; display: block; margin-bottom: 14px; }
+.atelier-range::-webkit-slider-thumb { appearance: none; width: 12px; height: 12px; border: 1px solid var(--gold); border-radius: 50%; background: var(--background); }
+.atelier-range::-moz-range-thumb { width: 10px; height: 10px; border: 1px solid var(--gold); border-radius: 50%; background: var(--background); }
+.atelier-range:focus-visible { outline: 1px solid var(--gold); outline-offset: 8px; }
+.exhibition-section { max-width: 1280px; margin: 0 auto; padding: 112px 64px; }
+.section-heading { max-width: 640px; }
+.specifications > div { padding-left: 24px; border-left: 1px solid var(--border); }
+.specifications > div:first-child { padding-left: 0; border: 0; }
+.anatomy-detail .detail-plus { transition: transform 1s var(--motion-ease); }
+.anatomy-detail[open] .detail-plus { transform: rotate(45deg); }
+.expression-section { background: var(--card); }
+.expression-watch { height: 620px; }
+.strap-choice { font-size: 16px; font-weight: 400; }
+.selection-dot { height: 7px; width: 7px; border: 1px solid var(--muted-foreground); border-radius: 50%; }
+.selection-dot.is-selected { border-color: var(--gold); }
+.craft-photograph { height: 460px; background: var(--card); }
+.craft-photograph img { object-position: center 46%; transform: scale(1.65); filter: var(--shadow-watch); }
+.curation-drawer { font-size: 16px; }
+.curation-drawer .micro, .curation-drawer .eyebrow { letter-spacing: 0.15em; }
+@media (min-width: 1440px) { .flagship-stage { height: 450px; width: 640px; } }
+@media (max-width: 1199px) { .hero-caption { width: 200px; } .hero-caption-left { right: calc(100% - 10px); } .hero-caption-right { left: calc(100% - 10px); } }
+@media (max-width: 1023px) { .hero-caption { display: none; } .expression-watch { height: 520px; } }
 @media (max-width: 640px) {
-  #fit .watch-studio { height: 470px; }
+  .display { font-size: 40px; }
+  .atelier-nav .brand span { display: none; }
+  .atelier-nav .micro { font-size: 12px; letter-spacing: 0; }
+  .flagship { padding-top: 112px; padding-bottom: 40px; }
+  .flagship .eyebrow { letter-spacing: 0.15em; }
+  .flagship-stage { height: 330px; margin-top: 12px; }
+  .flagship .mt-8 { margin-top: 24px; }
+  .exhibition-section { padding: 80px 24px; }
+  .specifications { column-gap: 20px; }
+  .specifications > div { padding-left: 0; border: 0; }
+  .expression-watch { height: 440px; }
+  .craft-photograph { height: 300px; }
+  .craft-photograph img { transform: scale(1.3); }
+  .micro { letter-spacing: 0.15em; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .animate-spin-slow, .animate-spin-med, .animate-balance { animation: none; }
-}
+@media (hover: none), (pointer: coarse) { .inspection-cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .inspection-cursor { display: none; } }

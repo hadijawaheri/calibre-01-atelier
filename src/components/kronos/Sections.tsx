@@ -1,239 +1,79 @@
-import { animate, motion, useMotionValue } from "framer-motion";
-import { useEffect, useState } from "react";
-import { Gem, Activity, Droplets, BatteryCharging, ShieldCheck, Award, Volume2, VolumeX, ArrowRight } from "lucide-react";
+import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion";
+import { useState } from "react";
+import { ArrowDown, ArrowRight, Volume2, VolumeX } from "lucide-react";
 import { ExplodedView } from "./ExplodedView";
-import { STRAPS, Strap } from "./Strap";
+import { STRAPS, Strap, WATCH_IMAGES } from "./Strap";
 import { LAYERS, type StrapId } from "./watch-layers";
 import { useTicking } from "./useTicking";
+import { ATELIER_TRANSITION } from "./motion";
 import { Button } from "@/components/ui/button";
 
-const btnGold = "inline-flex items-center gap-2 bg-gold-gradient px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.25em] text-primary-foreground transition hover:brightness-110";
-const btnGhost = "inline-flex items-center gap-2 border border-gold/40 px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.25em] text-gold transition hover:bg-gold/10";
-
 export function Nav({ onReserve }: { onReserve: () => void }) {
-  return (
-    <header className="fixed inset-x-0 top-0 z-40 border-b border-border bg-background/70 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <span className="font-serif text-2xl tracking-[0.35em]">KRONOS<span className="text-gold">.</span></span>
-        <nav className="hidden gap-8 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground md:flex">
-          <a href="#anatomy" className="hover:text-gold">Calibre</a>
-          <a href="#fit" className="hover:text-gold">Fit & Finish</a>
-          <a href="#craft" className="hover:text-gold">Atelier</a>
-        </nav>
-        <button onClick={onReserve} className="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Reserve</button>
-      </div>
-    </header>
-  );
+  return <header className="atelier-nav fixed inset-x-0 top-0 z-40 border-b border-border bg-background/90 backdrop-blur">
+    <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-4 px-6 py-6 md:px-12">
+      <a href="#" aria-label="KRONOS Atelier home" className="brand">KRONOS<span className="ml-3 text-muted-foreground">ATELIER</span></a>
+      <nav aria-label="Main navigation" className="hidden items-center gap-10 lg:flex"><a href="#anatomy" className="micro nav-link">The Calibre</a><a href="#fit" className="micro nav-link">Expressions</a><a href="#craft" className="micro nav-link">The Atelier</a></nav>
+      <Button variant="ghost" onClick={onReserve} className="micro h-auto rounded-none px-0 text-gold hover:bg-transparent">Private curation <ArrowRight /></Button>
+    </div>
+  </header>;
 }
 
 export function Hero({ onReserve }: { onReserve: () => void }) {
   const progress = useMotionValue(0);
   const [val, setVal] = useState(0);
   const [sound, setSound] = useState(false);
+  const reduced = useReducedMotion();
   useTicking(sound);
-
-  const toggle = () => {
-    const to = val > 0.5 ? 0 : 1;
-    animate(progress, to, { type: "spring", stiffness: 60, damping: 16, onUpdate: setVal });
-  };
-
-  return (
-    <section className="relative overflow-hidden pt-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 lg:grid-cols-[1fr_1.2fr]">
-        <div>
-          <p className="eyebrow">Calibre 01 · Edition of 88</p>
-          <h1 className="mt-6 font-serif text-6xl font-light leading-[0.95] md:text-8xl">
-            Engineering <em className="text-gold-gradient">Eternity</em>
-          </h1>
-          <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
-            A flying-tourbillon automatic, hand-finished across 412 hours in our Vallée de Joux atelier. Pull it apart. See every heartbeat.
-          </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <button onClick={onReserve} className={btnGold}>Reserve Timepiece <ArrowRight className="h-4 w-4" /></button>
-            <a href="#anatomy" className={btnGhost}>Explore Calibre</a>
-          </div>
-          <div className="mt-12 grid grid-cols-3 gap-6 border-t border-border pt-6">
-            {[[ShieldCheck, "COSC", "Chronometer"], [Award, "Swiss", "Made · Genève"], [Gem, "Nº 088", "Pieces only"]].map(([Icon, a, b], i) => {
-              const I = Icon as typeof Gem;
-              return (
-                <div key={i}>
-                  <I className="h-4 w-4 text-gold" />
-                  <p className="mt-2 font-serif text-xl">{a as string}</p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{b as string}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        <div className="relative">
-          <ExplodedView progress={progress} />
-          <div className="mx-auto mt-2 flex max-w-md flex-col gap-4">
-            <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
-              <span>Assembled</span>
-              <span className="text-gold">{Math.round(val * 100)}%</span>
-              <span>Deconstructed</span>
-            </div>
-            <input
-              type="range" min={0} max={1} step={0.001} value={val}
-              aria-label="Deconstruct timepiece"
-              onChange={(e) => { const v = +e.target.value; setVal(v); progress.set(v); }}
-              className="w-full accent-[var(--gold)]"
-            />
-            <div className="flex justify-center gap-3">
-              <Button variant="outline" onClick={toggle} className={`${btnGhost} h-auto rounded-none`}>{val > 0.5 ? "Reassemble" : "Deconstruct"}</Button>
-              <Button variant="outline" size="icon" title="Toggle ticking sound" onClick={() => setSound((s) => !s)} aria-label="Toggle ticking sound" className="h-auto rounded-none border-border text-gold hover:bg-gold/10">
-                {sound ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
-  const [n, setN] = useState(0);
-  return (
-    <motion.span onViewportEnter={() => animate(0, to, { duration: 1.6, onUpdate: (v) => setN(Math.round(v)) })} viewport={{ once: true }}>
-      {n}{suffix}
-    </motion.span>
-  );
+  const toggle = () => animate(progress, val > 0.5 ? 0 : 1, { ...ATELIER_TRANSITION, duration: reduced ? 0 : 1.2, onUpdate: setVal });
+  return <section className="flagship relative overflow-hidden border-b border-border">
+    <div className="relative z-10 px-6 text-center">
+      <p className="eyebrow">Swiss haute horlogerie · Edition of 88</p>
+      <h1 className="display mt-5">KRONOS <em>Calibre 01</em></h1>
+      <p className="mt-4 text-muted-foreground">The architecture of time.</p>
+    </div>
+    <div className="flagship-stage relative mx-auto">
+      <div className="hero-caption hero-caption-left"><p className="eyebrow">01 / The timepiece</p><p className="mt-4 leading-loose text-muted-foreground">Flying tourbillon<br />Grade 5 titanium<br />Hand-finished in Switzerland</p></div>
+      <ExplodedView progress={progress} />
+      <div className="hero-caption hero-caption-right"><p className="eyebrow">Mastery in motion</p><p className="mt-4 leading-loose text-muted-foreground">33 jewels<br />28,800 vibrations / hour<br />72-hour power reserve</p></div>
+    </div>
+    <div className="mx-auto w-full max-w-[360px] px-6">
+      <div className="flex items-center justify-between gap-3"><Button variant="ghost" onClick={toggle} className="micro h-auto rounded-none px-0 text-gold hover:bg-transparent">{val > 0.5 ? "Reassemble" : "Deconstruct"}</Button><span className="micro tabular-nums text-muted-foreground">{Math.round(val * 100).toString().padStart(3, "0")}%</span><Button variant="ghost" size="icon" title={sound ? "Mute mechanical ticking" : "Listen to mechanical ticking"} aria-label="Toggle ticking sound" aria-pressed={sound} onClick={() => setSound(s => !s)} className="text-muted-foreground">{sound ? <Volume2 /> : <VolumeX />}</Button></div>
+      <input type="range" min={0} max={1} step={0.001} value={val} aria-label="Deconstruct timepiece" onChange={e => { const v = Number(e.target.value); progress.stop(); setVal(v); progress.set(v); }} className="atelier-range mt-2 w-full" />
+    </div>
+    <div className="mt-8 flex flex-wrap justify-center gap-4 px-6"><Button variant="atelier" onClick={onReserve} className="h-12 px-6">Request private curation <ArrowRight /></Button><Button asChild variant="atelier" className="h-12 px-6"><a href="#anatomy">Explore complications <ArrowDown /></a></Button></div>
+    <p className="micro mt-8 text-center text-muted-foreground">Swiss made <span className="mx-4 text-gold">/</span> Mechanical by nature</p>
+  </section>;
 }
 
 export function Anatomy() {
-  const [reserve, setReserve] = useState(72);
-  useEffect(() => {
-    const id = setInterval(() => setReserve((r) => (r <= 0 ? 72 : +(r - 0.1).toFixed(1))), 120);
-    return () => clearInterval(id);
-  }, []);
-  const stats = [
-    { icon: Gem, label: "Jewels", value: 33, suffix: "" },
-    { icon: Activity, label: "Frequency", value: 4, suffix: "Hz" },
-    { icon: Droplets, label: "Water Resistance", value: 100, suffix: "m" },
-  ];
-  return (
-    <section id="anatomy" className="mx-auto max-w-7xl px-6 py-32">
-      <p className="eyebrow">II — The Anatomy</p>
-      <h2 className="mt-4 max-w-2xl font-serif text-5xl font-light md:text-6xl">The anatomy of Calibre 01</h2>
-      <div className="mt-16 grid gap-px bg-border md:grid-cols-4">
-        {stats.map((s) => (
-          <div key={s.label} className="bg-background p-8">
-            <s.icon className="h-5 w-5 text-gold" />
-            <p className="mt-10 font-serif text-6xl font-light"><Counter to={s.value} suffix={s.suffix} /></p>
-            <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{s.label}</p>
-          </div>
-        ))}
-        <div className="bg-background p-8">
-          <BatteryCharging className="h-5 w-5 text-gold" />
-          <p className="mt-10 font-serif text-6xl font-light">{Math.round(reserve)}<span className="text-2xl">h</span></p>
-          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Power Reserve</p>
-          <div className="mt-4 h-1 w-full bg-muted">
-            <div className="h-full bg-gold-gradient transition-all" style={{ width: `${(reserve / 72) * 100}%` }} />
-          </div>
-        </div>
-      </div>
-      <div className="mt-px grid gap-px bg-border md:grid-cols-3">
-        {LAYERS.map((l) => (
-          <div key={l.id} className="group flex gap-5 bg-background p-6 transition hover:bg-card">
-            <span className="font-mono text-xs text-gold">0{l.index + 1}</span>
-            <div>
-              <p className="font-serif text-xl">{l.name}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{l.hotspot.body}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+  return <section id="anatomy" className="exhibition-section">
+    <div className="section-heading"><p className="eyebrow">II / The calibre</p><h2 className="display mt-6">Mastery in <em>motion.</em></h2><p className="mt-6 max-w-lg leading-relaxed text-muted-foreground">A universe of precision, held within 42 millimetres. Every surface considered. Every heartbeat revealed.</p></div>
+    <dl className="specifications mt-16 grid grid-cols-2 gap-y-10 border-y border-border py-10 md:grid-cols-4">{[["33", "Jewels"], ["4 Hz", "Frequency"], ["100 m", "Water resistance"], ["72 h", "Power reserve"]].map(([value, label]) => <div key={label}><dd className="display">{value}</dd><dt className="micro mt-4 text-muted-foreground">{label}</dt></div>)}</dl>
+    <div className="mt-16 grid gap-x-20 md:grid-cols-2">{LAYERS.map(l => <details key={l.id} className="anatomy-detail border-b border-border py-6"><summary className="flex cursor-pointer list-none items-center gap-5"><span className="micro text-gold">0{l.index + 1}</span><span className="flex-1">{l.name}</span><span className="detail-plus text-gold" aria-hidden="true">+</span></summary><p className="pl-10 pt-5 leading-relaxed text-muted-foreground">{l.hotspot.body}</p></details>)}</div>
+  </section>;
 }
 
 export function WristFit({ strap, setStrap }: { strap: StrapId; setStrap: (s: StrapId) => void }) {
-  const current = STRAPS.find((s) => s.id === strap) ?? STRAPS[0];
-  return (
-    <section id="fit" className="border-y border-border bg-card/40">
-      <div className="mx-auto grid max-w-7xl items-center gap-16 px-6 py-32 lg:grid-cols-2">
-        <div className="watch-studio relative mx-auto flex h-[580px] w-full max-w-lg items-center justify-center overflow-hidden">
-          <motion.div key={strap} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }} className="h-full w-full py-4">
-            <Strap type={strap} className="h-full w-full" />
-          </motion.div>
-        </div>
-        <div>
-          <p className="eyebrow">III — Fit & Finish</p>
-          <h2 className="mt-4 font-serif text-5xl font-light">Dressed for the wrist</h2>
-          <p className="mt-4 max-w-md text-muted-foreground">42mm case, 10.8mm profile. Quick-release lugs let you change character in seconds.</p>
-          <div className="mt-10 space-y-3">
-            {STRAPS.map((s) => (
-              <Button
-                variant="ghost"
-                aria-pressed={s.id === strap}
-                key={s.id}
-                onClick={() => setStrap(s.id)}
-                className={`flex h-auto w-full items-center justify-between gap-4 whitespace-normal rounded-none border p-5 text-left transition ${s.id === strap ? "border-gold bg-gold/5" : "border-border hover:border-gold/40"}`}
-              >
-                <div>
-                  <p className="font-serif text-xl">{s.name}</p>
-                  <p className="text-xs text-muted-foreground">{s.note}</p>
-                </div>
-                <span className="shrink-0 font-mono text-xs text-gold">{s.price ? `+ CHF ${s.price.toLocaleString()}` : "Included"}</span>
-              </Button>
-            ))}
-          </div>
-          <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">Selected · <span className="text-gold">{current?.name ?? "Matte Alligator"}</span></p>
-        </div>
-      </div>
-    </section>
-  );
+  const current = STRAPS.find(s => s.id === strap) ?? STRAPS[0];
+  const reduced = useReducedMotion();
+  return <section id="fit" className="expression-section border-y border-border">
+    <div className="exhibition-section grid items-center gap-12 lg:grid-cols-2 lg:gap-24">
+      <div className="watch-studio expression-watch relative mx-auto w-full"><motion.div key={strap} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ ...ATELIER_TRANSITION, duration: reduced ? 0 : 1 }} className="h-full w-full"><Strap type={strap} className="h-full w-full" /></motion.div></div>
+      <div><p className="eyebrow">III / Personal expressions</p><h2 className="display mt-6">One calibre.<br /><em>Your character.</em></h2><p className="mt-6 max-w-md leading-relaxed text-muted-foreground">Sculpted lugs. An effortless embrace. Three expressions of the same uncompromising craft.</p>
+      <div role="group" aria-label="Strap selection" className="mt-12 border-t border-border">{STRAPS.map((s, i) => <Button key={s.id} variant="ghost" aria-pressed={strap === s.id} onClick={() => setStrap(s.id)} className={`strap-choice flex h-auto w-full justify-start gap-5 whitespace-normal rounded-none border-b border-border px-0 py-6 text-left hover:bg-transparent ${strap === s.id ? "text-foreground" : "text-muted-foreground"}`}><span className="micro text-gold">0{i + 1}</span><span className="flex-1">{s.name}</span><span className={`selection-dot ${strap === s.id ? "is-selected" : ""}`} /><ArrowRight className={strap === s.id ? "opacity-100" : "opacity-0"} /></Button>)}</div>
+      <p className="mt-6 leading-relaxed text-muted-foreground">{current?.note}</p><p className="micro mt-4 text-gold">{current?.price ? `Additional CHF ${current.price.toLocaleString("en-CH")}` : "Included with the timepiece"}</p></div>
+    </div>
+  </section>;
 }
 
 export function Craft() {
-  const chapters = [
-    { n: "412", u: "hours", t: "Hand-finishing", b: "Every bridge is anglaged by hand with wood and diamond paste until the bevel catches light at precisely 45°." },
-    { n: "1,240", u: "stripes", t: "Côtes de Genève", b: "Parallel waves engraved across each plate, a signature of Genevan haute horlogerie since the 18th century." },
-    { n: "1", u: "artisan", t: "Single-hand assembly", b: "One master watchmaker assembles, regulates and signs each Calibre 01 — their initials hidden beneath the rotor." },
-  ];
-  return (
-    <section id="craft" className="mx-auto max-w-7xl px-6 py-32">
-      <div className="grid gap-12 lg:grid-cols-[1fr_2fr]">
-        <div>
-          <p className="eyebrow">IV — The Atelier</p>
-          <h2 className="mt-4 font-serif text-5xl font-light leading-tight">Made slowly,<br /><em className="text-gold-gradient">on purpose.</em></h2>
-        </div>
-        <div className="space-y-px bg-border">
-          {chapters.map((c, i) => (
-            <motion.div
-              key={c.t}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1, duration: 0.8 }}
-              className="grid gap-6 bg-background py-10 md:grid-cols-[180px_1fr]"
-            >
-              <div>
-                <p className="font-serif text-6xl font-light text-gold-gradient">{c.n}</p>
-                <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">{c.u}</p>
-              </div>
-              <div>
-                <p className="font-serif text-3xl">{c.t}</p>
-                <p className="mt-3 max-w-lg leading-relaxed text-muted-foreground">{c.b}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  return <section id="craft" className="exhibition-section">
+    <div className="section-heading"><p className="eyebrow">IV / The atelier</p><h2 className="display mt-6">Made slowly.<br /><em>Made to endure.</em></h2></div>
+    <div className="craft-photograph relative mt-16 overflow-hidden"><img src={WATCH_IMAGES.alligator} alt="Close study of Calibre 01 titanium case, rose-gold indices and skeleton movement" loading="lazy" className="h-full w-full object-cover" /><span className="micro absolute bottom-8 left-8 text-foreground">Calibre 01 / A study in detail</span></div>
+    <div className="mt-16 grid gap-12 md:grid-cols-3">{[{ n: "412 hours", t: "The human touch", b: "Each bridge is bevelled by hand. Wood, diamond paste, and patience bring every edge to light." }, { n: "Côtes de Genève", t: "A signature in light", b: "Genevan stripes travel across the movement. A quiet rhythm, engraved into metal." }, { n: "One watchmaker", t: "A personal undertaking", b: "One artisan assembles, regulates, and signs each Calibre 01. A lifetime of knowledge in a single timepiece." }].map(c => <div key={c.t} className="border-t border-gold/20 pt-6"><p className="eyebrow">{c.n}</p><h3 className="mt-6">{c.t}</h3><p className="mt-4 leading-relaxed text-muted-foreground">{c.b}</p></div>)}</div>
+  </section>;
 }
 
 export function Footer({ onReserve }: { onReserve: () => void }) {
-  return (
-    <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 py-24 text-center">
-        <h2 className="font-serif text-5xl font-light">Only 88 will ever exist.</h2>
-        <button onClick={onReserve} className={btnGold}>Reserve your serial</button>
-        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">KRONOS Atelier SA · Le Brassus, Suisse · © 2026</p>
-      </div>
-    </footer>
-  );
+  return <footer className="border-t border-border"><div className="exhibition-section text-center"><p className="eyebrow">A private invitation</p><h2 className="display mt-6">Time, <em>on your terms.</em></h2><p className="mx-auto mt-6 max-w-md leading-relaxed text-muted-foreground">Discover your expression of Calibre 01.</p><Button variant="atelier" onClick={onReserve} className="mt-10 h-12 px-6">Request private curation <ArrowRight /></Button></div><div className="micro flex flex-wrap justify-between gap-6 border-t border-border px-6 py-8 text-muted-foreground md:px-12"><span>KRONOS Atelier · Le Brassus, Suisse</span><span>© 2026 KRONOS Atelier</span></div></footer>;
 }
