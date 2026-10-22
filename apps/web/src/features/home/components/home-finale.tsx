@@ -1,4 +1,3 @@
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -10,25 +9,24 @@ export function HomeFinale() {
     <section
       data-stage="finale"
       aria-labelledby="finale-title"
-      className="relative isolate flex h-[150dvh] flex-col items-center justify-end gap-6 overflow-hidden px-4 pb-[32dvh] text-center sm:px-6"
+      className="relative isolate flex h-[150dvh] flex-col items-center justify-end gap-6 overflow-hidden px-4 pb-[30dvh] text-center sm:px-8"
     >
-      <div aria-hidden className="absolute inset-0 -z-10 opacity-60 warm-glow" />
-      <p className="font-mono text-[11px] text-muted-foreground uppercase" dir="ltr">
-        Two faces · One heart
-      </p>
-      <h2 id="finale-title" className="text-5xl leading-tight font-black text-balance sm:text-7xl">
+      <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-2/3 rim-light" />
+      <h2 id="finale-title" className="display">
         دو رو، یک قلب
       </h2>
-      <p className="max-w-lg leading-8 text-muted-foreground">
-        در آزمایشگاه همین موومنت را بچرخانید، قطعه‌هایش را از هم جدا کنید و زمان را آن‌قدر کند کنید
-        که حرکت لنگر را ببینید.
+      <p className="max-w-md leading-8 text-muted-foreground">
+        در آزمایشگاه همین موومنت را بچرخانید، قطعه‌هایش را جدا کنید و زمان را آن‌قدر کند کنید که
+        حرکت لنگر را ببینید.
       </p>
-      <Button asChild size="lg">
-        <Link href={paths.labCalibre("automatic")}>
+      <Button asChild size="lg" className="mt-4">
+        <Link href={paths.labCalibre("automatic")} data-cursor="ورود">
           ورود به آزمایشگاه
-          <ArrowLeft data-icon="inline-end" />
         </Link>
       </Button>
+      <p className="caps text-muted-foreground" dir="ltr">
+        Two faces · One heart
+      </p>
     </section>
   );
 }

@@ -44,26 +44,23 @@ export function HomeTimegrapher() {
       ref={ref}
       data-stage="timegrapher"
       aria-labelledby="timegrapher-title"
-      className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-40 sm:px-6 lg:grid-cols-[minmax(0,24rem)_1fr]"
+      className="mx-auto grid max-w-7xl items-center gap-16 px-4 py-48 sm:px-8 lg:grid-cols-[minmax(0,22rem)_1fr]"
     >
-      <div className="flex flex-col gap-5">
-        <p className="font-mono text-[11px] text-muted-foreground uppercase" dir="ltr">
-          Chronometric stability
-        </p>
-        <h2
-          id="timegrapher-title"
-          className="text-4xl leading-tight font-bold text-balance sm:text-5xl"
-        >
+      <div className="flex flex-col gap-6">
+        <h2 id="timegrapher-title" className="display">
           دقتی که آزمایش می‌شود
         </h2>
         <p className="leading-8 text-muted-foreground">
           عنوان کرونومتر را مؤسسهٔ COSC می‌دهد: پانزده روز آزمایش در پنج وضعیت و سه دما. میانگین
-          خطای روزانه باید درون نوار طلایی بماند، بین ۴ ثانیه عقب و ۶ ثانیه جلو.
+          خطای روزانه باید درون نوار روشن بماند، بین ۴ ثانیه عقب و ۶ ثانیه جلو.
+        </p>
+        <p className="caps text-muted-foreground" dir="ltr">
+          Chronometric stability
         </p>
       </div>
 
-      <figure className="flex flex-col gap-6">
-        <div className="rounded-2xl border border-border bg-surface p-4 sm:p-6">
+      <figure className="flex flex-col gap-8">
+        <div className="border-y hairline py-6">
           <svg
             viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
             className="h-auto w-full"
@@ -75,7 +72,7 @@ export function HomeTimegrapher() {
                 <motion.rect x={0} y={0} height={HEIGHT} style={{ width: reveal }} />
               </clipPath>
             </defs>
-            <rect x={0} y={COSC_TOP} width={WIDTH} height={COSC_HEIGHT} className="fill-gold/10" />
+            <rect x={0} y={COSC_TOP} width={WIDTH} height={COSC_HEIGHT} className="fill-metal/10" />
             {[-10, -5, 0, 5, 10].map((s) => {
               const y = HEIGHT / 2 - (s / SPAN) * HEIGHT;
               return (
@@ -92,7 +89,7 @@ export function HomeTimegrapher() {
             })}
             <g
               clipPath="url(#timegrapher-reveal)"
-              className="stroke-gold"
+              className="stroke-metal"
               fill="none"
               strokeLinecap="round"
             >
@@ -106,13 +103,16 @@ export function HomeTimegrapher() {
             </g>
           </svg>
         </div>
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-y-8 sm:grid-cols-4">
           {READINGS.map((reading) => (
-            <div key={reading.label} className="flex flex-col gap-1 bg-background p-4">
-              <dt className="font-mono text-[11px] text-muted-foreground uppercase" dir="ltr">
+            <div
+              key={reading.label}
+              className="flex flex-col gap-2 border-s border-border ps-5 max-sm:odd:border-s-0 max-sm:odd:ps-0 sm:first:border-s-0 sm:first:ps-0"
+            >
+              <dt className="caps text-muted-foreground" dir="ltr">
                 {reading.label}
               </dt>
-              <dd className="text-start font-mono text-2xl" dir="ltr">
+              <dd className="text-start text-base tabular-nums" dir="ltr">
                 {reading.value}
               </dd>
               <dd className="text-xs text-muted-foreground">{reading.note}</dd>

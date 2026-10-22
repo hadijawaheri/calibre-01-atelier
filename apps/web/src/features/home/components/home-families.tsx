@@ -11,50 +11,62 @@ const ROWS = [
   { key: "signature", label: "نشانه" },
 ] as const;
 
+const COLUMNS = "lg:grid-cols-[minmax(0,13rem)_repeat(4,minmax(0,1fr))_1.5rem]";
+
+/* A collector's catalogue: one ruled line per family, the same four questions answered across. */
 export function HomeFamilies() {
   return (
     <section
       data-stage="families"
       aria-labelledby="families-title"
-      className="mx-auto flex max-w-7xl flex-col gap-12 px-4 py-40 sm:px-6"
+      className="mx-auto flex max-w-7xl flex-col gap-16 px-4 py-48 sm:px-8"
     >
-      <div className="flex flex-col gap-4">
-        <p className="font-mono text-[11px] text-muted-foreground uppercase" dir="ltr">
-          Four families
-        </p>
-        <h2 id="families-title" className="text-4xl font-bold sm:text-5xl">
+      <div className="flex flex-col items-center gap-5 text-center">
+        <h2 id="families-title" className="display">
           چهار خانوادهٔ موومنت
         </h2>
+        <p className="caps text-muted-foreground" dir="ltr">
+          Four families
+        </p>
       </div>
-      <ul className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
-        {CALIBRES.map((calibre, index) => (
-          <li key={calibre.slug} className="bg-background">
-            <Link
-              href={paths.labCalibre(calibre.slug)}
-              className="group flex h-full flex-col gap-6 p-6 transition-colors hover:bg-surface focus-visible:bg-surface"
-            >
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="font-display text-4xl text-gold">
-                  {(index + 1).toLocaleString("fa-IR")}
-                </span>
+      <div className="flex flex-col">
+        <div
+          aria-hidden
+          className={`hidden gap-8 border-b hairline pb-4 text-xs text-muted-foreground lg:grid ${COLUMNS}`}
+        >
+          <span />
+          {ROWS.map((row) => (
+            <span key={row.key}>{row.label}</span>
+          ))}
+        </div>
+        <ul className="flex flex-col">
+          {CALIBRES.map((calibre) => (
+            <li key={calibre.slug} className="border-b border-border">
+              <Link
+                href={paths.labCalibre(calibre.slug)}
+                data-cursor="باز کنید"
+                className={`group grid gap-6 py-8 transition-colors duration-500 hover:bg-surface/60 focus-visible:bg-surface/60 lg:gap-8 lg:py-10 ${COLUMNS}`}
+              >
+                <h3 className="font-display text-3xl">{calibre.name}</h3>
+                <dl className="contents">
+                  {ROWS.map((row) => (
+                    <div key={row.key} className="flex flex-col gap-1">
+                      <dt className="text-xs text-muted-foreground lg:sr-only">{row.label}</dt>
+                      <dd className="text-base leading-8 text-foreground/85">
+                        {calibre.glance[row.key]}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
                 <ArrowLeft
-                  className="size-4 text-muted-foreground transition-transform group-hover:-translate-x-1"
+                  className="size-4 self-center text-muted-foreground transition-[translate,color] duration-500 ease-glide group-hover:-translate-x-1 group-hover:text-metal max-lg:hidden"
                   aria-hidden
                 />
-              </div>
-              <h3 className="text-xl font-semibold">{calibre.name}</h3>
-              <dl className="flex flex-col gap-3 text-sm">
-                {ROWS.map((row) => (
-                  <div key={row.key} className="flex flex-col gap-0.5">
-                    <dt className="text-xs text-muted-foreground">{row.label}</dt>
-                    <dd className="leading-6">{calibre.glance[row.key]}</dd>
-                  </div>
-                ))}
-              </dl>
-            </Link>
-          </li>
-        ))}
-      </ul>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

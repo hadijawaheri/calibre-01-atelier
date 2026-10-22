@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
 
+import { CustomCursor } from "./custom-cursor";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 
@@ -11,6 +12,7 @@ export function SiteShell({ children }: PropsWithChildren) {
         {children}
       </main>
       <SiteFooter />
+      <CustomCursor />
     </div>
   );
 }

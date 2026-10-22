@@ -6,7 +6,7 @@ import { AppProviders } from "@/components/providers/app-providers";
 import { defaultMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-import { cormorant, jetbrains, vazirmatn } from "./fonts";
+import { bodoni, jost, markazi, vazirmatn } from "./fonts";
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -24,7 +24,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       dir="rtl"
       data-scroll-behavior="smooth"
       suppressHydrationWarning
-      className={cn("antialiased", vazirmatn.variable, cormorant.variable, jetbrains.variable)}
+      className={cn(
+        "antialiased",
+        vazirmatn.variable,
+        jost.variable,
+        bodoni.variable,
+        markazi.variable,
+      )}
     >
       <body className="min-h-dvh bg-background font-sans text-foreground">
         <AppProviders>{children}</AppProviders>

@@ -1,33 +1,30 @@
-import { ArrowDown } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+import { paths } from "@/lib/paths";
 
 export function HomeHero() {
   return (
     <section
       data-stage="hero"
       aria-labelledby="hero-title"
-      className="relative isolate flex h-dvh min-h-[36rem] flex-col justify-between overflow-hidden px-4 pt-20 pb-8 sm:px-6"
+      className="relative isolate flex h-dvh min-h-[40rem] flex-col items-center justify-between overflow-hidden px-4 pt-28 pb-10 text-center sm:px-8 sm:pt-32"
     >
-      <div aria-hidden className="absolute inset-0 -z-10 warm-glow" />
+      <div aria-hidden className="absolute inset-0 -z-10 rim-light" />
 
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-3">
-        <p className="font-mono text-[11px] text-muted-foreground uppercase" dir="ltr">
-          Made for wrists · Built for generations
-        </p>
-        <h1
-          id="hero-title"
-          className="font-display text-[22vw] leading-[0.8] text-foreground lg:text-[13vw]"
-        >
-          <span aria-hidden dir="ltr" className="block text-start">
-            KRONOS
-          </span>
-          <span className="sr-only">کرونوس، دانشنامهٔ فارسی ساعت</span>
+      <div className="flex flex-col items-center gap-5">
+        <h1 id="hero-title" className="max-w-[16ch] display">
+          موومنت واقعی، در حال کار
         </h1>
+        <p className="max-w-sm text-base leading-8 text-muted-foreground">
+          دانشنامهٔ فارسی ساعت. یک موومنت اتوماتیک سوئیسی را با اسکرول باز کنید.
+        </p>
       </div>
 
       {/* Shown until the travelling movement takes its place, and for visitors who prefer less motion */}
       <div className="pointer-events-none absolute inset-0 grid place-items-center [[data-flight=on]_&]:opacity-0">
-        <div className="relative aspect-[1500/635] w-[min(70vw,60rem)] translate-y-[8vh] max-lg:w-[108vw] max-lg:translate-x-[10vw]">
+        <div className="relative aspect-[1500/635] w-[min(70vw,60rem)] translate-y-[6vh] max-lg:w-[108vw] max-lg:translate-x-[10vw]">
           <Image
             src="/media/movement-cutout/caseback.webp"
             alt="موومنت اتوماتیک سوئیسی از سمت پشت، با روتور نیم‌دایره و چرخ بالانس طلایی"
@@ -39,20 +36,17 @@ export function HomeHero() {
         </div>
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl items-end gap-6 lg:grid-cols-3">
-        <div className="flex max-w-xs flex-col gap-2 rounded-lg border border-border bg-background/40 p-4 backdrop-blur-md">
-          <p className="text-sm font-semibold">دانشنامهٔ فارسی ساعت</p>
-          <p className="text-xs leading-6 text-muted-foreground">
-            موومنت‌ها، کالیبرها و داستان برندها؛ قطعه‌به‌قطعه.
-          </p>
-        </div>
-        <p className="flex items-center justify-center gap-2 text-xs text-muted-foreground max-lg:hidden">
-          <ArrowDown className="size-4 motion-safe:animate-bounce" aria-hidden />
-          اسکرول کنید
+      <div className="grid w-full max-w-7xl grid-cols-[1fr_auto_1fr] items-end gap-4">
+        <p className="justify-self-start caps text-muted-foreground max-sm:invisible" dir="ltr">
+          Swiss automatic
         </p>
-        <p className="max-w-sm text-sm leading-7 text-muted-foreground lg:justify-self-end">
-          ساخته شده تا بی‌وقفه بتپد، نسل‌به‌نسل بماند و هر بار که نگاهش می‌کنید چیز تازه‌ای نشان
-          دهد. کرونوس این ماشین کوچک را جلوی چشم شما باز می‌کند.
+        <Button asChild size="lg">
+          <Link href={paths.labCalibre("automatic")} data-cursor="ورود">
+            ورود به آزمایشگاه
+          </Link>
+        </Button>
+        <p className="justify-self-end caps text-muted-foreground max-sm:invisible" dir="ltr">
+          28,800 vph
         </p>
       </div>
     </section>

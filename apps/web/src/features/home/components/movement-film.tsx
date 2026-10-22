@@ -1,6 +1,5 @@
 "use client";
 
-import { ArrowLeft } from "lucide-react";
 import { useMotionValueEvent, useScroll } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -201,16 +200,13 @@ export function MovementFilm() {
                 key={chapter.title}
                 aria-hidden={index !== active}
                 className={cn(
-                  "flex flex-col gap-4 transition-all duration-700 ease-out",
+                  "flex flex-col gap-5 transition-[opacity,translate,filter] duration-1000 ease-glide",
                   index === active
                     ? "pointer-events-auto translate-y-0 opacity-100"
-                    : "pointer-events-none absolute inset-x-0 top-0 translate-y-6 opacity-0",
+                    : "pointer-events-none absolute inset-x-0 top-0 translate-y-6 opacity-0 blur-sm",
                 )}
               >
-                <p className="eyebrow">{chapter.eyebrow}</p>
-                <h2 className="text-2xl leading-tight font-semibold text-balance sm:text-4xl">
-                  {chapter.title}
-                </h2>
+                <h2 className="display">{chapter.title}</h2>
                 <p className="leading-8 text-muted-foreground">{chapter.body}</p>
                 {index === CHAPTERS.length - 1 && (
                   <Button
@@ -219,9 +215,8 @@ export function MovementFilm() {
                     className="self-start"
                     tabIndex={index === active ? 0 : -1}
                   >
-                    <Link href={paths.labCalibre("automatic")}>
+                    <Link href={paths.labCalibre("automatic")} data-cursor="ورود">
                       ورود به آزمایشگاه
-                      <ArrowLeft data-icon="inline-end" />
                     </Link>
                   </Button>
                 )}
@@ -231,16 +226,24 @@ export function MovementFilm() {
         </div>
         <ol
           aria-hidden
-          className="absolute end-4 top-1/2 hidden -translate-y-1/2 flex-col gap-3 sm:end-6 lg:flex"
+          className="absolute end-4 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-4 sm:end-8 lg:flex"
         >
           {CHAPTERS.map((chapter, index) => (
             <li
               key={chapter.title}
               className={cn(
-                "h-8 w-px transition-colors duration-500",
-                index === active ? "bg-gold" : "bg-border",
+                "flex items-center gap-3 text-xs transition-colors duration-700",
+                index === active ? "text-foreground" : "text-muted-foreground/60",
               )}
-            />
+            >
+              {chapter.eyebrow}
+              <span
+                className={cn(
+                  "h-px transition-[width,background-color] duration-700 ease-glide",
+                  index === active ? "w-10 bg-metal" : "w-4 bg-border",
+                )}
+              />
+            </li>
           ))}
         </ol>
       </div>

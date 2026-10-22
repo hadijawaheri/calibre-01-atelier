@@ -91,27 +91,24 @@ export function HomeBlueprint() {
       <div className="sticky top-0 flex h-dvh flex-col items-center justify-center overflow-hidden px-4">
         <motion.div
           style={{ opacity: caption }}
-          className="absolute inset-x-0 top-24 mx-auto flex max-w-7xl flex-col gap-3 px-4 sm:px-6"
+          className="absolute inset-x-0 top-28 mx-auto flex max-w-7xl flex-col gap-4 px-4 sm:px-8"
         >
-          <p className="font-mono text-[11px] text-muted-foreground uppercase" dir="ltr">
-            Blueprint · ⌀ {(R * 2).toFixed(1)} mm
-          </p>
-          <h2
-            id="blueprint-title"
-            className="max-w-md text-3xl leading-tight font-bold sm:text-4xl"
-          >
+          <h2 id="blueprint-title" className="max-w-[14ch] display">
             هر چرخ، درست سر جای خودش
           </h2>
-          <p className="max-w-sm text-sm leading-7 text-muted-foreground">
+          <p className="max-w-xs text-base leading-8 text-muted-foreground">
             نقشهٔ واقعی چرخ‌دنده‌ها: فاصلهٔ هر دو محور دقیقاً به اندازهٔ دندانه‌هایی است که با هم
             درگیرند.
+          </p>
+          <p className="caps text-muted-foreground" dir="ltr">
+            Blueprint · ⌀ {(R * 2).toFixed(1)} mm
           </p>
         </motion.div>
 
         <p
           dir="ltr"
           aria-hidden
-          className="grid grid-cols-[1fr_auto_1fr] items-center font-display text-[22vw] leading-none lg:text-[13vw]"
+          className="grid grid-cols-[1fr_auto_1fr] items-center font-display text-[18vw] leading-none tracking-[0.12em] lg:text-[11vw]"
         >
           <motion.span aria-hidden style={{ opacity: letters, x: kr }} className="justify-self-end">
             KR
@@ -120,7 +117,7 @@ export function HomeBlueprint() {
             aria-hidden
             viewBox={`${-R - 1.5} ${-R - 1.5} ${2 * R + 3} ${2 * R + 3}`}
             style={{ scale }}
-            className="mx-[0.02em] size-[0.68em] overflow-visible text-gold"
+            className="mx-[0.06em] size-[0.68em] overflow-visible text-metal"
           >
             <motion.g style={{ opacity: detail }} className="stroke-current" strokeWidth={1}>
               <line

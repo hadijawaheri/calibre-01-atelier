@@ -8,21 +8,25 @@ export const vazirmatn = localFont({
   display: "swap",
 });
 
-export const cormorant = localFont({
-  src: [
-    { path: "../../assets/fonts/cormorant-garamond-variable.woff2", style: "normal" },
-    { path: "../../assets/fonts/cormorant-garamond-variable-italic.woff2", style: "italic" },
-  ],
-  variable: "--font-cormorant",
-  weight: "300 700",
+// Latin text: a geometric sans beside the didone, as in the watch houses' own catalogues
+export const jost = localFont({
+  src: "../../assets/fonts/jost-latin-variable.woff2",
+  variable: "--font-jost",
+  weight: "100 900",
   display: "swap",
 });
 
-export const jetbrains = localFont({
-  src: [
-    { path: "../../assets/fonts/jetbrains-mono-latin-400-normal.woff2", weight: "400" },
-    { path: "../../assets/fonts/jetbrains-mono-latin-500-normal.woff2", weight: "500" },
-  ],
-  variable: "--font-jetbrains",
+export const bodoni = localFont({
+  src: "../../assets/fonts/bodoni-moda-latin-variable.woff2",
+  variable: "--font-bodoni",
+  weight: "400 900",
+  display: "swap",
+});
+
+// The Persian counterpart of the didone: a Naskh with real thick and thin strokes, drawn for Persian
+export const markazi = localFont({
+  src: "../../assets/fonts/markazi-text-arabic-variable.woff2",
+  variable: "--font-markazi",
+  weight: "400 700",
   display: "swap",
 });

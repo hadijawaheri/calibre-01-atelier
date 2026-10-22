@@ -60,10 +60,15 @@ function PlateCard({
   // Scroll-linked animations run on the compositor, whose keyframe offsets must stay within 0..1
   const range = [Math.max(0, centre - STEP), centre, Math.min(1, centre + STEP)];
   const scale = useTransform(progress, range, [0.78, 1, 0.78]);
-  const opacity = useTransform(progress, range, [0.45, 1, 0.45]);
+  const opacity = useTransform(progress, range, [0.5, 1, 0.5]);
+  // Depth of field: the plate in focus is sharp, the ones waiting either side sit behind the lens's plane
+  const filter = useTransform(progress, range, ["blur(6px)", "blur(0px)", "blur(6px)"]);
   return (
-    <motion.figure style={{ scale, opacity }} className="flex w-(--card) shrink-0 flex-col gap-3">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-surface">
+    <motion.figure
+      style={{ scale, opacity, filter }}
+      className="flex w-(--card) shrink-0 flex-col gap-4"
+    >
+      <div className="relative aspect-[4/5] overflow-hidden bg-surface">
         <Image
           src={plate.src}
           alt={plate.alt}
@@ -72,9 +77,9 @@ function PlateCard({
           className="object-cover"
         />
       </div>
-      <figcaption className="flex items-baseline justify-between gap-3 text-sm">
-        <span className="font-medium">{plate.caption}</span>
-        <span className="font-mono text-xs text-muted-foreground" dir="ltr">
+      <figcaption className="flex items-baseline justify-between gap-3 border-t hairline pt-3">
+        <span>{plate.caption}</span>
+        <span className="caps text-muted-foreground tabular-nums" dir="ltr">
           {String(index + 1).padStart(2, "0")} / {String(PLATES.length).padStart(2, "0")}
         </span>
       </figcaption>
@@ -106,15 +111,15 @@ export function HomeGallery() {
           aria-hidden
           style={{ x: words }}
           dir="ltr"
-          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[20vw] leading-none whitespace-nowrap text-foreground/5"
+          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[16vw] leading-none tracking-[0.2em] whitespace-nowrap text-foreground/[0.04] uppercase"
         >
           Piece by piece
         </motion.p>
-        <div className="relative mx-auto flex w-full max-w-7xl items-end justify-between gap-6 px-4 sm:px-6">
-          <h2 id="gallery-title" className="text-3xl font-bold sm:text-5xl">
+        <div className="relative mx-auto flex w-full max-w-7xl items-end justify-between gap-6 px-4 sm:px-8">
+          <h2 id="gallery-title" className="display">
             قطعه‌به‌قطعه
           </h2>
-          <p className="max-w-xs text-sm leading-7 text-muted-foreground max-sm:hidden">
+          <p className="max-w-xs text-base leading-8 text-muted-foreground max-sm:hidden">
             همان موومنتی که بالا دیدید، باز شده و از نزدیک عکاسی شده.
           </p>
         </div>

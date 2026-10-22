@@ -4,14 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-sans: var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-cormorant), var(--font-vazirmatn), serif;
-  --font-mono: var(--font-jetbrains), var(--font-vazirmatn), ui-monospace, monospace;
+  /* Latin from the didone and the geometric sans; Persian falls through to its own pair */
+  --font-sans: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bodoni), var(--font-markazi), var(--font-vazirmatn), serif;
 
-  --radius-sm: calc(var(--radius) - 2px);
+  --radius-sm: var(--radius);
   --radius-md: var(--radius);
-  --radius-lg: calc(var(--radius) + 2px);
-  --radius-xl: calc(var(--radius) + 6px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -32,87 +32,77 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-gold: var(--gold);
-  --color-gold-foreground: var(--gold-foreground);
+  --color-metal: var(--metal);
   --color-surface: var(--surface);
-  --color-studio: var(--studio);
-  --color-studio-foreground: var(--studio-foreground);
+
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Ivory (light). Gold is darkened so text on ivory keeps AA contrast. */
+/* Ivory and stone (light). The metal is bronze, dark enough to read on ivory (5.5:1). */
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.975 0.008 85);
-  --foreground: oklch(0.2 0.01 60);
-  --card: oklch(0.995 0.004 85);
-  --card-foreground: oklch(0.2 0.01 60);
-  --popover: oklch(0.995 0.004 85);
-  --popover-foreground: oklch(0.2 0.01 60);
-  /* oklch(0.47 0.09 75) on ivory ≈ 5.6:1 */
-  --primary: oklch(0.47 0.09 75);
-  --primary-foreground: oklch(0.985 0.005 85);
-  --secondary: oklch(0.93 0.012 85);
-  --secondary-foreground: oklch(0.25 0.01 60);
-  --muted: oklch(0.93 0.012 85);
-  --muted-foreground: oklch(0.45 0.015 70);
-  --accent: oklch(0.92 0.02 85);
-  --accent-foreground: oklch(0.25 0.01 60);
-  --destructive: oklch(0.52 0.19 27);
-  --success: oklch(0.5 0.12 150);
-  --border: oklch(0.2 0.01 60 / 12%);
-  --input: oklch(0.2 0.01 60 / 18%);
-  --ring: oklch(0.47 0.09 75);
-  --gold: oklch(0.52 0.1 78);
-  --gold-foreground: oklch(0.985 0.005 85);
-  --surface: oklch(0.95 0.01 85);
-  /* The white cyclorama of the product photography and the film */
-  --studio: oklch(1 0 0);
-  --studio-foreground: oklch(0.2 0.01 60);
-  --gradient-gold: linear-gradient(
-    135deg,
-    oklch(0.62 0.1 85),
-    oklch(0.47 0.1 72),
-    oklch(0.58 0.1 82)
-  );
-  --studio-light: radial-gradient(ellipse at 50% 45%, oklch(1 0 0 / 0.9), transparent 65%);
-  --texture: repeating-linear-gradient(90deg, oklch(0 0 0 / 1.5%) 0 1px, transparent 1px 3px);
+  --radius: 0px;
+  --background: oklch(0.965 0.009 85);
+  --foreground: oklch(0.17 0.006 70);
+  --card: oklch(0.965 0.009 85);
+  --card-foreground: oklch(0.17 0.006 70);
+  --popover: oklch(0.975 0.008 85);
+  --popover-foreground: oklch(0.17 0.006 70);
+  /* The one filled control is ink on ivory: the metal stays a line */
+  --primary: oklch(0.17 0.006 70);
+  --primary-foreground: oklch(0.965 0.009 85);
+  --secondary: oklch(0.925 0.014 80);
+  --secondary-foreground: oklch(0.17 0.006 70);
+  --muted: oklch(0.925 0.014 80);
+  --muted-foreground: oklch(0.46 0.014 70);
+  --accent: oklch(0.925 0.014 80);
+  --accent-foreground: oklch(0.17 0.006 70);
+  --destructive: oklch(0.5 0.17 27);
+  --success: oklch(0.48 0.1 150);
+  --border: oklch(0.17 0.006 70 / 12%);
+  --input: oklch(0.17 0.006 70 / 22%);
+  --ring: oklch(0.5 0.07 65);
+  --metal: oklch(0.5 0.07 65);
+  --surface: oklch(0.925 0.014 80);
+  /* A softbox above and behind the object, as in a vitrine */
+  --rim-light: radial-gradient(ellipse 55% 50% at 50% 50%, oklch(1 0 0 / 0.95), transparent 70%);
+  --object-shadow: 0 30px 40px oklch(0.25 0.02 60 / 0.22);
+  --object-shadow-hero: 0 40px 56px oklch(0.25 0.02 60 / 0.26);
+  --object-contact: oklch(0.25 0.02 60 / 0.2);
+  --object-sheen: oklch(1 0 0 / 0.3);
 }
 
-/* Obsidian (dark, default) */
+/* Matte black and charcoal (dark). The metal is pale gold. */
 .dark {
-  --background: oklch(0.13 0.004 285);
+  --background: oklch(0.13 0.003 80);
   --foreground: oklch(0.93 0.012 85);
-  --card: oklch(0.17 0.005 285);
+  --card: oklch(0.13 0.003 80);
   --card-foreground: oklch(0.93 0.012 85);
-  --popover: oklch(0.17 0.005 285);
+  --popover: oklch(0.17 0.004 80);
   --popover-foreground: oklch(0.93 0.012 85);
-  /* champagne gold on obsidian ≈ 9.5:1; dark text on gold ≈ 9:1 */
-  --primary: oklch(0.79 0.11 85);
-  --primary-foreground: oklch(0.15 0.01 285);
-  --secondary: oklch(0.21 0.006 285);
+  --primary: oklch(0.93 0.012 85);
+  --primary-foreground: oklch(0.13 0.003 80);
+  --secondary: oklch(0.175 0.004 80);
   --secondary-foreground: oklch(0.93 0.012 85);
-  --muted: oklch(0.21 0.006 285);
-  --muted-foreground: oklch(0.7 0.012 85);
-  --accent: oklch(0.23 0.008 285);
+  --muted: oklch(0.175 0.004 80);
+  --muted-foreground: oklch(0.7 0.014 80);
+  --accent: oklch(0.2 0.005 80);
   --accent-foreground: oklch(0.93 0.012 85);
-  --destructive: oklch(0.65 0.19 25);
-  --success: oklch(0.75 0.14 155);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.79 0.11 85);
-  --gold: oklch(0.79 0.11 85);
-  --gold-foreground: oklch(0.15 0.01 285);
-  --surface: oklch(0.155 0.005 285);
-  --studio: oklch(1 0 0);
-  --studio-foreground: oklch(0.2 0.01 60);
-  --gradient-gold: linear-gradient(
-    135deg,
-    oklch(0.88 0.09 90),
-    oklch(0.72 0.12 80),
-    oklch(0.85 0.1 88)
+  --destructive: oklch(0.66 0.17 25);
+  --success: oklch(0.74 0.12 155);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: oklch(0.8 0.06 85);
+  --metal: oklch(0.8 0.06 85);
+  --surface: oklch(0.175 0.004 80);
+  --rim-light: radial-gradient(
+    ellipse 55% 50% at 50% 50%,
+    oklch(0.32 0.01 80 / 0.55),
+    transparent 70%
   );
-  --studio-light: radial-gradient(ellipse at 50% 45%, oklch(0.3 0.015 250 / 0.45), transparent 65%);
-  --texture: repeating-linear-gradient(90deg, oklch(1 0 0 / 1.6%) 0 1px, transparent 1px 3px);
+  --object-shadow: 0 40px 60px oklch(0 0 0 / 0.6);
+  --object-shadow-hero: 0 50px 70px oklch(0 0 0 / 0.65);
+  --object-contact: oklch(0 0 0 / 0.45);
+  --object-sheen: oklch(1 0 0 / 0.26);
 }
 
 @layer base {
@@ -121,36 +111,49 @@
   }
   html {
     scroll-behavior: smooth;
+    scrollbar-color: color-mix(in oklab, var(--foreground) 25%, transparent) var(--background);
+    scrollbar-width: thin;
   }
   body {
     @apply bg-background text-foreground;
-    background-image: var(--texture);
+    caret-color: var(--metal);
   }
   ::selection {
-    background: color-mix(in oklab, var(--gold) 35%, transparent);
+    background: color-mix(in oklab, var(--metal) 30%, transparent);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 1px solid var(--metal);
+    outline-offset: 3px;
+  }
+  a {
+    text-underline-offset: 0.35em;
+    text-decoration-thickness: 1px;
   }
 }
 
-@utility text-gold-gradient {
-  background: var(--gradient-gold);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/* Latin captions only. Persian is never tracked: spacing breaks the joins of the script. */
+@utility caps {
+  font-family: var(--font-jost), ui-sans-serif, sans-serif;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  line-height: 1.6;
 }
 
-@utility bg-gold-gradient {
-  background: var(--gradient-gold);
+@utility rim-light {
+  background: var(--rim-light);
 }
 
-/* No letter-spacing: tracking breaks the joins of Persian script */
-@utility eyebrow {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-gold);
+@utility hairline {
+  border-color: color-mix(in oklab, var(--metal) 45%, transparent);
 }
 
-@utility studio-light {
-  background: var(--studio-light);
+/* The custom cursor replaces the system one only for fine pointers that asked for motion */
+html[data-cursor="on"],
+html[data-cursor="on"] * {
+  cursor: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -159,7 +162,7 @@
   }
 }
 
-/* The travelling movement drifts a little, like an object hanging in a showcase */
+/* The travelling movement drifts a little, like an object hanging in a vitrine */
 @keyframes float {
   0%,
   100% {
@@ -170,32 +173,11 @@
   }
 }
 
-/* Amber light falling on a dark bench, as in a jeweller's window at night */
-@utility warm-glow {
-  background:
-    radial-gradient(
-      ellipse 60% 55% at 50% 58%,
-      color-mix(in oklab, var(--gold) 26%, transparent),
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 90% 70% at 50% 110%,
-      color-mix(in oklab, var(--gold) 14%, transparent),
-      transparent 70%
-    );
-}
-
-/* Studio light on the photographed movement: a soft shadow on ivory, a deep one on obsidian */
-:root {
-  --object-shadow: 0 36px 48px oklch(0.3 0.02 60 / 0.28);
-  --object-shadow-hero: 0 44px 60px oklch(0.3 0.02 60 / 0.3);
-  --object-contact: oklch(0.3 0.02 60 / 0.22);
-  --object-sheen: oklch(1 0 0 / 0.32);
-}
-
-.dark {
-  --object-shadow: 0 40px 60px oklch(0 0 0 / 0.6);
-  --object-shadow-hero: 0 50px 70px oklch(0 0 0 / 0.65);
-  --object-contact: oklch(0 0 0 / 0.45);
-  --object-sheen: oklch(1 0 0 / 0.28);
+/* The one display size: every page keeps to it, body text and small captions */
+@utility display {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  text-wrap: balance;
 }

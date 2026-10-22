@@ -21,7 +21,7 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="right" className="w-full max-w-xs">
         <SheetHeader>
-          <SheetTitle className="font-display text-2xl">کرونوس</SheetTitle>
+          <SheetTitle className="font-display text-2xl font-normal">کرونوس</SheetTitle>
         </SheetHeader>
         <nav aria-label="منوی اصلی" className="flex flex-col px-4">
           {NAV_LINKS.map((link, index) => (
@@ -30,7 +30,7 @@ export function MobileNav() {
               <Link
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="block py-4 text-lg hover:text-gold"
+                className="block py-5 text-lg transition-colors duration-500 hover:text-metal"
               >
                 {link.label}
               </Link>
