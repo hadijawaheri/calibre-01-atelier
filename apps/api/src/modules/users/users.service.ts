@@ -1,8 +1,10 @@
 import type { Role, UserDto } from "@kronos/contracts";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 
+import type { RefreshTokenDocument } from "../auth/schemas/refresh-token.schema.js";
+import { RefreshToken } from "../auth/schemas/refresh-token.schema.js";
 import type { UpdateProfileDto } from "./dto/update-profile.dto.js";
 import type { UserDocument } from "./schemas/user.schema.js";
 import { User } from "./schemas/user.schema.js";
@@ -10,7 +12,10 @@ import { toUserDto } from "./users.mapper.js";
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(RefreshToken.name) private readonly refreshModel: Model<RefreshTokenDocument>,
+  ) {}
 
   async getById(id: string): Promise<UserDto> {
     const user = await this.userModel.findById(id).lean();
@@ -48,7 +53,13 @@ export class UsersService {
     return toUserDto(user);
   }
 
+  /** Also ends every session of the account, so a refresh token issued before the deletion is worthless. */
   async softDelete(id: string): Promise<void> {
-    await this.userModel.updateOne({ _id: id }, { $set: { deletedAt: new Date() } });
+    const now = new Date();
+    await this.userModel.updateOne({ _id: id }, { $set: { deletedAt: now } });
+    await this.refreshModel.updateMany(
+      { userId: new Types.ObjectId(id), familyRevoked: false },
+      { $set: { familyRevoked: true, revokedAt: now } },
+    );
   }
 }

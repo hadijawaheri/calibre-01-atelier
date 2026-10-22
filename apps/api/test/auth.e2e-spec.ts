@@ -76,7 +76,10 @@ describe("auth (e2e)", () => {
 
   it("returns 401 with a Persian message without a session", async () => {
     const res = await t.http().get("/v1/auth/me").expect(401);
-    expect(res.body).toMatchObject({ code: "UNAUTHENTICATED", message: "لطفاً وارد حساب خود شوید" });
+    expect(res.body).toMatchObject({
+      code: "UNAUTHENTICATED",
+      message: "لطفاً وارد حساب خود شوید",
+    });
   });
 
   it("rotates refresh tokens and revokes the family on reuse after the grace window", async () => {
@@ -98,7 +101,9 @@ describe("auth (e2e)", () => {
 
     // Simulate the grace window passing for the old token
     const { getModelToken } = await import("@nestjs/mongoose");
-    const refreshModel = t.app.get<import("mongoose").Model<unknown>>(getModelToken("RefreshToken"));
+    const refreshModel = t.app.get<import("mongoose").Model<unknown>>(
+      getModelToken("RefreshToken"),
+    );
     await refreshModel.updateMany(
       { revokedAt: { $ne: null } },
       { $set: { revokedAt: new Date(Date.now() - 60_000) } },
@@ -141,6 +146,14 @@ describe("auth (e2e)", () => {
     const again = await t.login("09120000007");
     const after = await again.get("/v1/auth/me").expect(200);
     expect(after.body.data.user.id).not.toBe(before.body.data.user.id);
+  });
+
+  it("ends every session of an account when it is deleted", async () => {
+    const phone = await t.login("09120000008");
+    const laptop = await t.login("09120000008");
+    const res = await phone.delete("/v1/users/me").expect(204);
+    expect(String(res.headers["set-cookie"])).toContain("Expires=Thu, 01 Jan 1970");
+    await laptop.post("/v1/auth/refresh").expect(401);
   });
 
   it("answers unknown routes with the error envelope", async () => {

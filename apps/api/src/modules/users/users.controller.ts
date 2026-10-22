@@ -1,14 +1,21 @@
 import type { ApiResponse, UserDto } from "@kronos/contracts";
-import { Body, Controller, Delete, HttpCode, Patch } from "@nestjs/common";
+import { Body, Controller, Delete, HttpCode, Patch, Res } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import type { Response } from "express";
 
 import { CurrentUser } from "../../common/decorators/current-user.decorator.js";
 import type { AuthUser } from "../../common/types/auth.js";
+import type { Env } from "../../config/env.js";
+import { clearSessionCookies } from "../auth/auth.cookies.js";
 import { UpdateProfileDto } from "./dto/update-profile.dto.js";
 import { UsersService } from "./users.service.js";
 
 @Controller({ path: "users", version: "1" })
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly config: ConfigService<Env, true>,
+  ) {}
 
   @Patch("me")
   async updateMe(
@@ -20,7 +27,11 @@ export class UsersController {
 
   @Delete("me")
   @HttpCode(204)
-  async deleteMe(@CurrentUser() user: AuthUser): Promise<void> {
+  async deleteMe(
+    @CurrentUser() user: AuthUser,
+    @Res({ passthrough: true }) res: Response,
+  ): Promise<void> {
     await this.usersService.softDelete(user.id);
+    clearSessionCookies(res, this.config.get("NODE_ENV", { infer: true }) === "production");
   }
 }
