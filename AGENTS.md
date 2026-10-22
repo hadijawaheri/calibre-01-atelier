@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Watch previews use complete transparent raster renders for each strap to preserve the integrated lugs; exploded components use individual raster images referenced by metadata, keeping the MotionValue stage contract replaceable by a future GLB canvas.
+- Share exhibition transitions through the Kronos motion module and use the atelier Button variant for private-curation actions so motion and controls remain consistent across the experience.
