@@ -1,4 +1,5 @@
-# Watch visual redesign
-- [x] Replace vector watch parts with six transparent photographic renders.
-- [x] Replace all three strap previews with integrated realistic watch imagery.
-- [x] Refine studio lighting and verify assembly, hotspots, and strap switching.
+# Editorial design overhaul
+- [ ] Center the flagship watch in an open exhibition layout with restrained typography and ghost actions.
+- [ ] Refine photographic depth, inspection cursor, and weighted non-spring transitions.
+- [ ] Restyle specifications, strap selection, storytelling, and the private-curation drawer.
+- [ ] Verify assembly, hotspots, strap switching, curations, and desktop/mobile presentation.
