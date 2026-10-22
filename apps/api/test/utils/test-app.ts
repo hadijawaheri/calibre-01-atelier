@@ -28,8 +28,6 @@ export async function createTestApp(env: Record<string, string> = {}): Promise<T
     OTP_HMAC_SECRET: "test-otp-secret-test-otp-secret-test-00000",
     OTP_FIXED_CODE: OTP_CODE,
     SMS_PROVIDER: "console",
-    PAYMENT_PROVIDER: "fake",
-    PUBLIC_WEB_URL: "http://localhost:7782",
     THROTTLE_ENABLED: "false",
     ...env,
   });

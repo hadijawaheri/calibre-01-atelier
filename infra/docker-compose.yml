@@ -1,5 +1,5 @@
 # Local MongoDB only (the app itself runs on the host with pnpm dev).
-# A single-node replica set: orders reserve stock inside transactions.
+# A single-node replica set, like production, so transactions work when a feature needs them.
 services:
   mongo:
     image: mongo:8.0

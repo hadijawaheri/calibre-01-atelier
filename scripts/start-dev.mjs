@@ -1,4 +1,4 @@
-// One command for a local preview: embedded Mongo replica set + seed + API + web. No Docker or external DB.
+// One command for a local preview: embedded Mongo replica set + admin seed + API + web. No Docker or external DB.
 import { spawn } from "node:child_process";
 import { randomBytes } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -49,7 +49,7 @@ const replSet = await MongoMemoryReplSet.create({
 const childEnv = { ...process.env, DATABASE_URL: replSet.getUri("kronos") };
 console.log("      MongoDB ready:", childEnv.DATABASE_URL);
 
-console.log("[3/4] Seeding the catalogue ...");
+console.log("[3/4] Seeding the admin account ...");
 // Async on purpose: blocking the event loop stops us draining mongod's log pipe and mongod stalls
 const seedCode = await new Promise((resolve) => {
   spawn(process.execPath, ["--env-file=.env", "dist/seed.js"], {

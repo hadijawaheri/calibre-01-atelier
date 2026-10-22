@@ -76,12 +76,15 @@ pnpm install
 docker compose -f infra/docker-compose.yml up -d    # MongoDB به‌صورت replica set روی 27018
 cp apps/api/.env.example apps/api/.env              # دو secret را با openssl rand -base64 48 پر کنید
 cp apps/web/.env.example apps/web/.env.local
-pnpm seed                     # هشت ساعت نمونه و دسترسی مدیر برای SEED_ADMIN_MOBILE
+pnpm seed                     # دسترسی مدیر برای SEED_ADMIN_MOBILE
 pnpm dev                      # http://localhost:7782
 ```
 
-در حالت توسعه کد ورود در لاگ API چاپ می‌شود (یا اگر `OTP_FIXED_CODE` را بدهید، همان کد است) و پرداخت به یک درگاه
-آزمایشی می‌رود. هر دو در `NODE_ENV=production` ممنوع‌اند و اپ بدون پیامک و درگاه واقعی بالا نمی‌آید.
+در حالت توسعه کد ورود در لاگ API چاپ می‌شود (یا اگر `OTP_FIXED_CODE` را بدهید، همان کد است). هر دو در
+`NODE_ENV=production` ممنوع‌اند و اپ بدون سرویس پیامک واقعی بالا نمی‌آید.
+
+ایندکس‌های دیتابیس در production با `pnpm --filter @kronos/api migrate` ساخته می‌شوند (`scripts/deploy.sh` این را
+خودش اجرا می‌کند). کامپوننت‌های shadcn با سبک `new-york` و RTL هستند (`apps/web/components.json`، ADR 0003).
 
 ## بررسی
 

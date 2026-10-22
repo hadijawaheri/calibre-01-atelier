@@ -15,11 +15,8 @@ import { ZodValidationPipe } from "./common/zod/zod-validation.pipe.js";
 import type { Env } from "./config/env.js";
 import { validateEnv } from "./config/env.js";
 import { HealthModule } from "./health/health.module.js";
-import { PaymentModule } from "./infra/payment/payment.module.js";
 import { SmsModule } from "./infra/sms/sms.module.js";
 import { AuthModule } from "./modules/auth/auth.module.js";
-import { OrdersModule } from "./modules/orders/orders.module.js";
-import { ProductsModule } from "./modules/products/products.module.js";
 import { UsersModule } from "./modules/users/users.module.js";
 
 @Module({
@@ -65,12 +62,9 @@ import { UsersModule } from "./modules/users/users.module.js";
     }),
     JwtModule.register({ global: true }),
     SmsModule,
-    PaymentModule,
     HealthModule,
     UsersModule,
     AuthModule,
-    ProductsModule,
-    OrdersModule,
   ],
   providers: [
     { provide: APP_PIPE, useClass: ZodValidationPipe },

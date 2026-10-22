@@ -13,7 +13,6 @@ export function configureApp(app: NestExpressApplication): void {
 
   app.useLogger(app.get(Logger));
   app.set("trust proxy", 1);
-  app.set("query parser", "extended");
   app.use(helmet());
   app.use(cookieParser());
   app.enableVersioning({ type: VersioningType.URI, defaultVersion: "1" });

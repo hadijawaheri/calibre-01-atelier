@@ -15,14 +15,11 @@ const envSchema = z
       .string()
       .default("http://localhost:7782")
       .transform((value) => value.split(",").map((origin) => origin.trim())),
-    // Public origin of the web app; payment gateways redirect the shopper back here
-    PUBLIC_WEB_URL: z.url().default("http://localhost:7782"),
     SMS_PROVIDER: z.enum(["console", "melipayamak"]).default("console"),
     OTP_FIXED_CODE: z
       .string()
       .regex(/^\d{6}$/)
       .optional(),
-    PAYMENT_PROVIDER: z.enum(["fake", "zarinpal"]).default("fake"),
     THROTTLE_ENABLED: z
       .enum(["true", "false"])
       .default("true")
@@ -34,11 +31,9 @@ const envSchema = z
   })
   .refine(
     (env) =>
-      env.NODE_ENV !== "production" ||
-      (!env.OTP_FIXED_CODE && env.SMS_PROVIDER !== "console" && env.PAYMENT_PROVIDER !== "fake"),
+      env.NODE_ENV !== "production" || (!env.OTP_FIXED_CODE && env.SMS_PROVIDER !== "console"),
     {
-      message:
-        "OTP_FIXED_CODE, the console SMS provider and the fake payment provider are forbidden in production",
+      message: "OTP_FIXED_CODE and the console SMS provider are forbidden in production",
     },
   );
 

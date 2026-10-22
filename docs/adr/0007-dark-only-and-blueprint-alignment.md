@@ -6,8 +6,10 @@ The owner re-sent the blueprint and asked for everything to follow it. An audit 
 closed:
 
 - Production indexes come from versioned `migrate-mongo` migrations (`apps/api/migrations`), run by
-  `scripts/deploy.sh` before the reload. The first migration covers the account collections (users, OTPs,
-  refresh tokens).
+  `scripts/deploy.sh` before the reload. An e2e test fails if a migration and the schemas declare different indexes.
+- The shop's API modules (products, orders, payment), their contracts, seed data and tests are removed, as ADR 0005
+  decided for the site. The API no longer refuses to boot in production for want of a payment gateway, and the
+  extended query parser, which only the catalogue filters needed, is gone.
 - Deleting an account revokes every refresh family and clears the cookies.
 - The lab respects reduced motion, the stage placeholder is a `Skeleton`, `page.tsx` files only route, the `(site)`
   group has its own `loading.tsx` and `error.tsx` inside the shell, calibre pages carry JSON-LD and the site an

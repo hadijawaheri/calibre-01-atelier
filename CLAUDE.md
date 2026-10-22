@@ -5,10 +5,11 @@ Source of truth: PROJECT_BLUEPRINT_SHADCN.md (the project blueprint). This file 
 ## Commands
 
 - `pnpm dev` | `pnpm typecheck` | `pnpm lint` | `pnpm test` | `pnpm build` | `pnpm seed`
-- MongoDB must be a replica set (orders reserve stock in transactions): `docker compose -f infra/docker-compose.yml up -d`
+- MongoDB runs as a replica set, like production: `docker compose -f infra/docker-compose.yml up -d`
+- Production indexes come from `apps/api/migrations` (`pnpm --filter @kronos/api migrate`); add a migration with every schema index
 - API e2e tests start an in-memory Mongo replica set. Offline, point them at a local binary:
   `MONGOMS_SYSTEM_BINARY=$(which mongod) MONGOMS_SYSTEM_BINARY_VERSION_CHECK=false pnpm test`
-- Web e2e: `pnpm build && pnpm seed`, run the API and `node .next/standalone/apps/web/server.js`, then `pnpm --filter @kronos/web test:e2e` (needs apps/api/.env with OTP_FIXED_CODE=123456 and PAYMENT_PROVIDER=fake)
+- Web e2e: `pnpm --filter @kronos/web build`, run `node .next/standalone/apps/web/server.js` (no API or DB needed), then `pnpm --filter @kronos/web test:e2e`
 - Use pnpm only. The lockfile is committed. TypeScript and ESLint are pinned in the pnpm catalog on purpose.
 
 ## Architecture
