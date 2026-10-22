@@ -3,6 +3,7 @@ import Link from "next/link";
 import { BrandMark } from "./brand-mark";
 import { MobileNav } from "./mobile-nav";
 import { NAV_LINKS } from "./nav-links";
+import { ThemeToggle } from "./theme-toggle";
 
 export function SiteHeader() {
   return (
@@ -29,7 +30,9 @@ export function SiteHeader() {
           </nav>
         </div>
         <BrandMark />
-        <div />
+        <div className="flex justify-end">
+          <ThemeToggle />
+        </div>
       </div>
     </header>
   );

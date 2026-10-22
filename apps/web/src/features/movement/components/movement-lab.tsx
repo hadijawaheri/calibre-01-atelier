@@ -324,7 +324,7 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
                     )}
                   >
                     {part.name}
-                    <span className="font-mono text-[11px] opacity-60" dir="ltr">
+                    <span className="font-mono text-[11px] text-muted-foreground" dir="ltr">
                       {part.nameEn}
                     </span>
                   </button>

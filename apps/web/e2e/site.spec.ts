@@ -182,3 +182,26 @@ test("calibre pages describe themselves to search engines and link previews", as
   );
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /\/lab\/quartz$/);
 });
+
+test("the light theme follows the system and the header toggle switches it", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "light" });
+  await page.goto("/lab/quartz");
+  const html = page.locator("html");
+  await expect(html).not.toHaveClass(/\bdark\b/);
+  await expectAccessible(page);
+
+  await page.getByRole("button", { name: "تم تیره" }).click();
+  await expect(html).toHaveClass(/\bdark\b/);
+  await page.reload();
+  await expect(html).toHaveClass(/\bdark\b/);
+  await page.getByRole("button", { name: "تم روشن" }).click();
+  await expect(html).not.toHaveClass(/\bdark\b/);
+});
+
+// The other tests run in Playwright's default light scheme; this one checks contrast in the dark theme
+test("the home page reads well in the dark theme", async ({ page }) => {
+  await page.emulateMedia({ colorScheme: "dark" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveClass(/\bdark\b/);
+  await expectAccessible(page);
+});

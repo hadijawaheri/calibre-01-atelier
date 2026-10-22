@@ -11,8 +11,10 @@ import { cormorant, jetbrains, vazirmatn } from "./fonts";
 export const metadata: Metadata = defaultMetadata;
 
 export const viewport: Viewport = {
-  // The site is dark only (ADR 0007), whatever the system prefers
-  themeColor: "#0e0e10",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0e0e10" },
+    { media: "(prefers-color-scheme: light)", color: "#f7f3ec" },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

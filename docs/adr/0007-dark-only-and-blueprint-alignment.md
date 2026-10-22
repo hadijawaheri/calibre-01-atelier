@@ -1,4 +1,4 @@
-# 0007. Dark only, and where the web app departs from the blueprint
+# 0007. Light and dark themes, and where the web app departs from the blueprint
 
 Status: accepted
 
@@ -17,11 +17,12 @@ closed:
 - Caddy caches `/media/*` (film frames and photographs) for a week; the names are not hashed, so not `immutable`.
 - The RTL lint rule also checks template literals.
 
+Both themes, as the blueprint asks: the system preference decides until the visitor uses the toggle in the header.
+The site was briefly dark only; the owner asked for the ivory theme back. The studio shadow under the photographed
+movement is themed too, soft on ivory and deep on obsidian.
+
 Deliberate departures that stay:
 
-- **Dark only.** The home page film and photographs are shot on a dark studio, and the travelling movement is cut
-  out for a dark page. `ThemeProvider` forces dark. The light tokens stay in `globals.css` so a light theme can come
-  back without redesigning the palette.
 - **No signed-in web app yet.** The blueprint's `lib/api`, `lib/auth/dal.ts`, `proxy.ts`, sign-in and dashboard
   routes, TanStack Query, RHF, nuqs and MSW come back with the community features (reviews, have/had/want lists).
   Adding them now would ship code no page uses.
