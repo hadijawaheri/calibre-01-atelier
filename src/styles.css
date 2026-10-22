@@ -99,6 +99,7 @@
 .atelier-range:focus-visible { outline: 1px solid var(--gold); outline-offset: 8px; }
 .exhibition-section { max-width: 1280px; margin: 0 auto; padding: 112px 64px; }
 .section-heading { max-width: 640px; }
+#anatomy { padding-top: 32px; }
 .specifications > div { padding-left: 24px; border-left: 1px solid var(--border); }
 .specifications > div:first-child { padding-left: 0; border: 0; }
 .anatomy-detail .detail-plus { transition: transform 1s var(--motion-ease); }
@@ -119,9 +120,9 @@
   .display { font-size: 40px; }
   .atelier-nav .brand span { display: none; }
   .atelier-nav .micro { font-size: 12px; letter-spacing: 0; }
-  .flagship { padding-top: 112px; padding-bottom: 40px; }
+  .flagship { padding-top: 112px; padding-bottom: 16px; }
   .flagship .eyebrow { letter-spacing: 0.15em; }
-  .flagship-stage { height: 330px; margin-top: 12px; }
+  .flagship-stage { height: 300px; margin-top: 12px; }
   .flagship .mt-8 { margin-top: 24px; }
   .exhibition-section { padding: 80px 24px; }
   .specifications { column-gap: 20px; }
