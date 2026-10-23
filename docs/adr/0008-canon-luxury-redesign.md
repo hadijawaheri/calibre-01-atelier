@@ -11,8 +11,8 @@ and set aside in favour of his brief. The direction contract lives in
 
 Decisions:
 
-- **Fonts, self-hosted:** Bodoni Moda for Latin display, Markazi Text for Persian display (a Naskh with real stroke
-  contrast, drawn for Persian), Jost for Latin text, Vazirmatn for Persian text. Cormorant and JetBrains Mono are gone.
+- **Fonts, self-hosted:** Bodoni Moda for Latin display, Amiri for Persian display (a classical Naskh with real
+  stroke contrast), Jost for Latin text, Vazirmatn for Persian text. Cormorant and JetBrains Mono are gone.
   Persian is never letter-spaced; only Latin captions use the `caps` utility.
 - **One heading size per page** (`display`), body, and small captions. No kickers above headings, no chips, no section
   numbers, no cards: catalogues are ruled lists (home families, lab index).

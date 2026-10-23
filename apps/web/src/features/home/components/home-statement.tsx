@@ -1,3 +1,5 @@
+import { StillMovement } from "./still-movement";
+
 /* The text holds the top of the screen; the travelling movement tilts onto its edge below it, the way
    oryzo lifts its object under a headline and its answer. */
 export function HomeStatement() {
@@ -14,6 +16,7 @@ export function HomeStatement() {
         زیر هر صفحهٔ ساعت مکانیکی، ماشینی است که با دست مونتاژ شده: فنری که انرژی را نگه می‌دارد،
         چرخ‌هایی که آن را تقسیم می‌کنند و چرخی طلایی که آن را به ثانیه‌های برابر تبدیل می‌کند.
       </p>
+      <StillMovement className="mt-[12dvh] w-[min(80vw,36rem)] justify-self-center lg:col-span-2" />
     </section>
   );
 }

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { paths } from "@/lib/paths";
 
+import { StillMovement } from "./still-movement";
+
 /* The travelling movement comes back for the last time, turned over to its dial side, above the way in. */
 export function HomeFinale() {
   return (
@@ -12,6 +14,7 @@ export function HomeFinale() {
       className="relative isolate flex h-[150dvh] flex-col items-center justify-end gap-6 overflow-hidden px-4 pb-[30dvh] text-center sm:px-8"
     >
       <div aria-hidden className="absolute inset-x-0 top-0 -z-10 h-2/3 rim-light" />
+      <StillMovement side="dial" className="mb-[8dvh] w-[min(80vw,40rem)]" />
       <h2 id="finale-title" className="display">
         دو رو، یک قلب
       </h2>
@@ -24,9 +27,6 @@ export function HomeFinale() {
           ورود به آزمایشگاه
         </Link>
       </Button>
-      <p className="caps text-muted-foreground" dir="ltr">
-        Two faces · One heart
-      </p>
     </section>
   );
 }

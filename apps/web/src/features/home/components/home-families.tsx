@@ -21,13 +21,10 @@ export function HomeFamilies() {
       aria-labelledby="families-title"
       className="mx-auto flex max-w-7xl flex-col gap-16 px-4 py-48 sm:px-8"
     >
-      <div className="flex flex-col items-center gap-5 text-center">
+      <div className="flex flex-col items-center text-center">
         <h2 id="families-title" className="display">
           چهار خانوادهٔ موومنت
         </h2>
-        <p className="caps text-muted-foreground" dir="ltr">
-          Four families
-        </p>
       </div>
       <div className="flex flex-col">
         <div

@@ -23,10 +23,10 @@ export const bodoni = localFont({
   display: "swap",
 });
 
-// The Persian counterpart of the didone: a Naskh with real thick and thin strokes, drawn for Persian
-export const markazi = localFont({
-  src: "../../assets/fonts/markazi-text-arabic-variable.woff2",
-  variable: "--font-markazi",
-  weight: "400 700",
+// The Persian counterpart of the didone: a classical Naskh with real thick and thin strokes
+export const amiri = localFont({
+  src: "../../assets/fonts/amiri-arabic-400.woff2",
+  variable: "--font-amiri",
+  weight: "400",
   display: "swap",
 });

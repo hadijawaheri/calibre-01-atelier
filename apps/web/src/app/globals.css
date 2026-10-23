@@ -6,7 +6,7 @@
 @theme inline {
   /* Latin from the didone and the geometric sans; Persian falls through to its own pair */
   --font-sans: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-bodoni), var(--font-markazi), var(--font-vazirmatn), serif;
+  --font-display: var(--font-bodoni), var(--font-amiri), var(--font-vazirmatn), serif;
 
   --radius-sm: var(--radius);
   --radius-md: var(--radius);
@@ -176,9 +176,9 @@ html[data-cursor="on"] * {
 /* The one display size: every page keeps to it, body text and small captions */
 @utility display {
   /* @theme inline does not emit --font-display, so the stack is spelled out */
-  font-family: var(--font-bodoni), var(--font-markazi), var(--font-vazirmatn), serif;
+  font-family: var(--font-bodoni), var(--font-amiri), var(--font-vazirmatn), serif;
   font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem);
-  font-weight: 500;
-  line-height: 1.2;
+  font-weight: 400;
+  line-height: 1.35;
   text-wrap: balance;
 }

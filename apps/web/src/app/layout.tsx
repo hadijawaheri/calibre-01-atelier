@@ -6,7 +6,7 @@ import { AppProviders } from "@/components/providers/app-providers";
 import { defaultMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-import { bodoni, jost, markazi, vazirmatn } from "./fonts";
+import { amiri, bodoni, jost, vazirmatn } from "./fonts";
 
 export const metadata: Metadata = defaultMetadata;
 
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         vazirmatn.variable,
         jost.variable,
         bodoni.variable,
-        markazi.variable,
+        amiri.variable,
       )}
     >
       <body className="min-h-dvh bg-background font-sans text-foreground">

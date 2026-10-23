@@ -1,3 +1,5 @@
+import { StillMovement } from "./still-movement";
+
 export function HomeWrist() {
   return (
     <section
@@ -12,9 +14,7 @@ export function HomeWrist() {
         روتور نیم‌دایره با هر تکان دست می‌چرخد و فنر اصلی را کوک می‌کند. تا وقتی ساعت را می‌بندید،
         هیچ باتری‌ای لازم نیست.
       </p>
-      <p className="caps text-metal" dir="ltr">
-        Powered by your wrist
-      </p>
+      <StillMovement className="mt-[10dvh] w-[min(80vw,36rem)]" />
     </section>
   );
 }

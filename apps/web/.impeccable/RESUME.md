@@ -7,7 +7,7 @@ The site must carry many photos, long articles and video later.
 
 ## Done
 
-- Fonts: Bodoni Moda (Latin display), Markazi Text (Persian display), Jost (Latin text), Vazirmatn (Persian text).
+- Fonts: Bodoni Moda (Latin display), Amiri (Persian display), Jost (Latin text), Vazirmatn (Persian text).
   Cormorant and JetBrains Mono removed.
 - Tokens in `globals.css`: ivory/stone light, matte black/charcoal dark, `--metal` (bronze light, pale gold dark)
   replaces `--gold`; square corners; utilities `display` (the one heading size), `caps` (Latin tracked captions only),

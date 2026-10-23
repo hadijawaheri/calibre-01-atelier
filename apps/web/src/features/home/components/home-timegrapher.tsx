@@ -54,9 +54,6 @@ export function HomeTimegrapher() {
           عنوان کرونومتر را مؤسسهٔ COSC می‌دهد: پانزده روز آزمایش در پنج وضعیت و سه دما. میانگین
           خطای روزانه باید درون نوار روشن بماند، بین ۴ ثانیه عقب و ۶ ثانیه جلو.
         </p>
-        <p className="caps text-muted-foreground" dir="ltr">
-          Chronometric stability
-        </p>
       </div>
 
       <figure className="flex flex-col gap-8">
@@ -119,6 +116,10 @@ export function HomeTimegrapher() {
             </div>
           ))}
         </dl>
+        <figcaption className="text-xs leading-6 text-muted-foreground">
+          نمودار و عددها نمونهٔ نمایشی‌اند تا شکل یک آزمایش را نشان دهند، نه اندازه‌گیری همین
+          موومنت.
+        </figcaption>
       </figure>
     </section>
   );

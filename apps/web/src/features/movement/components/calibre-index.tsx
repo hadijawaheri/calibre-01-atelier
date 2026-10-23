@@ -15,9 +15,6 @@ export function CalibreIndex() {
           چهار خانوادهٔ بزرگ موومنت: اتوماتیک، فوق‌باریک، کوارتز و توربیون. هر کدام با سازوکار،
           مشخصات و ساعت‌هایی که در آن‌ها می‌تپد.
         </p>
-        <p className="caps text-muted-foreground" dir="ltr">
-          The movement lab
-        </p>
       </header>
       <ul className="flex flex-col border-t hairline">
         {CALIBRES.map((calibre) => (

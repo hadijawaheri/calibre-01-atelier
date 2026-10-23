@@ -178,7 +178,8 @@ export function MovementFilm() {
       className="relative h-[520vh]"
     >
       <div className="sticky top-0 flex h-dvh flex-col overflow-hidden lg:block">
-        <div className="relative mt-16 h-[46dvh] w-full shrink-0 lg:absolute lg:inset-0 lg:mt-0 lg:h-auto">
+        {/* On wide screens the film is a framed plate beside the words, so neither sits on the other */}
+        <div className="relative mt-16 h-[46dvh] w-full shrink-0 lg:absolute lg:end-[5vw] lg:top-1/2 lg:mt-0 lg:aspect-video lg:h-auto lg:w-[52vw] lg:-translate-y-1/2 xl:w-[56vw]">
           {/* The first frame paints with the page; the canvas takes over once the film starts loading */}
           <Image
             src={frameUrl("lg", 0)}
@@ -191,8 +192,26 @@ export function MovementFilm() {
           />
           <canvas ref={canvas} aria-hidden className="absolute inset-0 size-full" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-background to-transparent lg:hidden" />
+          <ol aria-hidden className="absolute inset-x-0 top-full mt-6 hidden gap-4 lg:flex">
+            {CHAPTERS.map((chapter, index) => (
+              <li
+                key={chapter.title}
+                className={cn(
+                  "flex flex-1 flex-col gap-3 text-xs transition-colors duration-700",
+                  index === active ? "text-foreground" : "text-muted-foreground",
+                )}
+              >
+                <span
+                  className={cn(
+                    "h-px w-full transition-colors duration-700 ease-glide",
+                    index === active ? "bg-metal" : "bg-border",
+                  )}
+                />
+                {chapter.eyebrow}
+              </li>
+            ))}
+          </ol>
         </div>
-        <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_left,var(--color-background)_0%,color-mix(in_oklab,var(--color-background)_85%,transparent)_34%,transparent_62%)] lg:block" />
         <div className="pointer-events-none relative mx-auto flex w-full max-w-7xl flex-1 items-start px-4 pt-6 sm:px-6 lg:absolute lg:inset-0 lg:items-center lg:pt-0">
           <div className="relative w-full max-w-md lg:max-w-sm">
             {CHAPTERS.map((chapter, index) => (
@@ -224,28 +243,6 @@ export function MovementFilm() {
             ))}
           </div>
         </div>
-        <ol
-          aria-hidden
-          className="absolute end-4 top-1/2 hidden -translate-y-1/2 flex-col items-end gap-4 sm:end-8 lg:flex"
-        >
-          {CHAPTERS.map((chapter, index) => (
-            <li
-              key={chapter.title}
-              className={cn(
-                "flex items-center gap-3 text-xs transition-colors duration-700",
-                index === active ? "text-foreground" : "text-muted-foreground/60",
-              )}
-            >
-              {chapter.eyebrow}
-              <span
-                className={cn(
-                  "h-px transition-[width,background-color] duration-700 ease-glide",
-                  index === active ? "w-10 bg-metal" : "w-4 bg-border",
-                )}
-              />
-            </li>
-          ))}
-        </ol>
       </div>
     </section>
   );

@@ -29,7 +29,7 @@ THESIS: one real movement in a museum vitrine; the page is the empty room around
 badges: the category's busy product page.
 
 OWN-WORLD: matte black and charcoal (dark), ivory and stone beige (light); pale gold (dark) or bronze (light) only as
-hairlines, small type and icons. Bodoni Moda for Latin display, Markazi Text for Persian display, Jost and Vazirmatn
+hairlines, small type and icons. Bodoni Moda for Latin display, Amiri for Persian display, Jost and Vazirmatn
 for text; Latin captions in tracked capitals. Square corners, 1px rules, no fills on controls but the one primary
 button, soft offset shadows and a rim light behind the object.
 

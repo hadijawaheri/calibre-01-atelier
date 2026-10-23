@@ -30,7 +30,7 @@ const LIGHT = new THREE.Color("#ece8e0");
 const DARK = new THREE.Color("#080706");
 const FLOOR_Z = -4.6;
 
-/** The table and the room behind it. Like the reference films, the light studio turns dark while the parts float. */
+/** The room behind the movement. Like the reference films, the light studio turns dark while the parts float. */
 function Backdrop({
   controls,
   mode,
@@ -39,28 +39,17 @@ function Backdrop({
   mode: "studio" | "night";
 }) {
   const background = useRef<THREE.Color>(null);
-  const floor = useRef<THREE.MeshStandardMaterial>(null);
   const dark = useRef(mode === "night" ? 1 : 0);
 
   useFrame((_, delta) => {
     const goal = mode === "night" ? 1 : Math.min(1, controls.current.explode * 1.6);
     dark.current += (goal - dark.current) * Math.min(1, delta * 2);
     background.current?.copy(LIGHT).lerp(DARK, dark.current);
-    if (floor.current) {
-      floor.current.color.copy(LIGHT).lerp(DARK, dark.current * 0.9);
-      floor.current.roughness = 0.6 - dark.current * 0.35;
-    }
   });
 
-  return (
-    <>
-      <color ref={background} attach="background" args={[mode === "night" ? DARK : LIGHT]} />
-      <mesh position={[0, 0, FLOOR_Z - 0.01]}>
-        <circleGeometry args={[400, 64]} />
-        <meshStandardMaterial ref={floor} metalness={0} />
-      </mesh>
-    </>
-  );
+  // No lit table: a lit plane drifts off the page's colour under the studio lights, so only the contact shadow
+  // grounds the movement and the room stays exactly the page's ivory or black
+  return <color ref={background} attach="background" args={[mode === "night" ? DARK : LIGHT]} />;
 }
 
 /** Studio lighting built from light panels, so the scene needs no HDR file from the network. */
