@@ -26,7 +26,7 @@ interface MovementStageProps {
 }
 
 // The page's own ivory and matte black, so the stage reads as the same room
-const LIGHT = new THREE.Color("#ece8e0");
+const LIGHT = new THREE.Color("#f6f3ed");
 const DARK = new THREE.Color("#080706");
 const FLOOR_Z = -4.6;
 
