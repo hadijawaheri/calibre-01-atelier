@@ -18,18 +18,12 @@ The site must carry many photos, long articles and video later.
   ledger), finale. Eyebrows, chips, numbers and cards removed.
 - typecheck and lint green at this point. Not yet built, screenshotted or e2e-tested.
 
-## To do
+## To do (updated 2026-10-23)
 
-1. Still using removed classes (`eyebrow`, `text-gold`, `font-mono`, `bg-surface/60` cards): `movement-lab.tsx`,
-   `calibre-index.tsx` (make it a ledger like home-families), `calibre-profile.tsx`, `calibre-facts.tsx`,
-   `components/shared/page-header.tsx`, `app/not-found.tsx`, `app/(site)/loading.tsx`, `components/layout/error-state.tsx`.
-   Add `data-cursor="بکشید تا بچرخد"` to the lab canvas; hide its touch hint on fine pointers.
-2. `layout.tsx` themeColor: match new backgrounds.
-3. Build, screenshot (`$S/tour.mjs`, both themes, mobile 390 + desktop 1440), fix, check contrast and Markazi ZWNJ
-   rendering.
-4. Update e2e tests for changed copy (hero h1 is now "موومنت واقعی، در حال کار"), run typecheck, lint, unit, e2e.
-5. `impeccable detect --json`, capture `.impeccable/review/desktop.png` + `mobile.png`, spawn
-   `impeccable-finish-reviewer`, then `impeccable-documenter` (DESIGN.md + `.impeccable/design.json`; include rules
-   for articles, figures and video).
-6. ADR for the redesign; merge the branch into `feat/watch-reference`, push to PR #2, reply to Hadi in Persian with
+Lab, lab index, profile, 404, loading and error states are redone; e2e (26), unit, typecheck and lint pass;
+`impeccable detect` is clean. Review captures live in `.impeccable/review/` (gitignored).
+
+1. Act on the finish reviewer's disposition, then spawn `impeccable-documenter` (DESIGN.md + `.impeccable/design.json`;
+   include rules for articles, figures and video).
+2. ADR for the redesign; merge the branch into `feat/watch-reference`, push to PR #2, reply to Hadi in Persian with
    previews.

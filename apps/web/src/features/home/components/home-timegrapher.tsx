@@ -44,7 +44,7 @@ export function HomeTimegrapher() {
       ref={ref}
       data-stage="timegrapher"
       aria-labelledby="timegrapher-title"
-      className="mx-auto grid max-w-7xl items-center gap-16 px-4 py-48 sm:px-8 lg:grid-cols-[minmax(0,22rem)_1fr]"
+      className="mx-auto grid max-w-7xl items-center gap-16 px-4 py-48 sm:px-8 lg:grid-cols-[minmax(0,28rem)_1fr]"
     >
       <div className="flex flex-col gap-6">
         <h2 id="timegrapher-title" className="display">

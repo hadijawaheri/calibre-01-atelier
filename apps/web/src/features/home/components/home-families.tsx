@@ -45,9 +45,9 @@ export function HomeFamilies() {
               <Link
                 href={paths.labCalibre(calibre.slug)}
                 data-cursor="باز کنید"
-                className={`group grid gap-6 py-8 transition-colors duration-500 hover:bg-surface/60 focus-visible:bg-surface/60 lg:gap-8 lg:py-10 ${COLUMNS}`}
+                className={`group grid grid-cols-2 gap-x-6 gap-y-5 py-8 transition-colors duration-500 hover:bg-surface/60 focus-visible:bg-surface/60 lg:gap-8 lg:py-10 ${COLUMNS}`}
               >
-                <h3 className="font-display text-3xl">{calibre.name}</h3>
+                <h3 className="col-span-2 font-display text-3xl lg:col-span-1">{calibre.name}</h3>
                 <dl className="contents">
                   {ROWS.map((row) => (
                     <div key={row.key} className="flex flex-col gap-1">

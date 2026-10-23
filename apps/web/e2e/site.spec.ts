@@ -41,7 +41,7 @@ test("home tells the movement's story and leads to the lab", async ({ page }) =>
   const errors = watchErrors(page);
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { level: 1, name: "کرونوس، دانشنامهٔ فارسی ساعت" }),
+    page.getByRole("heading", { level: 1, name: "موومنت واقعی، در حال کار" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "فقط یک ساعت نیست." })).toBeAttached();
   await expect(page.getByRole("heading", { level: 2, name: "با نیروی مچ شما" })).toBeAttached();

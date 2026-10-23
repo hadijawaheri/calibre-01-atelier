@@ -50,12 +50,18 @@ interface MovementCanvasProps {
   backdrop?: "studio" | "night";
   cad?: CadModel;
   className?: string;
+  /** What the custom cursor says over the stage. */
+  "data-cursor"?: string;
 }
 
-export function MovementCanvas({ className, ...props }: MovementCanvasProps) {
+export function MovementCanvas({
+  className,
+  "data-cursor": cursor,
+  ...props
+}: MovementCanvasProps) {
   const supported = useSyncExternalStore(subscribe, detectWebgl, () => true);
   return (
-    <div className={cn("relative", className)}>
+    <div className={cn("relative", className)} data-cursor={cursor}>
       {supported ? (
         <MovementStage
           {...props}

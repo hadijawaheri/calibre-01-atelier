@@ -64,11 +64,12 @@ function PlateCard({
   // Depth of field: the plate in focus is sharp, the ones waiting either side sit behind the lens's plane
   const filter = useTransform(progress, range, ["blur(6px)", "blur(0px)", "blur(6px)"]);
   return (
-    <motion.figure
-      style={{ scale, opacity, filter }}
-      className="flex w-(--card) shrink-0 flex-col gap-4"
-    >
-      <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+    <motion.figure style={{ scale }} className="flex w-(--card) shrink-0 flex-col gap-4">
+      {/* Only the photograph dims and blurs; the caption stays legible */}
+      <motion.div
+        style={{ opacity, filter }}
+        className="relative aspect-[4/5] overflow-hidden bg-surface"
+      >
         <Image
           src={plate.src}
           alt={plate.alt}
@@ -76,7 +77,7 @@ function PlateCard({
           sizes="(max-width: 1023px) 70vw, 30vw"
           className="object-cover"
         />
-      </div>
+      </motion.div>
       <figcaption className="flex items-baseline justify-between gap-3 border-t hairline pt-3">
         <span>{plate.caption}</span>
         <span className="caps text-muted-foreground tabular-nums" dir="ltr">

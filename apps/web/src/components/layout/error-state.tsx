@@ -20,20 +20,20 @@ export function ErrorState({
   }, [error]);
 
   return (
-    <div className="mx-auto flex max-w-xl flex-col items-center gap-6 px-4 py-32 text-center">
-      <h1 className="font-display text-4xl">مشکلی پیش آمد</h1>
+    <div className="mx-auto flex max-w-xl flex-col items-center gap-6 px-4 py-40 text-center">
+      <h1 className="display">مشکلی پیش آمد</h1>
       <p className="leading-7 text-muted-foreground">
         این صفحه بارگذاری نشد. دوباره تلاش کنید؛ اگر مشکل ماند، چند دقیقه بعد سر بزنید.
         {error.digest && (
           <>
             <br />
-            <span className="font-mono text-xs" dir="ltr">
+            <span className="caps" dir="ltr">
               {error.digest}
             </span>
           </>
         )}
       </p>
-      <div className="flex gap-3">
+      <div className="mt-4 flex gap-3">
         <Button onClick={reset}>
           <RotateCcw data-icon="inline-start" />
           تلاش دوباره

@@ -175,7 +175,8 @@ html[data-cursor="on"] * {
 
 /* The one display size: every page keeps to it, body text and small captions */
 @utility display {
-  font-family: var(--font-display);
+  /* @theme inline does not emit --font-display, so the stack is spelled out */
+  font-family: var(--font-bodoni), var(--font-markazi), var(--font-vazirmatn), serif;
   font-size: clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem);
   font-weight: 500;
   line-height: 1.2;

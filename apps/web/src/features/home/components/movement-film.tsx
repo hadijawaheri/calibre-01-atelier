@@ -192,7 +192,7 @@ export function MovementFilm() {
           <canvas ref={canvas} aria-hidden className="absolute inset-0 size-full" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-background to-transparent lg:hidden" />
         </div>
-        <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_left,var(--color-background)_0%,color-mix(in_oklab,var(--color-background)_70%,transparent)_30%,transparent_55%)] lg:block" />
+        <div className="pointer-events-none absolute inset-0 hidden bg-[linear-gradient(to_left,var(--color-background)_0%,color-mix(in_oklab,var(--color-background)_85%,transparent)_34%,transparent_62%)] lg:block" />
         <div className="pointer-events-none relative mx-auto flex w-full max-w-7xl flex-1 items-start px-4 pt-6 sm:px-6 lg:absolute lg:inset-0 lg:items-center lg:pt-0">
           <div className="relative w-full max-w-md lg:max-w-sm">
             {CHAPTERS.map((chapter, index) => (

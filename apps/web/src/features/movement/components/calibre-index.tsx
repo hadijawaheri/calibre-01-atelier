@@ -1,54 +1,48 @@
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/badge";
 import { paths } from "@/lib/paths";
 
 import { CALIBRES } from "../calibres";
 
+/* The four families as a catalogue: one ruled entry each, the reference set small beside the name. */
 export function CalibreIndex() {
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-12 px-4 pt-32 pb-24 sm:px-6">
-      <header className="flex max-w-2xl flex-col gap-4">
-        <p className="eyebrow">آزمایشگاه موومنت</p>
-        <h1 className="text-4xl leading-tight font-semibold sm:text-5xl">
-          موومنت را باز کنید، قطعه‌به‌قطعه
-        </h1>
-        <p className="leading-8 text-muted-foreground">
+    <div className="mx-auto flex max-w-5xl flex-col gap-20 px-4 pt-40 pb-32 sm:px-8">
+      <header className="flex flex-col items-center gap-6 text-center">
+        <h1 className="max-w-[22ch] display">موومنت را باز کنید، قطعه‌به‌قطعه</h1>
+        <p className="max-w-lg leading-8 text-muted-foreground">
           چهار خانوادهٔ بزرگ موومنت: اتوماتیک، فوق‌باریک، کوارتز و توربیون. هر کدام با سازوکار،
-          مشخصات و ساعت‌هایی که در آن‌ها می‌تپد؛ و مدل سه‌بعدی واقعی که قطعه‌به‌قطعه باز می‌شود.
+          مشخصات و ساعت‌هایی که در آن‌ها می‌تپد.
+        </p>
+        <p className="caps text-muted-foreground" dir="ltr">
+          The movement lab
         </p>
       </header>
-      <ul className="grid gap-4">
+      <ul className="flex flex-col border-t hairline">
         {CALIBRES.map((calibre) => (
-          <li key={calibre.slug}>
+          <li key={calibre.slug} className="border-b border-border">
             <Link
               href={paths.labCalibre(calibre.slug)}
-              className="group flex flex-col gap-4 rounded-xl border border-border bg-card p-6 transition-colors hover:border-gold/50 sm:flex-row sm:items-center sm:justify-between"
+              data-cursor="باز کنید"
+              className="group grid gap-4 py-10 transition-colors duration-500 hover:bg-surface/60 focus-visible:bg-surface/60 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-10 sm:px-6"
             >
-              <div className="flex flex-col gap-2">
-                <p className="font-mono text-xs text-muted-foreground" dir="ltr">
-                  {calibre.reference}
-                </p>
-                <h2 className="flex flex-wrap items-center gap-3 text-2xl font-semibold">
-                  {calibre.name}
-                  {calibre.hasModel ? (
-                    <Badge variant="secondary">سه‌بعدی</Badge>
-                  ) : (
-                    <Badge variant="outline">به‌زودی سه‌بعدی</Badge>
-                  )}
-                </h2>
-                <p className="max-w-xl text-sm leading-7 text-muted-foreground">
-                  {calibre.summary}
-                </p>
+              <div className="flex flex-col gap-3">
+                <h2 className="font-display text-3xl">{calibre.name}</h2>
+                <p className="max-w-xl leading-8 text-muted-foreground">{calibre.summary}</p>
               </div>
-              <span className="flex items-center gap-2 text-sm text-gold">
-                باز کردن
-                <ArrowLeft
-                  className="size-4 transition-transform group-hover:-translate-x-1"
-                  aria-hidden
-                />
-              </span>
+              <div className="flex items-center gap-6 sm:flex-col sm:items-end sm:gap-3">
+                <span className="caps text-muted-foreground" dir="ltr">
+                  {calibre.reference}
+                </span>
+                <span className="flex items-center gap-2 text-xs text-metal">
+                  {calibre.hasModel ? "مدل سه‌بعدی" : "سه‌بعدی به‌زودی"}
+                  <ArrowLeft
+                    className="size-4 transition-transform duration-500 ease-glide group-hover:-translate-x-1"
+                    aria-hidden
+                  />
+                </span>
+              </div>
             </Link>
           </li>
         ))}
