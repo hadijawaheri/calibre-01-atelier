@@ -92,6 +92,23 @@ test("the lab lists the four movement families", async ({ page }) => {
   await expectAccessible(page);
 });
 
+test("the history page tells six brands' stories and is linked from the menu", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/lab");
+  // On phones the same links sit in the menu sheet, so the header's copy is only checked for its target
+  await expect(page.locator('header a[href="/history"]')).toBeAttached();
+  await page.goto("/history");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "تاریخچهٔ برندهای ساعت" }),
+  ).toBeVisible();
+  for (const name of ["پتک فیلیپ", "رولکس", "فردریک کنستانت", "سواچ", "سیکو", "کاسیو"]) {
+    await expect(page.getByRole("heading", { level: 2, name })).toBeAttached();
+  }
+  await expect(page.getByRole("article", { name: "رولکس" }).getByRole("img")).toBeAttached();
+  await expectAccessible(page);
+  expect(errors).toEqual([]);
+});
+
 test("the automatic movement can be explored part by part", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("/lab/automatic");

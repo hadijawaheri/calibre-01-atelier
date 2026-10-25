@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: url(paths.home), changeFrequency: "weekly", priority: 1 },
     { url: url(paths.lab), changeFrequency: "monthly", priority: 0.9 },
+    { url: url(paths.history), changeFrequency: "monthly", priority: 0.7 },
     ...CALIBRES.map((calibre) => ({
       url: url(paths.labCalibre(calibre.slug)),
       changeFrequency: "monthly" as const,
