@@ -1,0 +1,203 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Latin from the Plex and Garamond families; Persian falls through to its own cut */
+  --font-sans: var(--font-plex-sans), var(--font-plex-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), var(--font-amiri), var(--font-plex-arabic), serif;
+  --font-mono: var(--font-plex-mono), var(--font-plex-arabic), ui-monospace, monospace;
+
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-metal: var(--metal);
+  --color-metal-ink: var(--metal-ink);
+  --color-surface: var(--surface);
+
+  --shadow-plate: var(--plate-shadow);
+  --ease-glide: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The atlas by day: alabaster ground, white plates, cool grey rules. Rose gold is the one colour. */
+:root {
+  --radius: 0px;
+  /* The sticky header: two rows, its second the search on phones and the category row from md up */
+  --header-height: 7.25rem;
+  --background: oklch(0.986 0.002 106);
+  --foreground: oklch(0.2 0.005 90);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.005 90);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.005 90);
+  --primary: oklch(0.2 0.005 90);
+  --primary-foreground: oklch(0.986 0.002 106);
+  --secondary: oklch(0.966 0.002 106);
+  --secondary-foreground: oklch(0.2 0.005 90);
+  --muted: oklch(0.966 0.002 106);
+  --muted-foreground: oklch(0.48 0.006 90);
+  --accent: oklch(0.955 0.003 106);
+  --accent-foreground: oklch(0.2 0.005 90);
+  --destructive: oklch(0.52 0.19 27);
+  --success: oklch(0.48 0.1 150);
+  --border: oklch(0.913 0.002 106);
+  --input: oklch(0.87 0.003 106);
+  --ring: oklch(0.62 0.09 50);
+  /* Rose gold: lines, bars and markers. Its darker ink is the one that carries small text (5:1). */
+  --metal: oklch(0.62 0.09 50);
+  --metal-ink: oklch(0.5 0.1 45);
+  --surface: oklch(0.966 0.002 106);
+  --plate-shadow: 0 12px 30px -16px oklch(0.2 0.005 90 / 0.25);
+  /* The cut-out movement resting on the white mat */
+  --object-shadow: 0 18px 22px oklch(0.2 0.005 90 / 0.18);
+}
+
+/* The atlas after hours: a cool neutral graphite, the plates a step lighter, the rose gold paler. */
+.dark {
+  --background: oklch(0.215 0.004 255);
+  --foreground: oklch(0.95 0.003 100);
+  --card: oklch(0.25 0.004 255);
+  --card-foreground: oklch(0.95 0.003 100);
+  --popover: oklch(0.25 0.004 255);
+  --popover-foreground: oklch(0.95 0.003 100);
+  --primary: oklch(0.95 0.003 100);
+  --primary-foreground: oklch(0.215 0.004 255);
+  --secondary: oklch(0.235 0.004 255);
+  --secondary-foreground: oklch(0.95 0.003 100);
+  --muted: oklch(0.235 0.004 255);
+  --muted-foreground: oklch(0.74 0.005 255);
+  --accent: oklch(0.27 0.004 255);
+  --accent-foreground: oklch(0.95 0.003 100);
+  --destructive: oklch(0.68 0.17 25);
+  --success: oklch(0.74 0.12 155);
+  --border: oklch(1 0 0 / 11%);
+  --input: oklch(1 0 0 / 18%);
+  --ring: oklch(0.76 0.08 55);
+  --metal: oklch(0.76 0.08 55);
+  --metal-ink: oklch(0.8 0.07 60);
+  --surface: oklch(0.235 0.004 255);
+  --plate-shadow: 0 16px 36px -18px oklch(0 0 0 / 0.7);
+  --object-shadow: 0 24px 30px oklch(0 0 0 / 0.55);
+}
+
+@media (width >= 48rem) {
+  :root {
+    --header-height: 6.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 1rem);
+    scrollbar-color: color-mix(in oklab, var(--foreground) 22%, transparent) var(--background);
+    scrollbar-width: thin;
+  }
+  body {
+    @apply bg-background text-foreground;
+    caret-color: var(--metal);
+    font-feature-settings: "ss01";
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--metal) 28%, transparent);
+    color: var(--foreground);
+  }
+  :focus-visible {
+    outline: 1px solid var(--foreground);
+    outline-offset: 2px;
+  }
+  /* A Latin line (a reference, a calibre number) inside the Persian page still aligns with the Persian
+     text around it, to the right */
+  :where(p, dd, figcaption)[dir="ltr"] {
+    text-align: end;
+  }
+  a {
+    text-underline-offset: 0.3em;
+    text-decoration-thickness: 1px;
+  }
+  input::placeholder {
+    color: var(--muted-foreground);
+  }
+}
+
+/* Page titles: the Garamond, or its Naskh counterpart in Persian */
+@utility display {
+  /* @theme inline does not emit --font-display, so the stack is spelled out */
+  font-family: var(--font-cormorant), var(--font-amiri), var(--font-plex-arabic), serif;
+  font-size: clamp(2.375rem, 1.6rem + 2.6vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1.25;
+  /* Amiri's word space is set for running text, and its kaf carries a wide bearing: at display size both
+     open holes between words, worst before a word that starts with ک */
+  word-spacing: -0.1em;
+  text-wrap: balance;
+}
+
+/* Section titles, one step down */
+@utility title {
+  font-family: var(--font-cormorant), var(--font-amiri), var(--font-plex-arabic), serif;
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.375rem);
+  font-weight: 500;
+  line-height: 1.3;
+  word-spacing: -0.1em;
+  text-wrap: balance;
+}
+
+/* Latin references and data labels: the mono in small tracked capitals. Never on Persian, whose joins break. */
+@utility caps {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.6;
+}
+
+/* Persian field labels: small and quiet, untracked */
+@utility label {
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+/* A ruled line in the atlas's grey; kept for pages that still use the older name */
+@utility hairline {
+  border-color: var(--border);
+}
+
+/* A white plate on the alabaster ground: the atlas's one container */
+@utility plate {
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

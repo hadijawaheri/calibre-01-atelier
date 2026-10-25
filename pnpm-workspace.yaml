@@ -1,0 +1,18 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  typescript: ~6.0.3
+  eslint: ~9.39.5
+  "@eslint/js": ~9.39.5
+
+# Delay freshly published versions a few days as a supply-chain defence (minutes)
+minimumReleaseAge: 4320
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+  "@nestjs/core": true
+  unrs-resolver: true
+  mongodb-memory-server: false

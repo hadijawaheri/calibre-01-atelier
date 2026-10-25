@@ -1,0 +1,28 @@
+# Production: replace with your domain, e.g. kronos.example. Caddy obtains and renews TLS automatically.
+{$SITE_ADDRESS:http://localhost:8080} {
+	encode zstd gzip
+
+	# Hashed build assets never change under the same name
+	@static path /_next/static/*
+	header @static Cache-Control "public, max-age=31536000, immutable"
+
+	# Film frames and photographs keep their names when replaced, so a week, not forever
+	@media path /media/*
+	header @media Cache-Control "public, max-age=604800"
+
+	# Only the web app is public; it proxies /api/* to the API on loopback
+	reverse_proxy 127.0.0.1:7782 {
+		# Hides the short gap while PM2 restarts a process during deploys
+		lb_try_duration 10s
+		lb_try_interval 250ms
+	}
+
+	header {
+		-Server
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+	}
+
+	log {
+		output file /var/log/caddy/kronos.log
+	}
+}

@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      # API e2e tests start an in-memory MongoDB replica set; mongodb-memory-server downloads it here
+      - run: pnpm test
+        env:
+          MONGOMS_VERSION: "8.0.4"
+      - run: pnpm build
+      - run: pnpm audit --prod
+        continue-on-error: true
+
+  e2e:
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @kronos/web build
+      - run: pnpm --filter @kronos/web exec playwright install --with-deps chromium
+      - name: Start the web app
+        run: |
+          (cd apps/web && PORT=7782 HOSTNAME=127.0.0.1 node .next/standalone/apps/web/server.js &)
+          npx --yes wait-on http://127.0.0.1:7782
+      - run: pnpm --filter @kronos/web test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: apps/web/test-results
