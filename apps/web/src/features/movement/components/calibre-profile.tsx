@@ -6,7 +6,13 @@ import { Button } from "@/components/ui/button";
 import { paths } from "@/lib/paths";
 
 import type { CalibreInfo } from "../calibres";
-import { CalibreHowItWorks, CalibreSpecs, CalibreUsedIn } from "./calibre-facts";
+import {
+  CalibreHowItWorks,
+  CalibrePhoto,
+  CalibreSources,
+  CalibreSpecs,
+  CalibreUsedIn,
+} from "./calibre-facts";
 
 /** A calibre whose real 3D model is not ready yet: the dossier now, the model when its CAD file arrives. */
 export function CalibreProfile({ calibre }: { calibre: CalibreInfo }) {
@@ -46,8 +52,10 @@ export function CalibreProfile({ calibre }: { calibre: CalibreInfo }) {
           <CalibreHowItWorks calibre={calibre} />
         </div>
         <aside className="flex flex-col gap-10">
+          <CalibrePhoto calibre={calibre} />
           <CalibreSpecs calibre={calibre} columns={1} />
           <CalibreUsedIn calibre={calibre} />
+          <CalibreSources calibre={calibre} />
         </aside>
       </div>
     </div>

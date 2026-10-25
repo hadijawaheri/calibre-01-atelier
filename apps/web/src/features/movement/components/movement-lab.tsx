@@ -20,7 +20,13 @@ import type { PartGroup, PartId } from "../parts";
 import { GROUP_LABELS, PART_BY_ID, PARTS } from "../parts";
 import type { MovementControls } from "../three/controls";
 import { createControls } from "../three/controls";
-import { CalibreHowItWorks, CalibreSpecs, CalibreUsedIn } from "./calibre-facts";
+import {
+  CalibreHowItWorks,
+  CalibrePhoto,
+  CalibreSources,
+  CalibreSpecs,
+  CalibreUsedIn,
+} from "./calibre-facts";
 import { MovementCanvas } from "./movement-canvas";
 
 const SPEEDS = [
@@ -359,9 +365,12 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
 
           <CalibreHowItWorks calibre={calibre} />
           <Separator />
+          <CalibrePhoto calibre={calibre} />
           <CalibreSpecs calibre={calibre} />
           <Separator />
           <CalibreUsedIn calibre={calibre} />
+          <Separator />
+          <CalibreSources calibre={calibre} />
         </div>
       </aside>
     </div>

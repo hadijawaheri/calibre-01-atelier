@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   images: {
     formats: ["image/avif", "image/webp"],
+    // Freely licensed photographs are served from Wikimedia Commons, credited under each plate
+    remotePatterns: [
+      { protocol: "https", hostname: "upload.wikimedia.org", pathname: "/wikipedia/commons/**" },
+      { protocol: "https", hostname: "thumb.wikimedia.org", pathname: "/wikipedia/commons/**" },
+    ],
   },
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${apiOrigin}/v1/:path*` }];

@@ -1,4 +1,4 @@
-import { FigurePlate, PageHeader, Spec, SpecGrid } from "@/components/atlas";
+import { FigurePlate, PageHeader, SourceList, Spec, SpecGrid } from "@/components/atlas";
 
 import type { BrandHistory } from "../brands";
 import { BRAND_HISTORIES } from "../brands";
@@ -58,7 +58,7 @@ function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
           alt={brand.image.alt}
           caption={brand.image.caption}
           number={plateNumber(index)}
-          note={`عکس موومنت کرونوس است، نه ساعتی از ${brand.name}.`}
+          credit={brand.image.credit}
           aspect="aspect-video"
           sizes="(max-width: 1023px) 100vw, 26rem"
         />
@@ -67,6 +67,7 @@ function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
           <Spec label="مکان" value={brand.place} />
           <Spec label={brand.foundersLabel} value={brand.founders} />
         </SpecGrid>
+        <SourceList id={`${brand.slug}-sources`} sources={brand.sources} />
       </aside>
     </article>
   );

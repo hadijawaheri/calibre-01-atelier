@@ -1,4 +1,4 @@
-import { Spec, SpecGrid } from "@/components/atlas";
+import { FigurePlate, SourceList, Spec, SpecGrid } from "@/components/atlas";
 
 import type { CalibreInfo } from "../calibres";
 
@@ -64,4 +64,22 @@ export function CalibreUsedIn({ calibre }: { calibre: CalibreInfo }) {
       </ul>
     </section>
   );
+}
+
+/* A real movement of the family, photographed by someone else and credited under the plate. */
+export function CalibrePhoto({ calibre }: { calibre: CalibreInfo }) {
+  if (!calibre.photo) return null;
+  return (
+    <FigurePlate
+      src={calibre.photo.src}
+      alt={calibre.photo.alt}
+      caption={calibre.photo.caption}
+      credit={calibre.photo.credit}
+      sizes="(max-width: 1023px) 100vw, 26rem"
+    />
+  );
+}
+
+export function CalibreSources({ calibre }: { calibre: CalibreInfo }) {
+  return <SourceList id={`${calibre.slug}-sources`} sources={calibre.sources} />;
 }

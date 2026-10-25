@@ -52,7 +52,7 @@ export function HomeStatement() {
         <SpecGrid className="grid-cols-2 sm:grid-cols-3">
           <Spec label="منبع انرژی" value="فنر اصلی در بشکه" />
           <Spec label="کوک" value="خودکار دوطرفه و دستی" />
-          <Spec label="ذخیرهٔ انرژی" value="حدود ۳۸ ساعت" />
+          <Spec label="ذخیرهٔ انرژی" value="حدود ۴۲ ساعت" />
           <Spec label="باتری" value="ندارد" />
           <Spec label="فرکانس" value="۴ هرتز" />
           <Spec label="Rotor" value="Bidirectional" latin />

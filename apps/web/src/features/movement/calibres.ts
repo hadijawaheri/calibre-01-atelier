@@ -1,3 +1,5 @@
+import type { PhotoCredit, SourceLink } from "@/components/atlas";
+
 import type { CadModel } from "./three/cad-model";
 
 export type CalibreFamily = "automatic" | "ultra-thin" | "quartz" | "tourbillon";
@@ -29,6 +31,10 @@ export interface CalibreInfo {
   hasModel: boolean;
   /** The real movement's converted CAD file; without it the lab shows the procedural stand-in. */
   cad?: CadModel;
+  /** A freely licensed photograph of a real movement of this family, credited under the plate. */
+  photo?: { src: string; alt: string; caption: string; credit: PhotoCredit };
+  /** The makers' pages and references the specs and examples were checked against. */
+  sources: readonly SourceLink[];
 }
 
 export const CALIBRES: readonly CalibreInfo[] = [
@@ -47,10 +53,10 @@ export const CALIBRES: readonly CalibreInfo[] = [
     ],
     specs: [
       { label: "فرکانس", value: "۲۸٬۸۰۰ ضربه در ساعت (۴ هرتز)" },
-      { label: "ذخیرهٔ انرژی", value: "حدود ۳۸ ساعت" },
+      { label: "ذخیرهٔ انرژی", value: "حدود ۴۲ ساعت (ETA)؛ حدود ۴۱ ساعت (SW200-1)" },
       { label: "قطر", value: "۲۵٫۶ میلی‌متر" },
       { label: "ضخامت", value: "۴٫۶ میلی‌متر" },
-      { label: "یاقوت", value: "۲۵ عدد" },
+      { label: "یاقوت", value: "۲۵ عدد (ETA)؛ ۲۶ عدد (SW200-1)" },
       { label: "اسکیپمنت", value: "لنگری سوئیسی، چرخ ۱۵ دندانه" },
       { label: "کوک", value: "خودکار دوطرفه و دستی" },
     ],
@@ -64,8 +70,8 @@ export const CALIBRES: readonly CalibreInfo[] = [
       {
         brand: "Hamilton",
         model: "Khaki Field Auto",
-        calibre: "H-10 (بر پایهٔ ۲۸۲۴)",
-        note: "ساعت نظامی نمادین همیلتون روی همین معماری ساخته شده است.",
+        calibre: "H-10 (از خانوادهٔ ۲۸۲۴)",
+        note: "ساعت نظامی نمادین همیلتون روی همین معماری ساخته شده و ذخیرهٔ انرژی‌اش به ۸۰ ساعت رسیده است.",
       },
       {
         brand: "Oris",
@@ -87,6 +93,28 @@ export const CALIBRES: readonly CalibreInfo[] = [
       signature: "روتور نیم‌دایره",
     },
     hasModel: true,
+    photo: {
+      src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/ETA-2824-A2-WP-de.JPG/1280px-ETA-2824-A2-WP-de.JPG",
+      alt: "پشت باز یک ساعت اتوماتیک با کالیبر ETA 2824-2 و روتور نیم‌دایره",
+      caption: "کالیبر ETA 2824-2 در یک ساعت Atlantic Worldmaster، از پشت",
+      credit: {
+        author: "Jpr",
+        license: "CC BY-SA 3.0",
+        licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:ETA-2824-A2-WP-de.JPG",
+      },
+    },
+    sources: [
+      { label: "ETA SA · Calibre 2824-2", url: "https://portal.eta.ch/fr/2824-2-2824-2-3.html" },
+      {
+        label: "Sellita · Catalogue 2024 (SW200-1)",
+        url: "https://www.sellita.ch/images/documents/Catalogue2024_ENG.pdf",
+      },
+      {
+        label: "Hamilton · Khaki Field Auto (H-10)",
+        url: "https://www.hamiltonwatch.com/en-us/h70455533-khaki-field-auto.html",
+      },
+    ],
   },
   {
     slug: "ultra-thin",
@@ -111,7 +139,7 @@ export const CALIBRES: readonly CalibreInfo[] = [
         brand: "Piaget",
         model: "Altiplano",
         calibre: "9P · 430P",
-        note: "پیاژه پیشگام این حوزه است؛ کالیبر کوک دستی 430P حدود ۲٫۱ میلی‌متر ضخامت دارد.",
+        note: "پیاژه پیشگام این حوزه است؛ کالیبر کوک دستی 430P با قطر ۲۰٫۵ میلی‌متر فقط ۲٫۱ میلی‌متر ضخامت دارد و حدود ۴۳ ساعت ذخیرهٔ انرژی.",
       },
       {
         brand: "Jaeger-LeCoultre",
@@ -123,13 +151,13 @@ export const CALIBRES: readonly CalibreInfo[] = [
         brand: "Audemars Piguet",
         model: 'Royal Oak "Jumbo"',
         calibre: "2121",
-        note: "اتوماتیک با ضخامت حدود ۳٫۰۵ میلی‌متر؛ روتورش روی ریلی حاشیه‌ای با غلتک‌های یاقوتی می‌چرخد.",
+        note: "اتوماتیک با ضخامت ۳٫۰۵ میلی‌متر که از ۱۹۷۲ در اولین رویال اوک کار می‌کرد؛ به گفتهٔ اودمار پیگه باریک‌ترین موومنت اتوماتیک با روتور مرکزی و تاریخ. پایان ۲۰۲۱ بازنشسته شد و کالیبر 7121 جایش را گرفت.",
       },
       {
         brand: "Bvlgari",
         model: "Octo Finissimo Automatic",
         calibre: "BVL 138",
-        note: "۲٫۲۳ میلی‌متر با میکرو‌روتور پلاتینی؛ رکورددار باریک‌ترین موومنت اتوماتیک در زمان عرضه.",
+        note: "۲٫۲۳ میلی‌متر با میکرو‌روتور پلاتینی؛ در زمان عرضه در ۲۰۱۷ باریک‌ترین موومنت اتوماتیک بازار بود.",
       },
     ],
     glance: {
@@ -139,6 +167,28 @@ export const CALIBRES: readonly CalibreInfo[] = [
       signature: "ضخامتی نزدیک به یک سکه",
     },
     hasModel: false,
+    sources: [
+      {
+        label: "Piaget · 430P Ultra-Thin Mechanical Movement",
+        url: "https://www.piaget.com/us-en/movement/430p-ultra-thin-mechanical-movement",
+      },
+      {
+        label: "Audemars Piguet Chronicles · Calibre 2121",
+        url: "https://apchronicles.audemarspiguet.com/en/calibre/2121",
+      },
+      {
+        label: 'Audemars Piguet · Royal Oak "Jumbo"',
+        url: "https://www.audemarspiguet.com/us/en/watch/royal-oak-jumbo",
+      },
+      {
+        label: "Quill & Pad · Master Ultra Thin vs. Altiplano (calibre 849)",
+        url: "https://quillandpad.com/2019/02/04/ultra-thin-head-to-head-jaeger-lecoultre-master-ultra-thin-vs-piaget-altiplano/",
+      },
+      {
+        label: "Grail Watch Reference · BVL 138",
+        url: "https://reference.grail-watch.com/movement/bvl-138/",
+      },
+    ],
   },
   {
     slug: "quartz",
@@ -192,6 +242,27 @@ export const CALIBRES: readonly CalibreInfo[] = [
       signature: "کریستال ۳۲٬۷۶۸ هرتزی",
     },
     hasModel: false,
+    photo: {
+      src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Armbanduhr_Rueckseite.jpg/1280px-Armbanduhr_Rueckseite.jpg",
+      alt: "پشت باز یک ساعت کوارتز ارزان: باتری سکه‌ای، کریستال کوارتز، مدار و سیم‌پیچ موتور پله‌ای",
+      caption: "موومنت کوارتز ISA K63: باتری، کریستال، مدار شمارنده و سیم‌پیچ موتور",
+      credit: {
+        author: "Garitzko",
+        license: "Public domain",
+        licenseUrl: "https://commons.wikimedia.org/wiki/File:Armbanduhr_Rueckseite.jpg",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Armbanduhr_Rueckseite.jpg",
+      },
+    },
+    sources: [
+      {
+        label: "Grand Seiko · Quartz movements (9F)",
+        url: "https://www.grand-seiko.com/us-en/collections/movement/quartz",
+      },
+      {
+        label: "Seiko · The Story of the 1969 Quartz Astron",
+        url: "https://www.seikowatches.com/ca-en/products/astron/special/story_qa50th_1",
+      },
+    ],
   },
   {
     slug: "tourbillon",
@@ -204,10 +275,10 @@ export const CALIBRES: readonly CalibreInfo[] = [
     howItWorks: [
       "وقتی ساعت عمودی است، جاذبه مرکز ثقل بالانس را کمی می‌کشد و بسته به جهت ساعت، آن را جلو یا عقب می‌اندازد.",
       "در توربیون، قفسهٔ حامل اسکیپمنت و بالانس معمولاً هر یک دقیقه یک دور کامل می‌زند. خطاها در همهٔ جهت‌ها تکرار می‌شوند و همدیگر را خنثی می‌کنند.",
-      "چرخ اسکیپمنت دور یک چرخ ثابت می‌گردد و با همین حرکت کل قفسه را می‌چرخاند. آبراهام لویی برگه این سازوکار را در سال ۱۸۰۱ ثبت اختراع کرد.",
+      "چرخ اسکیپمنت دور یک چرخ ثابت می‌گردد و با همین حرکت کل قفسه را می‌چرخاند. آبراهام لویی برگه حق اختراع این سازوکار را در ۲۶ ژوئن ۱۸۰۱ (۷ مسیدور سال نهم در تقویم جمهوری فرانسه) گرفت.",
     ],
     specs: [
-      { label: "اختراع", value: "آبراهام لویی برگه، ۱۸۰۱" },
+      { label: "اختراع", value: "آبراهام لویی برگه، ثبت در ۲۶ ژوئن ۱۸۰۱" },
       { label: "سرعت قفسه", value: "معمولاً یک دور در دقیقه" },
       { label: "انواع", value: "تک‌محوره، پرنده، چندمحوره" },
     ],
@@ -244,6 +315,27 @@ export const CALIBRES: readonly CalibreInfo[] = [
       signature: "قفسهٔ چرخان",
     },
     hasModel: false,
+    photo: {
+      src: "https://upload.wikimedia.org/wikipedia/commons/8/85/Tourbillon.jpg",
+      alt: "نمای ماکروی قفسهٔ توربیون با چرخ بالانس و پل‌های ظریف",
+      caption: "قفسهٔ توربیون ساختهٔ فرانک یوتسی، از نزدیک",
+      credit: {
+        author: "Simon Schaller",
+        license: "Public domain",
+        licenseUrl: "https://commons.wikimedia.org/wiki/File:Tourbillon.jpg",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Tourbillon.jpg",
+      },
+    },
+    sources: [
+      {
+        label: "Breguet · Patent granted for the Tourbillon (1801)",
+        url: "https://www.breguet.com/en/breguet-house/1801-1823/patent-granted-completely-new-type-regulator-called-tourbillon",
+      },
+      {
+        label: "TAG Heuer · Carrera Chronograph Tourbillon (Heuer 02T COSC)",
+        url: "https://www.tagheuer.com/us/en/timepieces/collections/tag-heuer-carrera/45-mm-calibre-heuer02t-cosc/CAR5A8Y.FC6377.html",
+      },
+    ],
   },
 ];
 

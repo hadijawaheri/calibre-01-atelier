@@ -22,6 +22,16 @@ async function expectAccessible(page: Page) {
 
 test.setTimeout(60_000);
 
+// Credited photos come from Wikimedia Commons; a local stand-in keeps the suite independent of the network
+test.beforeEach(async ({ page }) => {
+  await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//, (route) =>
+    route.fulfill({
+      path: "public/media/movement-photos/balance-detail.webp",
+      contentType: "image/webp",
+    }),
+  );
+});
+
 /** Jumps straight to a point of the page; the home page's own inertial scrolling would glide there. */
 async function jumpTo(page: Page, selector: string, at: "top" | "end") {
   await page.evaluate(
@@ -104,7 +114,11 @@ test("the history page tells six brands' stories and is linked from the menu", a
   for (const name of ["پتک فیلیپ", "رولکس", "فردریک کنستانت", "سواچ", "سیکو", "کاسیو"]) {
     await expect(page.getByRole("heading", { level: 2, name })).toBeAttached();
   }
-  await expect(page.getByRole("article", { name: "رولکس" }).getByRole("img")).toBeAttached();
+  const rolex = page.getByRole("article", { name: "رولکس" });
+  await expect(rolex.getByRole("img")).toBeAttached();
+  // Each photo names its author and licence, and each entry lists the sources its facts were checked against
+  await expect(rolex.getByRole("link", { name: "CC BY-SA 4.0" })).toBeAttached();
+  await expect(rolex.getByRole("heading", { name: "منابع" })).toBeAttached();
   await expectAccessible(page);
   expect(errors).toEqual([]);
 });
