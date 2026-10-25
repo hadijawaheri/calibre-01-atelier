@@ -34,7 +34,7 @@ function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
       className="flex scroll-mt-24 flex-col gap-12"
     >
       <header className="flex flex-col gap-4">
-        <span className="self-start caps text-metal tabular-nums" dir="ltr">
+        <span className="self-start caps text-metal-ink tabular-nums" dir="ltr">
           {String(index + 1).padStart(2, "0")} / {String(BRAND_HISTORIES.length).padStart(2, "0")}
           {" · "}
           {brand.latinName}
@@ -83,7 +83,7 @@ function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
         <ol className="flex max-w-[65ch] flex-col gap-8">
           {brand.milestones.map((milestone, step) => (
             <li key={milestone.title} className="grid grid-cols-[1.5rem_1fr] gap-4">
-              <span className="text-xs leading-8 text-metal tabular-nums">
+              <span className="text-xs leading-8 text-metal-ink tabular-nums">
                 {(step + 1).toLocaleString("fa-IR")}
               </span>
               <div className="flex flex-col gap-2">

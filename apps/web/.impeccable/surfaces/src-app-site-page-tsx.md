@@ -13,36 +13,37 @@ related_targets:
 
 # Home and site shell
 
-Scope: the home page (Persuade), with the shell (header, footer, cursor), the lab index and calibre pages, and 404
-inheriting the same world. Visitor: a Persian watch lover, mostly on a phone. Job: understand what a real movement does
-and go into the lab. Action: "ورود به آزمایشگاه". Proof: the owner's film, photographs and cut-outs of one real Swiss
-automatic, and the real CAD lab. Constraints: Persian RTL, both themes, reduced motion, no shop.
+Scope: the home page (Persuade), with the shell (header with search, footer), the lab index and calibre pages,
+and 404 inheriting the same world. Visitor: a Persian watch lover, mostly on a phone. Job: understand what a real
+movement does, compare the four families, and go into the lab. Action: "ورود به آزمایشگاه", and the header search.
+Proof: the owner's film, photographs and cut-outs of one real Swiss automatic, the real CAD lab, the sourced facts in
+calibres.ts. Constraints: Persian RTL, both themes, reduced motion, no shop, no invented ratings or reviews.
 
-Memorable moment: the one real movement hanging in rim light in an otherwise empty room, turning as you scroll.
+Memorable moment: the calibre dossier in the first viewport, a working tabbed record of the four families beside
+the title, and the film scrubbing frame by frame inside its numbered plate.
 
-Unresolved: a configurator and a concierge checkout from the owner's brief are out (no shop, one real movement); the
-lab's real controls are the closest honest equivalent.
+Unresolved: the reference's watch, brand, complication and community pages are out for now (owner's choice,
+2026-10-25); they come later with sourced facts.
 
 ## Direction contract
 
-THESIS: one real movement in a museum vitrine; the page is the empty room around it. Refuses cards, chips, kickers and
-badges: the category's busy product page.
+THESIS: the owner's reference, horologium-atlas, played straight: the site is an atlas of horology, a museum
+reference where the data leads. Refuses the cinematic black-and-gold product page it replaces.
 
-OWN-WORLD: matte black and charcoal (dark), ivory and stone beige (light); pale gold (dark) or bronze (light) only as
-hairlines, small type and icons. Bodoni Moda for Latin display, Amiri for Persian display, Jost and Vazirmatn
-for text; Latin captions in tracked capitals. Square corners, 1px rules, no fills on controls but the one primary
-button, soft offset shadows and a rim light behind the object.
+OWN-WORLD: alabaster ground (#FBFBFA), white plates, #E5E5E3 hairlines, graphite ink; rose gold only for markers,
+bars and the active tab. Cormorant Garamond (Latin) and Amiri (Persian) for titles, IBM Plex Sans and Plex Sans
+Arabic for text, Plex Mono in tracked capitals for Latin references and data. Square corners, ruled spec grids
+whose gaps are the rules, small ruled tags, data tables, numbered figure plates. Graphite night theme.
 
-STORY: the visitor sees the real movement, learns it runs on the wrist's energy, watches it come apart, compares the
-four families, and enters the lab.
+STORY: the visitor reads the title, opens the dossier of a family, sees the real movement, watches it come apart,
+reads four short entries, studies the plates, the timegrapher and the gear plan, compares the families in the
+table, and enters the lab.
 
-FIRST VIEWPORT: centred symmetry. The caseback cut-out at about 70% width in the optical centre on a rim-lit glow;
-Persian display title above it, one short line beneath; the primary hairline-framed action at bottom centre between two
-tracked-caps corner captions (calibre and beat). Header: centred wordmark, two tiny links, frosted, fading on scroll.
-Signature interaction: the movement's scroll flight with spring inertia; a custom cursor ring that names the action
-(بکشید تا بچرخد on the lab canvas); gallery plates sharpen into focus as their neighbours blur.
+FIRST VIEWPORT: split: Persian display title, standfirst, primary and outline buttons and a mono facts row on the
+start side; the calibre dossier plate (tabs, specs, watches, link to the full dossier) on the end side. Sticky
+two-row header: wordmark, omni-search, theme toggle; the category row of sections and families.
 
-FORM: the category canon, chosen by the owner in their own brief (the standing exit, not a position on my list);
-seed:db8281ff760b8d8b
+FORM: the owner's pinned reference repository (the brief wins); seed: none (direction pinned by the owner)
 
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md,
+and every shipping raster carrying its provenance

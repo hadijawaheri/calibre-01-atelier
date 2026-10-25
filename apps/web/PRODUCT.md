@@ -51,17 +51,12 @@ calibre. No other Persian source lets a reader take a movement apart and watch t
 
 - Name: Kronos / کرونوس, "دانشنامهٔ فارسی ساعت".
 - The owner's bar is luxury watchmaking itself (Rolex, Cartier, Patek): the site must feel as made as the object.
-- The owner pinned the home page's feel on oryzo.ai: inertial smooth scrolling, one physical object floating at the
-  centre and turning with the scroll, soft multi-directional studio light, generous empty space, cinematic pacing.
-- The owner's own footage and photographs of the movement are the hero material.
-- The owner pinned the canon luxury-watch look for the whole site (2026-10-22), played straight: dramatic negative
-  space; an editorial, museum-symmetric grid; minimal navigation (logo centred, a few small links, a frosted header
-  that fades on scroll); a deep monochrome palette (matte black, charcoal, stone beige, ivory); soft studio and rim
-  light; pale gold, bronze or platinum only in hairlines, small type and icons; a high-contrast didone serif for
-  headlines with a geometric sans; tracked capitals on Latin words only; two or three type sizes per page; short
-  paragraphs; inertial motion, cinematic scrollytelling, a custom cursor that names the action, parallax and depth
-  blur; one hero object; 3D and exploded views. A configurator and checkout are out: the site is a reference, not a
-  shop (the owner repeated this), and there is only one real movement to show.
+- The owner replaced the earlier canon luxury-watch look (and the oryzo.ai scroll feel before it) on 2026-10-25
+  with the look of their reference repository `hadijawaheri/horologium-atlas`, played straight: a museum-grade
+  light encyclopedia. Alabaster ground with white plates and cool grey 1px rules; a refined garalde serif for titles
+  with a precise sans and a monospace for data, references and measurements; square corners; ruled spec grids,
+  small tags, data tables, tabs; a sticky header with an omni-search and a category row; one rose-gold accent. A
+  graphite night version keeps the dark theme. No shop, configurator or checkout: the site is a reference.
 
 ## Evidence on Hand
 

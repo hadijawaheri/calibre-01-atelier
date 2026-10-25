@@ -184,6 +184,11 @@
   color: var(--muted-foreground);
 }
 
+/* A ruled line in the atlas's grey; kept for pages that still use the older name */
+@utility hairline {
+  border-color: var(--border);
+}
+
 /* A white plate on the alabaster ground: the atlas's one container */
 @utility plate {
   border: 1px solid var(--border);
