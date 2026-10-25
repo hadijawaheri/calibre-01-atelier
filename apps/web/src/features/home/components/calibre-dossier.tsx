@@ -11,7 +11,7 @@ import { paths } from "@/lib/paths";
 /** The atlas's "calibre of the day": one family's dossier at a time, the four a tab apart. */
 export function CalibreDossier({ calibres }: { calibres: readonly CalibreInfo[] }) {
   return (
-    <Tabs.Root defaultValue={calibres[0]?.slug} className="flex flex-col shadow-plate plate">
+    <Tabs.Root defaultValue={calibres[0]?.slug} className="flex flex-col plate">
       <div className="flex items-center justify-between gap-4 border-b border-border px-5 py-3">
         <h2 className="text-sm">پروندهٔ کالیبر</h2>
         <span className="caps text-muted-foreground" dir="ltr">
@@ -61,7 +61,7 @@ export function CalibreDossier({ calibres }: { calibres: readonly CalibreInfo[] 
                   <span dir="ltr">
                     {watch.brand} {watch.model}
                   </span>
-                  <span className="truncate text-xs text-muted-foreground">{watch.calibre}</span>
+                  <span className="text-end text-xs text-muted-foreground">{watch.calibre}</span>
                 </li>
               ))}
             </ul>

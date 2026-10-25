@@ -43,7 +43,7 @@ FIRST VIEWPORT: split: Persian display title, standfirst, primary and outline bu
 start side; the calibre dossier plate (tabs, specs, watches, link to the full dossier) on the end side. Sticky
 two-row header: wordmark, omni-search, theme toggle; the category row of sections and families.
 
-FORM: the owner's pinned reference repository (the brief wins); seed: none (direction pinned by the owner)
+FORM: the owner's pinned reference repository (the brief wins); seed: none (unavailable)
 
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md,
 and every shipping raster carrying its provenance

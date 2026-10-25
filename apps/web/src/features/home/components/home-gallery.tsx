@@ -62,10 +62,7 @@ function PlateCard({
   const scale = useTransform(progress, range, [0.9, 1, 0.9]);
   const opacity = useTransform(progress, range, [0.55, 1, 0.55]);
   return (
-    <motion.figure
-      style={{ scale }}
-      className="flex w-(--card) shrink-0 flex-col shadow-plate plate"
-    >
+    <motion.figure style={{ scale }} className="flex w-(--card) shrink-0 flex-col plate">
       {/* Only the photograph dims; the caption stays legible */}
       <motion.div
         style={{ opacity }}
@@ -75,7 +72,7 @@ function PlateCard({
           src={plate.src}
           alt={plate.alt}
           fill
-          sizes="(max-width: 1023px) 70vw, 26vw"
+          sizes="(max-width: 639px) 155vw, (max-width: 1023px) 100vw, 55vw"
           className="object-cover"
         />
       </motion.div>

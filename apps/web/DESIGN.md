@@ -1,326 +1,353 @@
 ---
 name: Kronos
-description: A Persian watch encyclopedia set like a museum vitrine, with one real movement in an empty, rim-lit room.
+description: A Persian atlas of horology, set like a museum reference where the data leads and the real movement is the evidence.
 colors:
-  ivory: "oklch(0.965 0.009 85)"
-  ivory-popover: "oklch(0.975 0.008 85)"
-  ink: "oklch(0.17 0.006 70)"
-  stone: "oklch(0.925 0.014 80)"
-  stone-ink-muted: "oklch(0.46 0.014 70)"
-  bronze: "oklch(0.5 0.07 65)"
-  ink-rule: "oklch(0.17 0.006 70 / 12%)"
-  ink-input: "oklch(0.17 0.006 70 / 22%)"
-  oxide-red: "oklch(0.5 0.17 27)"
+  alabaster: "oklch(0.986 0.002 106)"
+  plate-white: "oklch(1 0 0)"
+  graphite-ink: "oklch(0.2 0.005 90)"
+  mist: "oklch(0.966 0.002 106)"
+  mist-deep: "oklch(0.955 0.003 106)"
+  slate-text: "oklch(0.48 0.006 90)"
+  hairline: "oklch(0.913 0.002 106)"
+  input-rule: "oklch(0.87 0.003 106)"
+  rose-gold: "oklch(0.62 0.09 50)"
+  rose-gold-ink: "oklch(0.5 0.1 45)"
+  signal-red: "oklch(0.52 0.19 27)"
   verdigris: "oklch(0.48 0.1 150)"
-  matte-black: "oklch(0.13 0.003 80)"
-  charcoal-popover: "oklch(0.17 0.004 80)"
-  charcoal: "oklch(0.175 0.004 80)"
-  charcoal-raised: "oklch(0.2 0.005 80)"
-  warm-ivory-text: "oklch(0.93 0.012 85)"
-  ash-muted: "oklch(0.7 0.014 80)"
-  pale-gold: "oklch(0.8 0.06 85)"
-  white-rule: "oklch(1 0 0 / 9%)"
-  white-input: "oklch(1 0 0 / 16%)"
-  oxide-red-night: "oklch(0.66 0.17 25)"
+  graphite-night: "oklch(0.215 0.004 255)"
+  night-plate: "oklch(0.25 0.004 255)"
+  night-mist: "oklch(0.235 0.004 255)"
+  night-mist-deep: "oklch(0.27 0.004 255)"
+  night-ink: "oklch(0.95 0.003 100)"
+  night-slate-text: "oklch(0.74 0.005 255)"
+  night-hairline: "oklch(1 0 0 / 11%)"
+  night-input-rule: "oklch(1 0 0 / 18%)"
+  rose-gold-night: "oklch(0.76 0.08 55)"
+  rose-gold-ink-night: "oklch(0.8 0.07 60)"
+  signal-red-night: "oklch(0.68 0.17 25)"
   verdigris-night: "oklch(0.74 0.12 155)"
 typography:
   display:
-    fontFamily: "Bodoni Moda, Amiri, Vazirmatn, serif"
-    fontSize: "clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem)"
-    fontWeight: 400
-    lineHeight: 1.35
+    fontFamily: "Cormorant Garamond, Amiri, IBM Plex Sans Arabic, serif"
+    fontSize: "clamp(2.375rem, 1.6rem + 2.6vw, 3.75rem)"
+    fontWeight: 500
+    lineHeight: 1.25
     letterSpacing: "normal"
   title:
-    fontFamily: "Bodoni Moda, Amiri, Vazirmatn, serif"
-    fontSize: "1.875rem"
-    fontWeight: 400
-    lineHeight: 1.2
+    fontFamily: "Cormorant Garamond, Amiri, IBM Plex Sans Arabic, serif"
+    fontSize: "clamp(1.75rem, 1.4rem + 1vw, 2.375rem)"
+    fontWeight: 500
+    lineHeight: 1.3
     letterSpacing: "normal"
-  title-sm:
-    fontFamily: "Bodoni Moda, Amiri, Vazirmatn, serif"
+  headline:
+    fontFamily: "Cormorant Garamond, Amiri, IBM Plex Sans Arabic, serif"
     fontSize: "1.5rem"
     fontWeight: 400
-    lineHeight: 1.333
-    letterSpacing: "normal"
+    lineHeight: 1.375
+  body-lead:
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Arabic, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 2
   body:
-    fontFamily: "Jost, Vazirmatn, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Arabic, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 2
-    letterSpacing: "normal"
   body-sm:
-    fontFamily: "Jost, Vazirmatn, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Arabic, sans-serif"
     fontSize: "0.875rem"
     fontWeight: 400
     lineHeight: 1.75
-    letterSpacing: "normal"
   label:
-    fontFamily: "Jost, Vazirmatn, ui-sans-serif, system-ui, sans-serif"
+    fontFamily: "IBM Plex Sans, IBM Plex Sans Arabic, sans-serif"
     fontSize: "0.75rem"
     fontWeight: 400
-    lineHeight: 1.333
-    letterSpacing: "normal"
+    lineHeight: 1.6
   caps:
-    fontFamily: "Jost, ui-sans-serif, sans-serif"
+    fontFamily: "IBM Plex Mono, monospace"
     fontSize: "0.6875rem"
     fontWeight: 400
     lineHeight: 1.6
-    letterSpacing: "0.28em"
-  wordmark:
-    fontFamily: "Bodoni Moda, serif"
-    fontSize: "1.25rem"
+    letterSpacing: "0.16em"
+  data:
+    fontFamily: "IBM Plex Mono, IBM Plex Sans Arabic, monospace"
+    fontSize: "0.875rem"
     fontWeight: 400
-    lineHeight: 1
-    letterSpacing: "0.45em"
+    lineHeight: 1.5
+    fontFeature: "tnum"
 rounded:
   none: "0px"
-  ring: "9999px"
 spacing:
-  gutter: "16px"
-  gutter-wide: "32px"
-  caption-gap: "12px"
-  stack-tight: "16px"
-  stack: "24px"
-  block: "64px"
-  section: "96px"
-  section-wide: "192px"
+  gutter: "1rem"
+  gutter-sm: "1.5rem"
+  cell: "1rem"
+  plate-pad: "1.25rem"
+  entry-pad: "2rem"
+  section-y: "5rem"
+  section-y-lg: "7rem"
   container: "80rem"
-  measure: "65ch"
 components:
   button-primary:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.ivory}"
+    backgroundColor: "{colors.graphite-ink}"
+    textColor: "{colors.alabaster}"
     typography: "{typography.body-sm}"
     rounded: "{rounded.none}"
-    padding: "0 32px"
-    height: "48px"
-  button-primary-night:
-    backgroundColor: "{colors.warm-ivory-text}"
-    textColor: "{colors.matte-black}"
-    rounded: "{rounded.none}"
-    padding: "0 32px"
-    height: "48px"
+    padding: "0 1.5rem"
+    height: "2.75rem"
   button-outline:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
+    textColor: "{colors.graphite-ink}"
     typography: "{typography.body-sm}"
     rounded: "{rounded.none}"
-    padding: "0 32px"
-    height: "48px"
+    padding: "0 1.5rem"
+    height: "2.75rem"
   button-outline-hover:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.ivory}"
+    backgroundColor: "{colors.graphite-ink}"
+    textColor: "{colors.alabaster}"
   button-ghost:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
+    textColor: "{colors.graphite-ink}"
     rounded: "{rounded.none}"
-    size: "36px"
-  nav-link:
-    textColor: "{colors.stone-ink-muted}"
+    size: "2.25rem"
+  plate:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.graphite-ink}"
+    rounded: "{rounded.none}"
+  plate-caption:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.graphite-ink}"
+    typography: "{typography.body-sm}"
+    padding: "0.75rem 1rem"
+  plate-number:
+    textColor: "{colors.slate-text}"
+    typography: "{typography.caps}"
+  spec-cell:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.graphite-ink}"
+    typography: "{typography.body-sm}"
+    padding: "1rem"
+  tag:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.slate-text}"
     typography: "{typography.label}"
-  ledger-row:
-    backgroundColor: "transparent"
-    padding: "32px 0"
-  ledger-row-hover:
-    backgroundColor: "{colors.stone}"
-  media-plate:
-    backgroundColor: "{colors.stone}"
     rounded: "{rounded.none}"
-  cursor-ring:
-    rounded: "{rounded.ring}"
-    size: "32px"
+    padding: "0.125rem 0.5rem"
+  tag-ink:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.graphite-ink}"
+    typography: "{typography.label}"
+    rounded: "{rounded.none}"
+    padding: "0.125rem 0.5rem"
+  search-input:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.graphite-ink}"
+    typography: "{typography.body-sm}"
+    rounded: "{rounded.none}"
+    height: "2.5rem"
+  tab:
+    textColor: "{colors.slate-text}"
+    typography: "{typography.body-sm}"
+    padding: "0.75rem 0.5rem"
+  tab-active:
+    backgroundColor: "{colors.mist}"
+    textColor: "{colors.graphite-ink}"
+  popover:
+    backgroundColor: "{colors.plate-white}"
+    textColor: "{colors.graphite-ink}"
+    rounded: "{rounded.none}"
 ---
 
 # Design System: Kronos
 
 ## Overview
 
-**Creative North Star: "The Empty Vitrine"**
+**Creative North Star: "The Atlas of Horology"**
 
-Kronos is set like a museum case at night: one real movement hangs in soft rim light in the middle of a large, quiet room, and everything else on the page stays out of its way. The room is deep monochrome, ivory and stone by day and matte black and charcoal by night. Metal appears only where a watch house would engrave: a hairline, a small caption, an icon. There are no cards, no chips and no badges. Structure comes from 1px rules and from empty space.
+Kronos is set as a museum reference, not a product page. The data leads: a page opens on titles, standfirsts, ruled spec grids and a working dossier, and the photographs and the film arrive as numbered plates mounted in the same ruled frame as the facts. Everything sits on an alabaster ground; every container is a white plate with a 1px cool-grey rule; corners are square throughout. Depth comes from rules and the step between ground and plate, almost never from shadow.
 
-The page is Persian and right to left. Persian display is set in Amiri, a classical Naskh with real thick and thin strokes, as the counterpart of the Latin didone, Bodoni Moda. Text is Vazirmatn for Persian and Jost for Latin. Latin names, references and credits are the only words that ever carry tracked capitals. Each page keeps one display size. Paragraphs are short and widely leaded, and long reading keeps a 65ch measure.
+Two scripts share one voice. Titles are set in Cormorant Garamond for Latin and Amiri for Persian, a garalde and a classical Naskh with real thick and thin strokes. Running text is IBM Plex Sans with its Arabic-script cut, Plex Sans Arabic. Latin references, calibre numbers, figure numbers and measurements are set in Plex Mono, in small tracked capitals when they act as a reference line. Persian is never tracked or uppercased. One colour, rose gold, marks what is live: the active tab, the current chapter, a highlighted wheel, a tolerance band. A graphite night theme keeps the same structure with paler rose gold.
 
-Motion is inertial and slow. Colour and state changes take 500ms on a long glide curve. The header slips away as you read and comes back when you scroll up. Gallery plates sharpen into focus as their neighbours blur, and a small ring cursor follows the pointer with spring lag and names what a drag or click will do. Every scroll effect has a still alternative when reduced motion is requested.
+The density is that of a reference work: generous leading for Persian prose, tight ruled grids for data, a single 80rem container. This world replaces the earlier cinematic black-and-gold look; it does not borrow from it.
 
 **Key Characteristics:**
 
-- Deep monochrome room in two themes; bronze (light) or pale gold (dark) metal only as line, small type and icon.
-- Square corners everywhere; 1px rules, metal-tinted for section heads and captions.
-- One filled control, the primary button, in ink on ivory (or ivory on black).
-- One display size per page; titles drop to the display face at 1.875rem or 1.5rem.
-- Depth comes from the object: drop shadows and rim light belong to the cut-out movement, never to UI surfaces.
-- Generous vertical rhythm (sections of 96 to 192px) inside an 80rem centred container.
+- Alabaster ground, white plates, 1px cool-grey hairlines, graphite ink.
+- Square corners everywhere (radius 0).
+- Ruled grids whose 1px gaps are the rules.
+- Numbered plates for every photograph, drawing, chart and film, with a caption bar beneath.
+- Garalde and Naskh titles, Plex Sans text, Plex Mono caps for Latin references and data.
+- Rose gold only as a line, bar, marker or active-tab rule.
 
 ## Colors
 
-A warm deep monochrome with one metal, which changes alloy with the theme.
+A near-colourless atlas: warm-neutral paper and plates, graphite ink, and a single rose-gold accent that is never a fill for text-bearing surfaces.
 
 ### Primary
 
-- **Ink** (`ink`): the light theme's text and the fill of the one primary button. Ivory text on ink is the site's only filled control.
-- **Warm Ivory Text** (`warm-ivory-text`): the dark theme's text and the fill of its primary button.
-
-### Secondary
-
-- **Bronze** (`bronze`, light) / **Pale Gold** (`pale-gold`, dark): the metal (`--metal`). Used for hairlines (mixed to 45% through the `hairline` utility), the footer's 16-unit rule (50%), counted numerals in long reading, the role line of a selected part, the active chapter bar under the film, selected Latin part names, icons such as the energy bolt and hovered arrows, the focus outline (1px, offset 3px), the text caret, and text selection (30% mix). Bronze reads at 5.5:1 on ivory. It is never a fill, a background or display type.
-
-### Tertiary
-
-- **Oxide Red** (`oxide-red` / `oxide-red-night`): destructive and error only.
-- **Verdigris** (`verdigris` / `verdigris-night`): success only.
+- **Rose Gold** (rose-gold; night: rose-gold-night): the one colour. Used only as lines, bars and markers: the 1px rule under the active dossier tab, the active chapter bar of the film, the balance wheel in the gear plan, the tock trace and 12% tolerance band of the timegrapher, the caret, the text selection tint, single 1.25-stroke status icons, and the focus ring of form controls.
+- **Rose Gold Ink** (rose-gold-ink; night: rose-gold-ink-night): the darker cut that carries small text at about 5:1: a part's role line in the lab, the counted step numbers in long explanations, the selected part in a list, link hover.
 
 ### Neutral
 
-- **Ivory** (`ivory`): light page and card background; also the 3D room's light backdrop (`#f6f3ed`).
-- **Ivory Popover** (`ivory-popover`): sheets and popovers, one step lifted.
-- **Stone** (`stone`): `--surface`, `--muted`, `--secondary`, `--accent` in light. Media plates are stone before the image arrives, and ledger rows tint to stone at 60% on hover.
-- **Stone Ink Muted** (`stone-ink-muted`): secondary text, nav links, captions and labels.
-- **Ink Rule** (`ink-rule`) / **Ink Input** (`ink-input`): plain 1px dividers (12%) and field strokes (22%).
-- **Matte Black** (`matte-black`): dark page background; the 3D night room (`#080706`).
-- **Charcoal** (`charcoal`), **Charcoal Popover** (`charcoal-popover`), **Charcoal Raised** (`charcoal-raised`): dark surface, popover and accent steps.
-- **Ash Muted** (`ash-muted`): dark secondary text.
-- **White Rule** (`white-rule`) / **White Input** (`white-input`): dark dividers (9%) and field strokes (16%).
+- **Alabaster** (alabaster; night: graphite-night): the page ground.
+- **Plate White** (plate-white; night: night-plate): every plate, spec cell, tag, search field and popover.
+- **Graphite Ink** (graphite-ink; night: night-ink): text, primary buttons, outline-button borders, the current nav underline, chart traces.
+- **Mist** (mist; night: night-mist): the active tab cell, image wells before load, table heads (at 60%), banded sections (at 50%), the footer (at 60%), hovered rows.
+- **Mist Deep** (mist-deep; night: night-mist-deep): the accent surface of shadcn primitives.
+- **Slate Text** (slate-text; night: night-slate-text): standfirsts, body copy beside titles, labels, captions' numbers.
+- **Hairline** (hairline; night: night-hairline): every rule, plate border and grid gap.
+- **Input Rule** (input-rule; night: night-input-rule): the resting border of fields; focus turns it graphite.
+
+### Status
+
+- **Signal Red** (signal-red / signal-red-night) and **Verdigris** (verdigris / verdigris-night): destructive and success states only.
 
 ### Named Rules
 
-**The Metal Is a Line Rule.** `--metal` draws lines, small type (0.875rem and below) and icons. It never fills a shape, sets a background or colours display type.
+**The One Metal Rule.** Rose gold is a line, a bar, a marker or the active tab's rule. It never fills a button, a plate or a section, and small text in rose gold always uses rose-gold-ink.
 
-**The One Filled Control Rule.** Only the primary button is filled, in ink (or ivory at night). Every other control is text, an outline or a rule. The outline button fills only as its hover state.
-
-**The Same Room Rule.** Any 3D stage's background is the page's own ivory or matte black, so the stage reads as the same room. Studio light colours inside the scene are physical materials and sit outside the token system.
+**The Graphite Action Rule.** The primary action is graphite ink on alabaster, not rose gold. Emphasis comes from weight of ink, not hue.
 
 ## Typography
 
-**Display Font:** Bodoni Moda (Latin) and Amiri 400 (Persian), with Vazirmatn and serif as fallbacks
-**Body Font:** Jost (Latin) and Vazirmatn (Persian), with ui-sans-serif and system-ui
-**Label Font:** Jost, in tracked capitals, for Latin only (`caps`)
+**Display Font:** Cormorant Garamond (Latin), Amiri (Persian), falling back to IBM Plex Sans Arabic, serif
+**Body Font:** IBM Plex Sans (Latin) with IBM Plex Sans Arabic (Persian)
+**Label/Mono Font:** IBM Plex Mono
 
-**Character:** A high-contrast didone and a classical Naskh share the display voice and carry the thick-and-thin of engraved metal. The geometric sans and Vazirmatn are calm and even beneath them. All fonts are self-hosted.
+**Character:** A classical serif pair for titles, one per script, over a precise humanist sans; the mono is the atlas's instrument voice for references and measurements. All faces are self-hosted.
 
 ### Hierarchy
 
-- **Display** (400, `clamp(2.5rem, 1.5rem + 3.6vw, 4.75rem)`, 1.35, word-spacing -0.02em, balanced wrap): the `display` utility. Page titles and the heading of each home chapter. One size, used on every page; width is held by a ch cap (12ch to 22ch) rather than a smaller size.
-- **Title** (400, 1.875rem): the display face for the names of calibres in ledgers and the lab, the mobile menu title, and the one statement inside a status plate.
-- **Title Small** (400, 1.5rem): the selected part's name and its key figure in the lab panel.
-- **Body** (400, 1rem, line-height 2): all running prose, muted next to display and at 85% foreground in long reading. Intro lines are capped at 20 to 28rem.
-- **Body Small** (400, 0.875rem, 1.75): panel prose, spec rows, notes under watches, button text, footer statement.
-- **Label** (400, 0.75rem): Persian section heads over a hairline, ledger column heads, nav links, chapter names under the film. Muted, never tracked.
-- **Caps** (400, 0.6875rem, 0.28em, uppercase, 1.6): Latin calibre references, brand and model names, corner captions, plate indexes, measurements. Always `dir="ltr"`.
-- **Wordmark** (Bodoni Moda 400, 1.25rem, 0.45em): KRONOS, centred, with the Persian "دانشنامهٔ ساعت" at 10px beneath, untracked.
+- **Display** (500, clamp 2.375rem to 3.75rem, 1.25, word-spacing -0.1em, balanced): page titles and the main title of each home section. The Amiri word space is tightened because its default opens holes at display size.
+- **Title** (500, clamp 1.75rem to 2.375rem, 1.3, word-spacing -0.1em): section titles one step down, the film's chapter titles, calibre names in the dossier, article section heads.
+- **Headline** (400, 1.5rem to 1.75rem, snug): entry titles inside plates and grids (feature entries, family names, part names).
+- **Body Lead** (400, 1.125rem, line-height 2.25rem): the standfirst under a hero title.
+- **Body** (400, 1rem, line-height 2rem): running Persian prose, held to a 60 to 68ch measure.
+- **Body Small** (400, 0.875rem, line-height 1.75rem): captions, table cells, short plate text, buttons, nav.
+- **Label** (400, 0.75rem, 1.6, slate, untracked): Persian field labels, table heads, footer column heads.
+- **Caps** (Plex Mono 400, 0.6875rem, 0.16em tracking, uppercase): Latin reference lines under titles, plate numbers, plate-head references, the footer imprint, error codes.
+- **Data** (Plex Mono 400, 0.75rem to 1rem, tabular figures): Latin values and calibre references in lists and tables, set left to right.
 
 ### Named Rules
 
-**The One Display Size Rule.** A page has one display size, the `display` utility. A smaller heading is Title or Title Small in the same face, never a new step of the display clamp.
+**The Untracked Persian Rule.** Persian is never letter-spaced and never uppercased; tracking breaks its joins. Caps is reserved for Latin.
 
-**The Untracked Persian Rule.** Persian is never letter-spaced, in any size or weight: tracking breaks the joins of the script. Tracked capitals are for Latin words only.
+**The Reference Line Rule.** A Latin reference (calibre number, figure number, "Error 404") sits below or beside its Persian title in caps, never above it. There are no eyebrows or kickers over headings.
 
-**The Counted Numerals Rule.** Figures that are indexes or measurements use tabular numerals; Persian ordinals in long reading are set at 0.75rem in the metal.
+**The Mono Measures Rule.** Numbers that are measured or compared (vph, hours, jewels, s/d, teeth) are set in the mono or with tabular figures, so columns align.
 
 ## Layout
 
-A centred, museum-symmetric grid. The page container is 80rem (`max-w-7xl`) with 16px gutters, 32px from 640px. Long-form pages narrow to 72rem; the 404 to 36rem. The header is a three-column grid (links, centred wordmark, theme toggle) 64px tall; the footer stacks centred with 40px gaps and 96px vertical padding.
+One centred container (80rem) with a 1rem gutter, 1.5rem from 40rem up. Home sections breathe at 5rem vertical padding, 7rem from 64rem; page bodies at 3.5rem and 5rem. Breakpoints are 40rem, 48rem (header switches from search row to category row; header height 7.25rem to 6.5rem) and 64rem (split layouts engage).
 
-Vertical rhythm is generous. Home chapters are tall scroll tracks (130dvh to 520vh) with a sticky full-height stage; static sections use 192px block padding, and long-form pages 96 to 128px top padding. Inside sections, 64 to 96px separates blocks, 24px separates a section head from its content, 24px separates long-reading paragraphs, and 12 to 16px separates a caption from its plate.
+Split layouts pair a text column with a plate: a flexible column against a 22 to 32rem plate, or near-equal columns (1 : 1.1 to 1.15) for statement and figure pairs. Section heads are a title on the start side and a short slate note on the end side, ruled off below with 1.5rem padding. Data is set in ruled grids (gap 1px over a hairline background) of 2 to 4 columns; tables become stacked ruled entries below 48rem.
 
-Hero and finale are centred symmetrically, with the object in the optical centre and the action at bottom centre between two Latin corner captions (hidden under 640px). The calibre profile places long reading beside a 22rem aside of specs from 1024px. The lab gives the stage the full width minus a 400px control panel on a start-side rule, and stacks below 1024px.
+Scroll stages (the film, the plate gallery) pin a full-height panel below the sticky header and translate scroll into frame or plate progress; reduced motion must get a still equivalent.
 
-### Derived rules for future surfaces (not yet shipped)
+### Long reading (articles)
 
-Articles, figures and video do not exist yet. These rules follow from the built system and apply when those templates are made:
+Articles use one text column held to 68ch (body, 2rem leading) with headings in Title, ruled off below (1rem padding). Ordered explanations count their steps in a small square ruled box with rose-gold-ink Persian numerals, because order is the mechanism. Figures may break out of the measure up to the container width; captions stay with their figure. Asides (specs, cross-references) sit in a 26rem side column from 64rem and fall below the text on phones. Breadcrumbs are a single slate small line with a slash separator.
 
-- **Article body:** the long-reading measure from the calibre facts: a 65ch column, 1rem Vazirmatn at line-height 2, text at 85% foreground, 24px between paragraphs. Section heads are Persian Label (0.75rem, muted) over a hairline rule with 16px below the text. Article titles take the page's one display size. Counted steps take Persian ordinals in the metal.
-- **Figure:** a framed media plate. The image sits in a square-cornered box with a fixed aspect ratio, stone behind it while it loads, cropped by `object-cover`. Beneath it is a figcaption on a hairline top rule with 12px above the text. The Persian caption is in body at the start; the Latin credit, source or index is in `caps`, muted, `dir="ltr"`, tabular, at the end, aligned on the baseline.
-- **Video:** the same plate at 16:9. The first frame or a poster paints with the page. Chapter markers, if any, are 1px bars (rule colour, metal when active) with Label text beneath. Captions and credits follow the figure rule. Under reduced motion nothing autoplays or scrubs.
-- **Full-bleed media:** cut-out objects keep their drop shadow on the rim-light glow; photographs never get a shadow, a border radius or a frame thicker than a hairline.
+### Named Rules
+
+**The Measure Rule.** Persian prose never runs wider than 68ch, at line-height 2.
 
 ## Elevation & Depth
 
-UI surfaces are flat: no box shadows on buttons, rows, panels or plates. Depth belongs to the object and the light. The cut-out movement carries a soft drop shadow and sits on a radial rim-light glow (an ellipse of 55% by 50%, white at 95% in light, warm grey at 55% in dark, fading by 70%). The frosted header (55% background, 24px blur, 150% saturation) is the only translucent layer. The gallery adds depth of field: plates away from the centre scale to 0.78, dim to 50% and blur 6px.
+Flat by construction. Depth is the step from alabaster ground to white plate plus a 1px hairline; banded sections use mist at 50%. Only floating layers get a resting shadow.
 
 ### Shadow Vocabulary
 
-- **Object** (`--object-shadow`: `0 30px 40px oklch(0.25 0.02 60 / 0.22)` light, `0 40px 60px oklch(0 0 0 / 0.6)` dark): cut-out movements resting in the page, applied as a `drop-shadow` filter.
-- **Object Hero** (`--object-shadow-hero`: `0 40px 56px oklch(0.25 0.02 60 / 0.26)` light, `0 50px 70px oklch(0 0 0 / 0.65)` dark): the first-viewport cut-out only.
-- **Contact** (`--object-contact`): the ground shadow under the travelling movement, squashed as it turns.
+- **Popover** (`box-shadow: 0 12px 30px -16px oklch(0.2 0.005 90 / 0.25)`; night `0 16px 36px -18px oklch(0 0 0 / 0.7)`): search results and other popovers, menus and listboxes. The token is named plate-shadow in source; it is not for plates.
+- **Object** (`filter: drop-shadow(0 18px 22px oklch(0.2 0.005 90 / 0.18))`; night `0 24px 30px oklch(0 0 0 / 0.55)`): only the cut-out photographed movement resting on its white mat.
 
 ### Named Rules
 
-**The Object Casts the Only Shadow Rule.** Soft offset shadows belong to cut-out physical objects. Interface elements stay flat and are separated by rules and space.
+**The Ruled Not Raised Rule.** Plates, cards, tables and figures carry no shadow at rest. A resting shadow means the layer floats above the page.
 
 ## Shapes
 
-Every corner is square (`--radius: 0`, all radius steps mapped to it). Form comes from 1px lines: hairlines in the metal at 45% for section heads, captions, status plates and the lab's detail panel; plain rules (12% ink or 9% white) between ledger and spec rows and on the lab panel's start side. The only round shapes are the cursor ring and dot and the loading disc, which are lenses rather than containers.
-
-### Named Rules
-
-**The Square Corner Rule.** No radius on any box, button, field, image or sheet. A circle is allowed only for a pointer or loading lens.
+Square everywhere: radius 0 on buttons, fields, tags, tabs, plates, sheets and popovers (every shadcn radius step resolves to 0). Form comes from 1px rules: plate borders, rules between rows, the 1px gaps of spec grids, a 1px underline for the current nav item and the active tab. Step counters and tags are small ruled boxes. Drawings use thin non-scaling strokes (1 to 1.25px) with dashed centre lines.
 
 ## Components
 
 ### Buttons
 
-Restrained and engraved: the fill is rare and the text is small.
+Quiet and exact; ink, not colour.
 
-- **Shape:** square (0px). Large is 48px tall with 32px inline padding; default is 36px.
-- **Primary:** ink fill, ivory text (inverted at night), 0.875rem regular. Hover softens the fill to 85%. It carries "ورود به آزمایشگاه" and the 404's main way out.
-- **Outline:** transparent with a 1px border at 25% foreground; on hover it fills to foreground with background text.
-- **Ghost:** 75% foreground text, rising to full on hover; used for the theme toggle (Lucide Sun and Moon at 16px).
-- **Hover / Focus:** colour transitions take 500ms on `ease-glide`. Focus is the global 1px metal outline offset 3px.
+- **Shape:** square (0px).
+- **Primary:** graphite fill, alabaster text, Body Small regular; large 2.75rem tall with 1.5rem inline padding, default 2.25rem.
+- **Outline:** 1px graphite border, transparent; inverts to graphite fill with alabaster text on hover.
+- **Ghost:** text at 75% ink, full ink on hover; used for icon buttons (theme toggle, menu).
+- **Hover / Focus:** colour transitions 300ms on the glide curve (cubic-bezier(0.16, 1, 0.3, 1)); focus ring 3px rose gold at 50%. Pair a primary with an outline; never two primaries.
 
-### Ledger Rows
+### Tags
 
-The collector's catalogue in place of cards.
+- **Style:** white, 1px hairline, 0.125rem by 0.5rem, Persian in 0.75rem slate; Latin tags in caps at 0.625rem. Ink tone marks a positive state ("آماده").
 
-- **Style:** one row per item on a 12% rule, the column heads in Label over a hairline. The name is in Title; the values are in body at 85%.
-- **State:** hover and focus tint the row to stone at 60%; the trailing directional arrow turns to the metal and nudges 4px toward reading direction.
-- **Spec rows:** 0.875rem, label muted at the start, value at the end, 12px block padding.
+### Plates (Cards / Containers)
 
-### Media Plate (gallery)
+- **Corner Style:** square.
+- **Background:** plate white on alabaster or mist bands.
+- **Shadow Strategy:** none (see Elevation).
+- **Border:** 1px hairline; inner divisions are hairline rules or 1px grid gaps.
+- **Internal Padding:** 1rem cells, 1.25 to 1.5rem panels, 2rem entries.
+- **Plate head:** optional top bar with the Persian name on the start side and a caps Latin reference on the end side, ruled off below.
 
-- **Style:** a 4:5 square-cornered plate, stone underneath, `object-cover`. The figcaption sits on a hairline top rule with 12px above: Persian caption at the start, Latin `NN / NN` index in `caps` at the end.
-- **Behaviour:** on a horizontal scroll track the centred plate is sharp at full scale; neighbours dim, blur and shrink. Only the image blurs; the caption stays legible.
+### Spec Grid
 
-### Film Plate
+A definition list in a ruled grid: each cell a Label over a Body Small value (Latin values in the mono, left to right). An odd last cell spans the row.
 
-- **Style:** an unframed 16:9 stage on wide screens (46dvh full-width on phones), scrubbed by scroll from the owner's frames, first frame painted with the page. Under it is a row of chapter bars: 1px rules that turn metal for the active chapter, with Label names beneath.
+### Figure Plates, captions and numbering
 
-### Status Plate
+Every photograph, drawing, chart and film is a plate: image well (mist until loaded, object-cover), then a caption bar ruled off above, 0.75rem by 1rem, with the Persian caption on the start side and the plate number in caps slate on the end side, left to right, never wrapping. Use the shared FigurePlate for photographs.
 
-- **Style:** a full-width 16:9 (4:5 on phones) block between hairline top and bottom rules, rim light behind, centred Title statement, body text and one outline action. Used where the real 3D model is not ready.
+- **Numbering:** "Fig. n" for single figures, counted in order through a page or article ("Fig. 1 · Caseback"); "Pl. 01" (two digits) for plates in a sequence or gallery. A short Latin descriptor may follow after a middle dot.
+- **Aspect:** 4:3 default, 4:5 for gallery plates, 16:9 for film; let the photograph keep its true proportion rather than cropping into the subject.
+- **Alt and caption:** alt describes what is visible; the caption names it. Credit and provenance go in the caption bar, not over the image.
+- **Long-form galleries:** a row of plates with 1px gaps or a scroll strip; the plate nearest centre may come forward (scale 0.9 to 1, only the photograph dims, captions stay legible).
+- **Notes under a figure:** a second ruled bar in Label size and slate, for honesty notes ("demonstration data, not a measurement").
 
-### Inputs / Controls (lab)
+### Film Plate (video)
 
-- **Style:** shadcn RTL slider, switch and toggle group on square corners, with 22% ink (16% white) strokes; labels in Body Small, values in tabular Label. Part lists are text buttons: Persian name at the start, Latin name in `caps` at the end, metal when selected.
+The film is a figure plate at 16:9, capped at 42dvh on phones. Its caption bar counts in caps: "Frame 001 / 240" for scroll-scrubbed films; for played video use a timecode in the same place ("00:42 / 03:10"). The first frame or a poster paints with the page. Controls belong in or under the caption bar as ghost icon buttons, square, never floating over the picture. Video never autoplays with sound; under reduced motion a scrubbed film shows still frames and played video waits for the reader. Chapter progress is a row of 2px bars (vertical markers from 64rem), the current one rose gold.
+
+### Inputs / Fields
+
+- **Style:** white field, 1px input rule, square, 2.5rem tall, inline icon 1rem at the start.
+- **Focus:** the border turns graphite; no glow.
+- **Popover list:** white, hairline, popover shadow; rows ruled, the active row mist; Latin names in data mono on the end side.
 
 ### Navigation
 
-- **Header:** fixed and frosted with a 60% rule beneath; centred wordmark; two Label links in muted text that brighten over 500ms; theme toggle at the end. It hides (fades, lifts 16px over 700ms) on scrolling down past 120px and returns on scrolling up or on keyboard focus. Below 1024px the links move into a sheet with a Title heading.
-- **Footer:** centred wordmark, a short muted statement, Label links, a 64px metal rule at 50%, then the disclaimer at 0.75rem.
+Sticky two-row header on alabaster at 92% with backdrop blur, ruled below. Row one: wordmark (KRONOS in Cormorant, 0.3em tracked Latin, with the Persian tagline beneath in 0.6875rem), omni-search, theme toggle. Row two from 48rem: the category row in Body Small slate, current item in ink with a 1px ink underline, a short vertical hairline between sections and families; on phones the search takes row two and the categories move to a right-side sheet of ruled rows. Footer: mist band, three columns (wordmark and note, sections, families) with Label heads, an imprint line in caps.
 
-### Custom Cursor
+### Tabs (Calibre Dossier)
 
-- **Style:** a 32px ring at 40% foreground with a 2px backdrop blur, trailing on a spring, plus an exact 4px dot. Over links and buttons it grows to 48px with a metal border. Over an element with `data-cursor="..."` it grows to 96px, takes a 40% background and shows the label at 11px (for example "ورود" or "بکشید تا بچرخد").
-- **Scope:** fine pointers with hover only, never under reduced motion. While active it sets `html[data-cursor="on"]` to hide the system cursor.
+Equal-width tab cells separated by hairlines; inactive slate, hover ink; active cell in mist with a 1px rose-gold rule along its bottom edge.
+
+### Data Tables
+
+Inside a plate: head row in mist at 60% with Label headings; rows ruled, hovered row mist at 50%; first column a headline-size name with a data-mono reference beneath. Below 48rem, each row becomes a plate with a 2-column ruled grid.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** use semantic tokens only (`background`, `foreground`, `surface`, `metal`, `border`); the 3D studio lights are the one physical exception.
-- **Do** keep each page to the one `display` size and cap headings by ch width (12ch to 22ch) instead of resizing them.
-- **Do** set long reading at a 65ch measure, line-height 2, with 24px between paragraphs, and head sections with a 0.75rem muted label over a hairline.
-- **Do** caption media on a hairline top rule: the Persian caption at the start, the Latin credit or index in `caps` with `dir="ltr"` at the end.
-- **Do** give a cut-out object the object shadow and a rim-light glow, and keep every other surface flat.
-- **Do** put `data-cursor` with a short Persian verb on any element where a drag or click does something unusual.
-- **Do** run transitions on `ease-glide` (500ms for colour, 700 to 1000ms for entrances) and provide a still version under reduced motion.
+- **Do** mount every photograph, chart, drawing and film in a plate with a ruled caption bar and a caps plate number ("Fig. 1 · Caseback", "Pl. 01", "Frame 001 / 240").
+- **Do** set Latin references, calibre numbers and figure numbers in Plex Mono caps (0.6875rem, 0.16em), left to right, aligned to the end side.
+- **Do** keep Persian prose to 68ch at line-height 2.
+- **Do** use rose-gold-ink, not rose gold, for any small text that needs the accent.
+- **Do** build data as ruled grids whose 1px gaps are the rules.
+- **Do** give every scroll-driven stage a still, readable reduced-motion equivalent.
 
 ### Don't:
 
-- **Don't** letter-space Persian text at any size; tracking breaks the joins.
-- **Don't** use `caps` or any tracking on Persian words; it is for Latin names, references and credits only.
-- **Don't** fill a control other than the primary button, or fill anything with the metal.
-- **Don't** round a corner on any box, button, image or field.
-- **Don't** put a box shadow on an interface surface; shadows belong to cut-out objects.
-- **Don't** build cards, chips, badges or kicker lines above headings; use ledger rows, hairline section heads and space.
-- **Don't** show a drawn model or illustration as a real calibre; a family without its CAD file gets the status plate.
+- **Don't** put eyebrows or kickers above headings; references go beneath or beside the title.
+- **Don't** letter-space or uppercase Persian.
+- **Don't** fill buttons, plates or sections with rose gold, or set small text in it.
+- **Don't** give plates, cards, tables or figures a resting shadow; resting shadows belong to popovers only (and the drop shadow under the cut-out movement).
+- **Don't** round corners.
+- **Don't** float video controls or captions over the picture.
+- **Don't** return to the cinematic black-and-gold product-page look this atlas replaced.

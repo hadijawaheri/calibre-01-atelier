@@ -13,7 +13,7 @@ export function HomeFinale() {
       aria-labelledby="finale-title"
       className="mx-auto max-w-7xl px-4 pt-4 pb-8 sm:px-6"
     >
-      <div className="grid items-center shadow-plate plate lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+      <div className="grid items-center plate lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
         <div className="flex flex-col gap-5 p-8 sm:p-12">
           <h2 id="finale-title" className="display">
             دو رو، یک قلب

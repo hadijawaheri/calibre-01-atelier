@@ -1,6 +1,6 @@
 # 0008. A canon luxury redesign: vitrine, didone and hairline metal
 
-Status: accepted
+Status: superseded by 0009
 
 The owner asked for a fundamental redesign to the Impeccable skill's standards, then pinned the look in his own
 words: the classic luxury-watch house. Deep monochrome (matte black, charcoal, stone, ivory), metal only as hairlines,

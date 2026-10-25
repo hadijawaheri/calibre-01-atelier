@@ -33,13 +33,15 @@ export function HomeHero() {
         </div>
         <dl className="mt-4 grid max-w-lg grid-cols-3 border-t border-border pt-5">
           {[
-            { label: "Beat", value: "28,800 vph" },
-            { label: "Reserve", value: "38 h" },
-            { label: "Jewels", value: "25" },
+            { label: "ضربه در ساعت", value: "28,800" },
+            { label: "ذخیرهٔ انرژی", value: "38 h" },
+            { label: "یاقوت", value: "25" },
           ].map((fact) => (
-            <div key={fact.label} className="flex flex-col gap-1" dir="ltr">
-              <dt className="caps text-muted-foreground">{fact.label}</dt>
-              <dd className="font-mono text-sm">{fact.value}</dd>
+            <div key={fact.label} className="flex flex-col gap-1">
+              <dt className="label">{fact.label}</dt>
+              <dd className="font-mono text-sm" dir="ltr">
+                {fact.value}
+              </dd>
             </div>
           ))}
         </dl>
