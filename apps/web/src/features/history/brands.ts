@@ -15,7 +15,7 @@ export interface BrandHistory {
   story: string;
   milestones: readonly BrandMilestone[];
   /* The photographs are of the site's own movement, standing in for the brand's watches; the caption says so */
-  image: { src: string; alt: string };
+  image: { src: string; alt: string; caption: string };
 }
 
 /* Kept in the order and wording of the original write-up */
@@ -45,6 +45,7 @@ export const BRAND_HISTORIES: readonly BrandHistory[] = [
     image: {
       src: "/media/movement-photos/rotor-side.webp",
       alt: "موومنت اتوماتیک از سمت پشت، با روتور نیم‌دایره و چرخ بالانس طلایی",
+      caption: "موومنت اتوماتیک، از پشت",
     },
   },
   {
@@ -72,6 +73,7 @@ export const BRAND_HISTORIES: readonly BrandHistory[] = [
     image: {
       src: "/media/movement-film/lg/060.webp",
       alt: "روتور و پل‌ها از روی موومنت بلند می‌شوند و چرخ‌ها پیدا می‌شوند",
+      caption: "روتور کنار می‌رود",
     },
   },
   {
@@ -103,6 +105,7 @@ export const BRAND_HISTORIES: readonly BrandHistory[] = [
     image: {
       src: "/media/movement-photos/balance-detail.webp",
       alt: "نمای نزدیک چرخ بالانس، پل بالانس و یاقوت ضربه‌گیر",
+      caption: "قلب، از نزدیک",
     },
   },
   {
@@ -125,6 +128,7 @@ export const BRAND_HISTORIES: readonly BrandHistory[] = [
     image: {
       src: "/media/movement-film/lg/100.webp",
       alt: "همهٔ قطعه‌های موومنت، جدا از هم، روی زمینهٔ تیره معلق‌اند",
+      caption: "بیش از صد قطعه",
     },
   },
   {
@@ -159,6 +163,7 @@ export const BRAND_HISTORIES: readonly BrandHistory[] = [
     image: {
       src: "/media/movement-photos/dial-side.webp",
       alt: "موومنت از سمت صفحه، با حلقهٔ تاریخ ۱ تا ۳۱",
+      caption: "زیر صفحه",
     },
   },
   {
@@ -185,6 +190,7 @@ export const BRAND_HISTORIES: readonly BrandHistory[] = [
     image: {
       src: "/media/movement-film/lg/180.webp",
       alt: "قطعه‌ها دوباره سر جایشان می‌نشینند و پیچ‌ها بسته می‌شوند",
+      caption: "دوباره، یک ماشین",
     },
   },
 ];

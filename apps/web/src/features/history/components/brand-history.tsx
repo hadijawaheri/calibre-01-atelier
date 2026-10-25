@@ -3,8 +3,7 @@ import { FigurePlate, PageHeader, Spec, SpecGrid } from "@/components/atlas";
 import type { BrandHistory } from "../brands";
 import { BRAND_HISTORIES } from "../brands";
 
-const plateNumber = (index: number) =>
-  `Pl. ${String(index + 1).padStart(2, "0")} / ${String(BRAND_HISTORIES.length).padStart(2, "0")}`;
+const plateNumber = (index: number) => `Pl. ${String(index + 1).padStart(2, "0")}`;
 
 /* One brand as an atlas entry: the long read on the main column, the plate and the facts beside it. */
 function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
@@ -16,11 +15,11 @@ function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
       className="grid scroll-mt-[calc(var(--header-height)+1.5rem)] gap-12 border-t border-border pt-14 first-of-type:border-t-0 first-of-type:pt-0 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:gap-16"
     >
       <div className="flex flex-col gap-12">
-        <header className="flex flex-col gap-3">
+        <header className="flex flex-col gap-3 border-b border-border pb-4">
           <h2 id={titleId} className="title">
             {brand.name}
           </h2>
-          <p className="font-mono text-xs text-muted-foreground" dir="ltr">
+          <p className="caps text-muted-foreground" dir="ltr">
             {brand.latinName}
           </p>
           <p className="text-lg leading-8 text-muted-foreground">{brand.tagline}</p>
@@ -57,8 +56,10 @@ function BrandEntry({ brand, index }: { brand: BrandHistory; index: number }) {
         <FigurePlate
           src={brand.image.src}
           alt={brand.image.alt}
-          caption={`موومنت کرونوس، نه ساعتی از ${brand.name}`}
+          caption={brand.image.caption}
           number={plateNumber(index)}
+          note={`عکس موومنت کرونوس است، نه ساعتی از ${brand.name}.`}
+          aspect="aspect-video"
           sizes="(max-width: 1023px) 100vw, 26rem"
         />
         <SpecGrid className="grid-cols-1">
