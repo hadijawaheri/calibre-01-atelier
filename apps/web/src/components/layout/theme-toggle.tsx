@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 
 const noop = () => () => {};
 
-/** Switches between the ivory and obsidian themes; the system preference decides until the visitor chooses. */
+/** Switches between the alabaster and graphite themes; the system preference decides until the visitor chooses. */
 export function ThemeToggle({ className }: { className?: string }) {
   const { resolvedTheme, setTheme } = useTheme();
   // The theme is only known in the browser; the server renders a neutral button to match the first paint

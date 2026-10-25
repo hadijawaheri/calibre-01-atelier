@@ -1,447 +1,500 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T12:00:00Z",
+  "generatedAt": "2026-10-25T08:49:40Z",
   "title": "Design System: Kronos",
   "extensions": {
     "colorMeta": {
-      "ivory": {
+      "alabaster": {
         "role": "neutral",
-        "displayName": "Ivory",
-        "canonical": "oklch(0.965 0.009 85)",
+        "displayName": "Alabaster",
+        "canonical": "oklch(0.986 0.002 106)",
+        "cssVariable": "--background (light)",
         "tonalRamp": [
-          "oklch(0.15 0.009 85)",
-          "oklch(0.27 0.009 85)",
-          "oklch(0.39 0.009 85)",
-          "oklch(0.51 0.009 85)",
-          "oklch(0.63 0.009 85)",
-          "oklch(0.75 0.009 85)",
-          "oklch(0.86 0.009 85)",
-          "oklch(0.95 0.009 85)"
+          "oklch(0.15 0.001 106)",
+          "oklch(0.27 0.002 106)",
+          "oklch(0.39 0.002 106)",
+          "oklch(0.51 0.002 106)",
+          "oklch(0.63 0.002 106)",
+          "oklch(0.75 0.002 106)",
+          "oklch(0.86 0.002 106)",
+          "oklch(0.95 0.001 106)"
         ]
       },
-      "ivory-popover": {
+      "plate-white": {
         "role": "neutral",
-        "displayName": "Ivory Popover",
-        "canonical": "oklch(0.975 0.008 85)",
+        "displayName": "Plate White",
+        "canonical": "oklch(1 0 0)",
+        "cssVariable": "--card, --popover (light)",
         "tonalRamp": [
-          "oklch(0.15 0.008 85)",
-          "oklch(0.27 0.008 85)",
-          "oklch(0.39 0.008 85)",
-          "oklch(0.51 0.008 85)",
-          "oklch(0.63 0.008 85)",
-          "oklch(0.75 0.008 85)",
-          "oklch(0.86 0.008 85)",
-          "oklch(0.95 0.008 85)"
+          "oklch(0.15 0.0 0)",
+          "oklch(0.27 0.0 0)",
+          "oklch(0.39 0.0 0)",
+          "oklch(0.51 0.0 0)",
+          "oklch(0.63 0.0 0)",
+          "oklch(0.75 0.0 0)",
+          "oklch(0.86 0.0 0)",
+          "oklch(0.95 0.0 0)"
         ]
       },
-      "ink": {
+      "graphite-ink": {
+        "role": "neutral",
+        "displayName": "Graphite Ink",
+        "canonical": "oklch(0.2 0.005 90)",
+        "cssVariable": "--foreground, --primary (light)",
+        "tonalRamp": [
+          "oklch(0.15 0.0025 90)",
+          "oklch(0.27 0.005 90)",
+          "oklch(0.39 0.005 90)",
+          "oklch(0.51 0.005 90)",
+          "oklch(0.63 0.005 90)",
+          "oklch(0.75 0.005 90)",
+          "oklch(0.86 0.005 90)",
+          "oklch(0.95 0.0025 90)"
+        ]
+      },
+      "mist": {
+        "role": "neutral",
+        "displayName": "Mist",
+        "canonical": "oklch(0.966 0.002 106)",
+        "cssVariable": "--secondary, --muted, --surface (light)",
+        "tonalRamp": [
+          "oklch(0.15 0.001 106)",
+          "oklch(0.27 0.002 106)",
+          "oklch(0.39 0.002 106)",
+          "oklch(0.51 0.002 106)",
+          "oklch(0.63 0.002 106)",
+          "oklch(0.75 0.002 106)",
+          "oklch(0.86 0.002 106)",
+          "oklch(0.95 0.001 106)"
+        ]
+      },
+      "mist-deep": {
+        "role": "neutral",
+        "displayName": "Mist Deep",
+        "canonical": "oklch(0.955 0.003 106)",
+        "cssVariable": "--accent (light)",
+        "tonalRamp": [
+          "oklch(0.15 0.0015 106)",
+          "oklch(0.27 0.003 106)",
+          "oklch(0.39 0.003 106)",
+          "oklch(0.51 0.003 106)",
+          "oklch(0.63 0.003 106)",
+          "oklch(0.75 0.003 106)",
+          "oklch(0.86 0.003 106)",
+          "oklch(0.95 0.0015 106)"
+        ]
+      },
+      "slate-text": {
+        "role": "neutral",
+        "displayName": "Slate Text",
+        "canonical": "oklch(0.48 0.006 90)",
+        "cssVariable": "--muted-foreground (light)",
+        "tonalRamp": [
+          "oklch(0.15 0.003 90)",
+          "oklch(0.27 0.006 90)",
+          "oklch(0.39 0.006 90)",
+          "oklch(0.51 0.006 90)",
+          "oklch(0.63 0.006 90)",
+          "oklch(0.75 0.006 90)",
+          "oklch(0.86 0.006 90)",
+          "oklch(0.95 0.003 90)"
+        ]
+      },
+      "hairline": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(0.913 0.002 106)",
+        "cssVariable": "--border (light)",
+        "tonalRamp": [
+          "oklch(0.15 0.001 106)",
+          "oklch(0.27 0.002 106)",
+          "oklch(0.39 0.002 106)",
+          "oklch(0.51 0.002 106)",
+          "oklch(0.63 0.002 106)",
+          "oklch(0.75 0.002 106)",
+          "oklch(0.86 0.002 106)",
+          "oklch(0.95 0.001 106)"
+        ]
+      },
+      "input-rule": {
+        "role": "neutral",
+        "displayName": "Input Rule",
+        "canonical": "oklch(0.87 0.003 106)",
+        "cssVariable": "--input (light)",
+        "tonalRamp": [
+          "oklch(0.15 0.0015 106)",
+          "oklch(0.27 0.003 106)",
+          "oklch(0.39 0.003 106)",
+          "oklch(0.51 0.003 106)",
+          "oklch(0.63 0.003 106)",
+          "oklch(0.75 0.003 106)",
+          "oklch(0.86 0.003 106)",
+          "oklch(0.95 0.0015 106)"
+        ]
+      },
+      "rose-gold": {
         "role": "primary",
-        "displayName": "Ink",
-        "canonical": "oklch(0.17 0.006 70)",
+        "displayName": "Rose Gold",
+        "canonical": "oklch(0.62 0.09 50)",
+        "cssVariable": "--metal, --ring (light)",
         "tonalRamp": [
-          "oklch(0.15 0.006 70)",
-          "oklch(0.27 0.006 70)",
-          "oklch(0.39 0.006 70)",
-          "oklch(0.51 0.006 70)",
-          "oklch(0.63 0.006 70)",
-          "oklch(0.75 0.006 70)",
-          "oklch(0.86 0.006 70)",
-          "oklch(0.95 0.006 70)"
+          "oklch(0.15 0.045 50)",
+          "oklch(0.27 0.09 50)",
+          "oklch(0.39 0.09 50)",
+          "oklch(0.51 0.09 50)",
+          "oklch(0.63 0.09 50)",
+          "oklch(0.75 0.09 50)",
+          "oklch(0.86 0.09 50)",
+          "oklch(0.95 0.045 50)"
         ]
       },
-      "stone": {
-        "role": "neutral",
-        "displayName": "Stone",
-        "canonical": "oklch(0.925 0.014 80)",
+      "rose-gold-ink": {
+        "role": "primary",
+        "displayName": "Rose Gold Ink",
+        "canonical": "oklch(0.5 0.1 45)",
+        "cssVariable": "--metal-ink (light)",
         "tonalRamp": [
-          "oklch(0.15 0.014 80)",
-          "oklch(0.27 0.014 80)",
-          "oklch(0.39 0.014 80)",
-          "oklch(0.51 0.014 80)",
-          "oklch(0.63 0.014 80)",
-          "oklch(0.75 0.014 80)",
-          "oklch(0.86 0.014 80)",
-          "oklch(0.95 0.014 80)"
+          "oklch(0.15 0.05 45)",
+          "oklch(0.27 0.1 45)",
+          "oklch(0.39 0.1 45)",
+          "oklch(0.51 0.1 45)",
+          "oklch(0.63 0.1 45)",
+          "oklch(0.75 0.1 45)",
+          "oklch(0.86 0.1 45)",
+          "oklch(0.95 0.05 45)"
         ]
       },
-      "stone-ink-muted": {
-        "role": "neutral",
-        "displayName": "Stone Ink Muted",
-        "canonical": "oklch(0.46 0.014 70)",
+      "signal-red": {
+        "role": "status",
+        "displayName": "Signal Red",
+        "canonical": "oklch(0.52 0.19 27)",
+        "cssVariable": "--destructive (light)",
         "tonalRamp": [
-          "oklch(0.15 0.014 70)",
-          "oklch(0.27 0.014 70)",
-          "oklch(0.39 0.014 70)",
-          "oklch(0.51 0.014 70)",
-          "oklch(0.63 0.014 70)",
-          "oklch(0.75 0.014 70)",
-          "oklch(0.86 0.014 70)",
-          "oklch(0.95 0.014 70)"
-        ]
-      },
-      "bronze": {
-        "role": "secondary",
-        "displayName": "Bronze (metal, light)",
-        "canonical": "oklch(0.5 0.07 65)",
-        "tonalRamp": [
-          "oklch(0.15 0.07 65)",
-          "oklch(0.27 0.07 65)",
-          "oklch(0.39 0.07 65)",
-          "oklch(0.51 0.07 65)",
-          "oklch(0.63 0.07 65)",
-          "oklch(0.75 0.07 65)",
-          "oklch(0.86 0.07 65)",
-          "oklch(0.95 0.07 65)"
-        ]
-      },
-      "ink-rule": {
-        "role": "neutral",
-        "displayName": "Ink Rule",
-        "canonical": "oklch(0.17 0.006 70 / 12%)",
-        "tonalRamp": [
-          "oklch(0.15 0.006 70)",
-          "oklch(0.27 0.006 70)",
-          "oklch(0.39 0.006 70)",
-          "oklch(0.51 0.006 70)",
-          "oklch(0.63 0.006 70)",
-          "oklch(0.75 0.006 70)",
-          "oklch(0.86 0.006 70)",
-          "oklch(0.95 0.006 70)"
-        ]
-      },
-      "ink-input": {
-        "role": "neutral",
-        "displayName": "Ink Input",
-        "canonical": "oklch(0.17 0.006 70 / 22%)",
-        "tonalRamp": [
-          "oklch(0.15 0.006 70)",
-          "oklch(0.27 0.006 70)",
-          "oklch(0.39 0.006 70)",
-          "oklch(0.51 0.006 70)",
-          "oklch(0.63 0.006 70)",
-          "oklch(0.75 0.006 70)",
-          "oklch(0.86 0.006 70)",
-          "oklch(0.95 0.006 70)"
-        ]
-      },
-      "oxide-red": {
-        "role": "tertiary",
-        "displayName": "Oxide Red",
-        "canonical": "oklch(0.5 0.17 27)",
-        "tonalRamp": [
-          "oklch(0.15 0.17 27)",
-          "oklch(0.27 0.17 27)",
-          "oklch(0.39 0.17 27)",
-          "oklch(0.51 0.17 27)",
-          "oklch(0.63 0.17 27)",
-          "oklch(0.75 0.17 27)",
-          "oklch(0.86 0.17 27)",
-          "oklch(0.95 0.17 27)"
+          "oklch(0.15 0.095 27)",
+          "oklch(0.27 0.19 27)",
+          "oklch(0.39 0.19 27)",
+          "oklch(0.51 0.19 27)",
+          "oklch(0.63 0.19 27)",
+          "oklch(0.75 0.19 27)",
+          "oklch(0.86 0.19 27)",
+          "oklch(0.95 0.095 27)"
         ]
       },
       "verdigris": {
-        "role": "tertiary",
+        "role": "status",
         "displayName": "Verdigris",
         "canonical": "oklch(0.48 0.1 150)",
+        "cssVariable": "--success (light)",
         "tonalRamp": [
-          "oklch(0.15 0.1 150)",
+          "oklch(0.15 0.05 150)",
           "oklch(0.27 0.1 150)",
           "oklch(0.39 0.1 150)",
           "oklch(0.51 0.1 150)",
           "oklch(0.63 0.1 150)",
           "oklch(0.75 0.1 150)",
           "oklch(0.86 0.1 150)",
-          "oklch(0.95 0.1 150)"
+          "oklch(0.95 0.05 150)"
         ]
       },
-      "matte-black": {
+      "graphite-night": {
         "role": "neutral",
-        "displayName": "Matte Black",
-        "canonical": "oklch(0.13 0.003 80)",
+        "displayName": "Graphite Night",
+        "canonical": "oklch(0.215 0.004 255)",
+        "cssVariable": "--background (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.003 80)",
-          "oklch(0.27 0.003 80)",
-          "oklch(0.39 0.003 80)",
-          "oklch(0.51 0.003 80)",
-          "oklch(0.63 0.003 80)",
-          "oklch(0.75 0.003 80)",
-          "oklch(0.86 0.003 80)",
-          "oklch(0.95 0.003 80)"
+          "oklch(0.15 0.002 255)",
+          "oklch(0.27 0.004 255)",
+          "oklch(0.39 0.004 255)",
+          "oklch(0.51 0.004 255)",
+          "oklch(0.63 0.004 255)",
+          "oklch(0.75 0.004 255)",
+          "oklch(0.86 0.004 255)",
+          "oklch(0.95 0.002 255)"
         ]
       },
-      "charcoal-popover": {
+      "night-plate": {
         "role": "neutral",
-        "displayName": "Charcoal Popover",
-        "canonical": "oklch(0.17 0.004 80)",
+        "displayName": "Night Plate",
+        "canonical": "oklch(0.25 0.004 255)",
+        "cssVariable": "--card, --popover (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.004 80)",
-          "oklch(0.27 0.004 80)",
-          "oklch(0.39 0.004 80)",
-          "oklch(0.51 0.004 80)",
-          "oklch(0.63 0.004 80)",
-          "oklch(0.75 0.004 80)",
-          "oklch(0.86 0.004 80)",
-          "oklch(0.95 0.004 80)"
+          "oklch(0.15 0.002 255)",
+          "oklch(0.27 0.004 255)",
+          "oklch(0.39 0.004 255)",
+          "oklch(0.51 0.004 255)",
+          "oklch(0.63 0.004 255)",
+          "oklch(0.75 0.004 255)",
+          "oklch(0.86 0.004 255)",
+          "oklch(0.95 0.002 255)"
         ]
       },
-      "charcoal": {
+      "night-mist": {
         "role": "neutral",
-        "displayName": "Charcoal",
-        "canonical": "oklch(0.175 0.004 80)",
+        "displayName": "Night Mist",
+        "canonical": "oklch(0.235 0.004 255)",
+        "cssVariable": "--secondary, --muted, --surface (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.004 80)",
-          "oklch(0.27 0.004 80)",
-          "oklch(0.39 0.004 80)",
-          "oklch(0.51 0.004 80)",
-          "oklch(0.63 0.004 80)",
-          "oklch(0.75 0.004 80)",
-          "oklch(0.86 0.004 80)",
-          "oklch(0.95 0.004 80)"
+          "oklch(0.15 0.002 255)",
+          "oklch(0.27 0.004 255)",
+          "oklch(0.39 0.004 255)",
+          "oklch(0.51 0.004 255)",
+          "oklch(0.63 0.004 255)",
+          "oklch(0.75 0.004 255)",
+          "oklch(0.86 0.004 255)",
+          "oklch(0.95 0.002 255)"
         ]
       },
-      "charcoal-raised": {
+      "night-mist-deep": {
         "role": "neutral",
-        "displayName": "Charcoal Raised",
-        "canonical": "oklch(0.2 0.005 80)",
+        "displayName": "Night Mist Deep",
+        "canonical": "oklch(0.27 0.004 255)",
+        "cssVariable": "--accent (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.005 80)",
-          "oklch(0.27 0.005 80)",
-          "oklch(0.39 0.005 80)",
-          "oklch(0.51 0.005 80)",
-          "oklch(0.63 0.005 80)",
-          "oklch(0.75 0.005 80)",
-          "oklch(0.86 0.005 80)",
-          "oklch(0.95 0.005 80)"
+          "oklch(0.15 0.002 255)",
+          "oklch(0.27 0.004 255)",
+          "oklch(0.39 0.004 255)",
+          "oklch(0.51 0.004 255)",
+          "oklch(0.63 0.004 255)",
+          "oklch(0.75 0.004 255)",
+          "oklch(0.86 0.004 255)",
+          "oklch(0.95 0.002 255)"
         ]
       },
-      "warm-ivory-text": {
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Ink",
+        "canonical": "oklch(0.95 0.003 100)",
+        "cssVariable": "--foreground, --primary (dark)",
+        "tonalRamp": [
+          "oklch(0.15 0.0015 100)",
+          "oklch(0.27 0.003 100)",
+          "oklch(0.39 0.003 100)",
+          "oklch(0.51 0.003 100)",
+          "oklch(0.63 0.003 100)",
+          "oklch(0.75 0.003 100)",
+          "oklch(0.86 0.003 100)",
+          "oklch(0.95 0.0015 100)"
+        ]
+      },
+      "night-slate-text": {
+        "role": "neutral",
+        "displayName": "Night Slate Text",
+        "canonical": "oklch(0.74 0.005 255)",
+        "cssVariable": "--muted-foreground (dark)",
+        "tonalRamp": [
+          "oklch(0.15 0.0025 255)",
+          "oklch(0.27 0.005 255)",
+          "oklch(0.39 0.005 255)",
+          "oklch(0.51 0.005 255)",
+          "oklch(0.63 0.005 255)",
+          "oklch(0.75 0.005 255)",
+          "oklch(0.86 0.005 255)",
+          "oklch(0.95 0.0025 255)"
+        ]
+      },
+      "night-hairline": {
+        "role": "neutral",
+        "displayName": "Night Hairline",
+        "canonical": "oklch(1 0 0 / 11%)",
+        "cssVariable": "--border (dark)"
+      },
+      "night-input-rule": {
+        "role": "neutral",
+        "displayName": "Night Input Rule",
+        "canonical": "oklch(1 0 0 / 18%)",
+        "cssVariable": "--input (dark)"
+      },
+      "rose-gold-night": {
         "role": "primary",
-        "displayName": "Warm Ivory Text",
-        "canonical": "oklch(0.93 0.012 85)",
+        "displayName": "Rose Gold Night",
+        "canonical": "oklch(0.76 0.08 55)",
+        "cssVariable": "--metal, --ring (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.012 85)",
-          "oklch(0.27 0.012 85)",
-          "oklch(0.39 0.012 85)",
-          "oklch(0.51 0.012 85)",
-          "oklch(0.63 0.012 85)",
-          "oklch(0.75 0.012 85)",
-          "oklch(0.86 0.012 85)",
-          "oklch(0.95 0.012 85)"
+          "oklch(0.15 0.04 55)",
+          "oklch(0.27 0.08 55)",
+          "oklch(0.39 0.08 55)",
+          "oklch(0.51 0.08 55)",
+          "oklch(0.63 0.08 55)",
+          "oklch(0.75 0.08 55)",
+          "oklch(0.86 0.08 55)",
+          "oklch(0.95 0.04 55)"
         ]
       },
-      "ash-muted": {
-        "role": "neutral",
-        "displayName": "Ash Muted",
-        "canonical": "oklch(0.7 0.014 80)",
+      "rose-gold-ink-night": {
+        "role": "primary",
+        "displayName": "Rose Gold Ink Night",
+        "canonical": "oklch(0.8 0.07 60)",
+        "cssVariable": "--metal-ink (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.014 80)",
-          "oklch(0.27 0.014 80)",
-          "oklch(0.39 0.014 80)",
-          "oklch(0.51 0.014 80)",
-          "oklch(0.63 0.014 80)",
-          "oklch(0.75 0.014 80)",
-          "oklch(0.86 0.014 80)",
-          "oklch(0.95 0.014 80)"
+          "oklch(0.15 0.035 60)",
+          "oklch(0.27 0.07 60)",
+          "oklch(0.39 0.07 60)",
+          "oklch(0.51 0.07 60)",
+          "oklch(0.63 0.07 60)",
+          "oklch(0.75 0.07 60)",
+          "oklch(0.86 0.07 60)",
+          "oklch(0.95 0.035 60)"
         ]
       },
-      "pale-gold": {
-        "role": "secondary",
-        "displayName": "Pale Gold (metal, dark)",
-        "canonical": "oklch(0.8 0.06 85)",
+      "signal-red-night": {
+        "role": "status",
+        "displayName": "Signal Red Night",
+        "canonical": "oklch(0.68 0.17 25)",
+        "cssVariable": "--destructive (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.06 85)",
-          "oklch(0.27 0.06 85)",
-          "oklch(0.39 0.06 85)",
-          "oklch(0.51 0.06 85)",
-          "oklch(0.63 0.06 85)",
-          "oklch(0.75 0.06 85)",
-          "oklch(0.86 0.06 85)",
-          "oklch(0.95 0.06 85)"
-        ]
-      },
-      "white-rule": {
-        "role": "neutral",
-        "displayName": "White Rule",
-        "canonical": "oklch(1 0 0 / 9%)",
-        "tonalRamp": [
-          "oklch(0.15 0 0)",
-          "oklch(0.27 0 0)",
-          "oklch(0.39 0 0)",
-          "oklch(0.51 0 0)",
-          "oklch(0.63 0 0)",
-          "oklch(0.75 0 0)",
-          "oklch(0.86 0 0)",
-          "oklch(0.95 0 0)"
-        ]
-      },
-      "white-input": {
-        "role": "neutral",
-        "displayName": "White Input",
-        "canonical": "oklch(1 0 0 / 16%)",
-        "tonalRamp": [
-          "oklch(0.15 0 0)",
-          "oklch(0.27 0 0)",
-          "oklch(0.39 0 0)",
-          "oklch(0.51 0 0)",
-          "oklch(0.63 0 0)",
-          "oklch(0.75 0 0)",
-          "oklch(0.86 0 0)",
-          "oklch(0.95 0 0)"
-        ]
-      },
-      "oxide-red-night": {
-        "role": "tertiary",
-        "displayName": "Oxide Red (night)",
-        "canonical": "oklch(0.66 0.17 25)",
-        "tonalRamp": [
-          "oklch(0.15 0.17 25)",
+          "oklch(0.15 0.085 25)",
           "oklch(0.27 0.17 25)",
           "oklch(0.39 0.17 25)",
           "oklch(0.51 0.17 25)",
           "oklch(0.63 0.17 25)",
           "oklch(0.75 0.17 25)",
           "oklch(0.86 0.17 25)",
-          "oklch(0.95 0.17 25)"
+          "oklch(0.95 0.085 25)"
         ]
       },
       "verdigris-night": {
-        "role": "tertiary",
-        "displayName": "Verdigris (night)",
+        "role": "status",
+        "displayName": "Verdigris Night",
         "canonical": "oklch(0.74 0.12 155)",
+        "cssVariable": "--success (dark)",
         "tonalRamp": [
-          "oklch(0.15 0.12 155)",
+          "oklch(0.15 0.06 155)",
           "oklch(0.27 0.12 155)",
           "oklch(0.39 0.12 155)",
           "oklch(0.51 0.12 155)",
           "oklch(0.63 0.12 155)",
           "oklch(0.75 0.12 155)",
           "oklch(0.86 0.12 155)",
-          "oklch(0.95 0.12 155)"
+          "oklch(0.95 0.06 155)"
         ]
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The one display size per page (`display` utility): page titles and home chapter headings."
+        "purpose": "Page titles and the main title of each home section; utility `display`. Word-spacing -0.1em, text-wrap balance."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Display face at 1.875rem: calibre names in ledgers and the lab, mobile menu title, status plate statement."
+        "purpose": "Section, chapter and article-section titles; utility `title`. Word-spacing -0.1em."
       },
-      "title-sm": {
-        "displayName": "Title Small",
-        "purpose": "Display face at 1.5rem: selected part name and key figure in the lab."
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Entry titles inside plates, grids and tables (1.5rem to 1.75rem)."
+      },
+      "body-lead": {
+        "displayName": "Body Lead",
+        "purpose": "Standfirst under a hero title."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Running prose at line-height 2; long reading at a 65ch measure."
+        "purpose": "Persian running prose, 60 to 68ch, line-height 2."
       },
       "body-sm": {
         "displayName": "Body Small",
-        "purpose": "Panel prose, spec rows, button text, footer statement."
+        "purpose": "Captions, table cells, buttons, nav, short plate text."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Persian section heads over a hairline, ledger column heads, nav links, chapter names. Never tracked."
+        "purpose": "Persian field labels and table heads; utility `label`; untracked, slate."
       },
       "caps": {
         "displayName": "Caps",
-        "purpose": "Latin-only tracked capitals: references, brand and model names, credits, indexes. Always dir=ltr."
+        "purpose": "Latin reference lines, plate numbers, frame counters; utility `caps`. Never on Persian."
       },
-      "wordmark": {
-        "displayName": "Wordmark",
-        "purpose": "KRONOS in Bodoni Moda, tracked 0.45em, centred in header and footer."
+      "data": {
+        "displayName": "Data",
+        "purpose": "Latin values and references in the mono with tabular figures, left to right."
       }
     },
+    "fonts": [
+      {
+        "name": "Cormorant Garamond",
+        "weights": [400, 500, 600],
+        "var": "--font-cormorant"
+      },
+      {
+        "name": "Amiri",
+        "weights": [400],
+        "var": "--font-amiri"
+      },
+      {
+        "name": "IBM Plex Sans",
+        "weights": "100 700",
+        "var": "--font-plex-sans"
+      },
+      {
+        "name": "IBM Plex Sans Arabic",
+        "weights": [400, 500, 600],
+        "var": "--font-plex-arabic"
+      },
+      {
+        "name": "IBM Plex Mono",
+        "weights": [400, 500],
+        "var": "--font-plex-mono"
+      }
+    ],
     "shadows": [
       {
+        "name": "popover",
+        "value": "0 12px 30px -16px oklch(0.2 0.005 90 / 0.25)",
+        "dark": "0 16px 36px -18px oklch(0 0 0 / 0.7)",
+        "purpose": "Search results, menus and other popovers only (source token --plate-shadow / shadow-plate)."
+      },
+      {
         "name": "object",
-        "value": "0 30px 40px oklch(0.25 0.02 60 / 0.22)",
-        "valueDark": "0 40px 60px oklch(0 0 0 / 0.6)",
-        "purpose": "Drop-shadow filter under cut-out movements resting in the page (--object-shadow)."
-      },
-      {
-        "name": "object-hero",
-        "value": "0 40px 56px oklch(0.25 0.02 60 / 0.26)",
-        "valueDark": "0 50px 70px oklch(0 0 0 / 0.65)",
-        "purpose": "First-viewport cut-out only (--object-shadow-hero)."
-      },
-      {
-        "name": "object-contact",
-        "value": "oklch(0.25 0.02 60 / 0.2)",
-        "valueDark": "oklch(0 0 0 / 0.45)",
-        "purpose": "Ground shadow under the travelling movement, squashed as it turns (--object-contact)."
-      },
-      {
-        "name": "rim-light",
-        "value": "radial-gradient(ellipse 55% 50% at 50% 50%, oklch(1 0 0 / 0.95), transparent 70%)",
-        "valueDark": "radial-gradient(ellipse 55% 50% at 50% 50%, oklch(0.32 0.01 80 / 0.55), transparent 70%)",
-        "purpose": "Softbox glow behind the object (rim-light utility); hero, finale, 404, status plate."
-      },
-      {
-        "name": "header-frost",
-        "value": "background 55% + backdrop-filter: blur(24px) saturate(1.5)",
-        "purpose": "The only translucent UI layer: the fixed header."
+        "value": "drop-shadow(0 18px 22px oklch(0.2 0.005 90 / 0.18))",
+        "dark": "drop-shadow(0 24px 30px oklch(0 0 0 / 0.55))",
+        "purpose": "The cut-out photographed movement on its white mat (--object-shadow)."
       }
     ],
     "motion": [
       {
         "name": "ease-glide",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Default easing for every state and entrance transition (--ease-glide)."
+        "purpose": "Default easing for state transitions, chapter swaps and drawn lines."
       },
       {
         "name": "duration-state",
-        "value": "500ms",
-        "purpose": "Colour, border and arrow transitions on links, buttons and rows."
-      },
-      {
-        "name": "duration-header",
-        "value": "700ms",
-        "purpose": "Header hide/reveal (fade + 16px lift) and chapter bar colour."
+        "value": "300ms",
+        "purpose": "Colour changes on links, buttons, tabs, rows."
       },
       {
         "name": "duration-chapter",
-        "value": "1000ms",
-        "purpose": "Film chapter text cross-fade with 24px rise and blur."
+        "value": "500ms",
+        "purpose": "Film chapter markers and the first-frame crossfade."
       },
       {
-        "name": "cursor-spring",
-        "value": "stiffness 260, damping 30, mass 0.6",
-        "purpose": "Ring cursor lag behind the exact dot."
+        "name": "duration-swap",
+        "value": "700ms",
+        "purpose": "Film chapter text: opacity plus a 0.75rem rise."
       },
       {
-        "name": "float",
-        "value": "translate 0 -> -10px -> 0",
-        "purpose": "The travelling movement's slight drift, like an object hanging in a vitrine."
-      },
-      {
-        "name": "depth-of-field",
-        "value": "scale 0.78 / opacity 0.5 / blur(6px) off-centre",
-        "purpose": "Gallery plates sharpen as they reach the centre."
+        "name": "draw-line",
+        "value": "1.6s, staggered 0.15s",
+        "purpose": "Gear plan strokes drawn once in view; skipped under reduced motion."
       }
     ],
     "breakpoints": [
       {
         "name": "sm",
-        "value": "640px"
+        "value": "40rem"
+      },
+      {
+        "name": "md",
+        "value": "48rem"
       },
       {
         "name": "lg",
-        "value": "1024px"
-      },
-      {
-        "name": "xl",
-        "value": "1280px"
+        "value": "64rem"
       }
     ],
-    "derivedRules": {
-      "status": "Derived from the built system for future surfaces; no article, figure or video template has shipped.",
-      "article": "65ch measure, 1rem at line-height 2, 85% foreground, 24px between paragraphs; section heads as a 0.75rem muted label over a hairline with 16px beneath; title in the page's one display size; counted steps in metal Persian ordinals.",
-      "figure": "Square-cornered fixed-aspect plate, stone while loading, object-cover; figcaption on a hairline top rule with 12px padding; Persian caption at start in body, Latin credit or index at end in caps, muted, dir=ltr, tabular.",
-      "video": "Same plate at 16:9; first frame or poster paints with the page; chapter markers as 1px bars (rule colour, metal when active) with label text; captions and credits as for figures; no autoplay or scrub under reduced motion.",
-      "typeOnMedia": "Persian is never letter-spaced; tracked capitals only for Latin credits in caps."
+    "layout": {
+      "container": "80rem",
+      "gutter": "1rem / 1.5rem from 40rem",
+      "headerHeight": "7.25rem / 6.5rem from 48rem",
+      "readingMeasure": "68ch",
+      "radius": "0px"
     }
   },
   "components": [
@@ -449,137 +502,137 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "The one filled control: ink on ivory (ivory on black at night). The main way into the lab.",
-      "html": "<button class=\"ds-btn-primary\" dir=\"rtl\">ورود به آزمایشگاه</button>",
-      "css": ".ds-btn-primary { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 32px; font-size: 0.875rem; font-weight: 400; background: var(--primary); color: var(--primary-foreground); border: none; border-radius: 0; cursor: pointer; transition: background-color 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { background: color-mix(in oklab, var(--primary) 85%, transparent); } .ds-btn-primary:focus-visible { outline: 1px solid var(--metal); outline-offset: 3px; }"
+      "description": "The one main action, graphite on alabaster; pair with an outline button.",
+      "html": "<button class=\"ds-btn-primary\">ورود به آزمایشگاه</button>",
+      "css": ".ds-btn-primary { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: inline-flex; align-items: center; height: 2.75rem; padding: 0 1.5rem; font-size: 0.875rem; background: var(--primary); color: var(--primary-foreground); border: 0; border-radius: 0; cursor: pointer; transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-primary:hover { background: color-mix(in oklab, var(--primary) 85%, transparent); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent); }"
     },
     {
       "name": "Outline Button",
       "kind": "button",
       "refersTo": "button-outline",
-      "description": "Secondary action: a 1px frame that fills to foreground only on hover.",
-      "html": "<button class=\"ds-btn-outline\" dir=\"rtl\">صفحهٔ اصلی</button>",
-      "css": ".ds-btn-outline { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 32px; font-size: 0.875rem; font-weight: 400; background: transparent; color: var(--foreground); border: 1px solid color-mix(in oklab, var(--foreground) 25%, transparent); border-radius: 0; cursor: pointer; transition: background-color 500ms cubic-bezier(0.16, 1, 0.3, 1), color 500ms cubic-bezier(0.16, 1, 0.3, 1), border-color 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-outline:hover { background: var(--foreground); color: var(--background); border-color: var(--foreground); } .ds-btn-outline:focus-visible { outline: 1px solid var(--metal); outline-offset: 3px; }"
+      "description": "The secondary action beside a primary; inverts on hover.",
+      "html": "<button class=\"ds-btn-outline\">مقایسهٔ چهار خانواده</button>",
+      "css": ".ds-btn-outline { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: inline-flex; align-items: center; height: 2.75rem; padding: 0 1.5rem; font-size: 0.875rem; background: transparent; color: var(--foreground); border: 1px solid var(--foreground); border-radius: 0; cursor: pointer; transition: background-color 300ms cubic-bezier(0.16, 1, 0.3, 1), color 300ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-outline:hover { background: var(--foreground); color: var(--background); } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 50%, transparent); }"
     },
     {
-      "name": "Ghost Icon Button",
-      "kind": "button",
-      "refersTo": "button-ghost",
-      "description": "Theme toggle: an unframed 36px icon in 75% foreground.",
-      "html": "<button class=\"ds-btn-ghost\" aria-label=\"تم تیره\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/></svg></button>",
-      "css": ".ds-btn-ghost { display: inline-grid; place-items: center; width: 36px; height: 36px; background: transparent; border: none; border-radius: 0; color: color-mix(in oklab, var(--foreground) 75%, transparent); cursor: pointer; transition: color 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-btn-ghost:hover { color: var(--foreground); } .ds-btn-ghost:focus-visible { outline: 1px solid var(--metal); outline-offset: 3px; }"
+      "name": "Omni-search",
+      "kind": "input",
+      "refersTo": "search-input",
+      "description": "Header search over families, watches and parts; square white field, graphite on focus.",
+      "html": "<label class=\"ds-search\" dir=\"rtl\"><svg viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"8\"/><path d=\"m21 21-4.3-4.3\"/></svg><input type=\"search\" placeholder=\"جستجوی موومنت، ساعت، کالیبر یا قطعه…\"></label>",
+      "css": ".ds-search { position: relative; display: block; max-width: 36rem; } .ds-search svg { position: absolute; inset-inline-start: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--muted-foreground); } .ds-search input { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; width: 100%; height: 2.5rem; padding-inline: 2.5rem 0.75rem; font-size: 0.875rem; background: var(--card); color: var(--foreground); border: 1px solid var(--input); border-radius: 0; outline: none; transition: border-color 300ms; } .ds-search input:focus { border-color: var(--foreground); }"
     },
     {
-      "name": "Header",
+      "name": "Category Row",
       "kind": "nav",
-      "refersTo": "nav-link",
-      "description": "Frosted fixed header: two tiny links, centred tracked wordmark, theme toggle; hides on scroll down.",
-      "html": "<header class=\"ds-header\" dir=\"rtl\"><nav class=\"ds-header-links\"><a href=\"#\">خانه</a><a href=\"#\">آزمایشگاه موومنت</a></nav><a class=\"ds-wordmark\" href=\"#\"><span class=\"ds-wordmark-latin\" dir=\"ltr\">KRONOS</span><span class=\"ds-wordmark-fa\">دانشنامهٔ ساعت</span></a><div class=\"ds-header-end\"><button class=\"ds-btn-ghost\" aria-label=\"تم تیره\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z\"/></svg></button></div></header>",
-      "css": ".ds-header { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; height: 64px; padding: 0 32px; background: color-mix(in oklab, var(--background) 55%, transparent); backdrop-filter: blur(24px) saturate(1.5); border-bottom: 1px solid color-mix(in oklab, var(--border) 60%, transparent); } .ds-header-links { display: flex; gap: 40px; } .ds-header-links a { font-size: 0.75rem; color: var(--muted-foreground); text-decoration: none; transition: color 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-header-links a:hover { color: var(--foreground); } .ds-header-links a:focus-visible, .ds-wordmark:focus-visible { outline: 1px solid var(--metal); outline-offset: 3px; } .ds-wordmark { display: flex; flex-direction: column; align-items: center; gap: 6px; line-height: 1; text-decoration: none; } .ds-wordmark-latin { font-family: var(--font-bodoni), var(--font-amiri), var(--font-vazirmatn), serif; font-size: 1.25rem; letter-spacing: 0.45em; margin-inline-end: -0.45em; color: var(--foreground); } .ds-wordmark-fa { font-size: 10px; color: var(--muted-foreground); } .ds-header-end { display: flex; justify-content: flex-end; } .ds-btn-ghost { display: inline-grid; place-items: center; width: 36px; height: 36px; background: transparent; border: none; color: color-mix(in oklab, var(--foreground) 75%, transparent); }"
+      "description": "Header row two: sections, a hairline divider, then the four families; current item underlined in ink.",
+      "html": "<nav class=\"ds-nav\" dir=\"rtl\"><a href=\"#\" aria-current=\"page\">خانه</a><a href=\"#\">آزمایشگاه موومنت</a><a href=\"#\">تاریخچه</a><span class=\"ds-nav-rule\"></span><a href=\"#\">اتوماتیک</a><a href=\"#\">فوق‌باریک</a><a href=\"#\">کوارتز</a><a href=\"#\">توربیون</a></nav>",
+      "css": ".ds-nav { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: flex; align-items: center; gap: 1.75rem; border-bottom: 1px solid var(--border); } .ds-nav a { position: relative; display: flex; align-items: center; height: 2.5rem; font-size: 0.875rem; color: var(--muted-foreground); text-decoration: none; transition: color 300ms; } .ds-nav a:hover { color: var(--foreground); } .ds-nav a[aria-current] { color: var(--foreground); } .ds-nav a[aria-current]::after { content: ''; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: var(--foreground); } .ds-nav-rule { width: 1px; height: 1rem; background: var(--border); }"
     },
     {
-      "name": "Ledger Row",
+      "name": "Tag",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Small ruled tag for a function, material or state; Latin tags in mono caps.",
+      "html": "<span class=\"ds-tags\" dir=\"rtl\"><span class=\"ds-tag ds-tag-ink\">آماده</span><span class=\"ds-tag\">بدون باتری</span><span class=\"ds-tag ds-tag-latin\" dir=\"ltr\">COSC</span></span>",
+      "css": ".ds-tags { display: inline-flex; gap: 0.5rem; } .ds-tag { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: inline-flex; align-items: center; padding: 0.125rem 0.5rem; font-size: 0.75rem; background: var(--card); color: var(--muted-foreground); border: 1px solid var(--border); white-space: nowrap; } .ds-tag-ink { color: var(--foreground); } .ds-tag-latin { font-family: var(--font-plex-mono), ui-monospace, monospace; font-size: 0.625rem; letter-spacing: 0.16em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Spec Grid",
       "kind": "card",
-      "refersTo": "ledger-row",
-      "description": "The catalogue row that replaces cards: one rule per family, the same questions answered across.",
-      "html": "<div class=\"ds-ledger\" dir=\"rtl\"><div class=\"ds-ledger-head\"><span></span><span>انرژی</span><span>دقت</span></div><a class=\"ds-ledger-row\" href=\"#\"><span class=\"ds-ledger-name\">ETA 2824-2</span><span>روتور و فنر اصلی</span><span>±۱۲ ثانیه در روز</span><span class=\"ds-ledger-arrow\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m12 19-7-7 7-7\"/><path d=\"M19 12H5\"/></svg></span></a></div>",
-      "css": ".ds-ledger { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; } .ds-ledger-head { display: grid; grid-template-columns: 13rem 1fr 1fr 1.5rem; gap: 32px; padding-bottom: 16px; border-bottom: 1px solid; border-color: color-mix(in oklab, var(--metal) 45%, transparent); font-size: 0.75rem; color: var(--muted-foreground); } .ds-ledger-row { display: grid; grid-template-columns: 13rem 1fr 1fr 1.5rem; gap: 32px; align-items: center; padding: 40px 0; border-bottom: 1px solid var(--border); color: color-mix(in oklab, var(--foreground) 85%, transparent); text-decoration: none; line-height: 2; transition: background-color 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-ledger-row:hover, .ds-ledger-row:focus-visible { background: color-mix(in oklab, var(--surface) 60%, transparent); outline: none; } .ds-ledger-name { font-family: var(--font-bodoni), var(--font-amiri), var(--font-vazirmatn), serif; font-size: 1.875rem; line-height: 1.2; color: var(--foreground); } .ds-ledger-arrow { color: var(--muted-foreground); transition: color 500ms cubic-bezier(0.16, 1, 0.3, 1), translate 500ms cubic-bezier(0.16, 1, 0.3, 1); } .ds-ledger-row:hover .ds-ledger-arrow { color: var(--metal); translate: -4px 0; }"
+      "refersTo": "spec-cell",
+      "description": "Measured facts in a ruled grid whose 1px gaps are the rules.",
+      "html": "<dl class=\"ds-specs\" dir=\"rtl\"><div><dt>منبع انرژی</dt><dd>فنر اصلی در بشکه</dd></div><div><dt>ذخیرهٔ انرژی</dt><dd>حدود ۳۸ ساعت</dd></div><div><dt>فرکانس</dt><dd>۴ هرتز</dd></div><div><dt>Rotor</dt><dd class=\"ds-latin\" dir=\"ltr\">Bidirectional</dd></div></dl>",
+      "css": ".ds-specs { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin: 0; background: var(--border); border: 1px solid var(--border); } .ds-specs > div { display: flex; flex-direction: column; gap: 0.375rem; padding: 1rem; background: var(--card); } .ds-specs dt { font-size: 0.75rem; color: var(--muted-foreground); } .ds-specs dd { margin: 0; font-size: 0.875rem; color: var(--foreground); font-variant-numeric: tabular-nums; } .ds-specs .ds-latin { font-family: var(--font-plex-mono), ui-monospace, monospace; text-align: end; }"
     },
     {
-      "name": "Media Plate with Ruled Caption",
+      "name": "Figure Plate",
       "kind": "custom",
-      "refersTo": "media-plate",
-      "description": "Gallery figure: square plate on stone, hairline-ruled caption with Persian at start and a Latin caps index at end. Also the derived rule for future article figures and video.",
-      "html": "<figure class=\"ds-plate\" dir=\"rtl\"><div class=\"ds-plate-media\"></div><figcaption class=\"ds-plate-caption\"><span>قلب، از نزدیک</span><span class=\"ds-caps\" dir=\"ltr\">04 / 06</span></figcaption></figure>",
-      "css": ".ds-plate { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; margin: 0; width: 280px; display: flex; flex-direction: column; gap: 16px; color: var(--foreground); } .ds-plate-media { aspect-ratio: 4 / 5; background: var(--surface); border-radius: 0; overflow: hidden; } .ds-plate-caption { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-top: 12px; border-top: 1px solid; border-color: color-mix(in oklab, var(--metal) 45%, transparent); } .ds-caps { font-family: var(--font-jost), ui-sans-serif, sans-serif; font-size: 0.6875rem; letter-spacing: 0.28em; text-transform: uppercase; line-height: 1.6; color: var(--muted-foreground); font-variant-numeric: tabular-nums; }"
+      "refersTo": "plate-caption",
+      "description": "A photograph mounted as a numbered plate: image well, ruled caption bar, caps number on the end side.",
+      "html": "<figure class=\"ds-figure\" dir=\"rtl\"><div class=\"ds-figure-well\"></div><figcaption><span>موومنت اتوماتیک سوئیسی، از سمت پشت</span><span class=\"ds-figure-no\" dir=\"ltr\">Fig. 1 · Caseback</span></figcaption></figure>",
+      "css": ".ds-figure { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: flex; flex-direction: column; margin: 0; max-width: 28rem; background: var(--card); border: 1px solid var(--border); } .ds-figure-well { aspect-ratio: 4 / 3; background: var(--secondary); } .ds-figure figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.75rem 1rem; font-size: 0.875rem; color: var(--foreground); border-top: 1px solid var(--border); } .ds-figure-no { font-family: var(--font-plex-mono), ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-foreground); flex-shrink: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }"
     },
     {
-      "name": "Long-Reading Section",
+      "name": "Film Plate",
       "kind": "custom",
-      "refersTo": "",
-      "description": "Calibre facts pattern: hairline section head in a muted label, 65ch measure, line-height 2, metal Persian ordinals. The derived rule for future articles.",
-      "html": "<section class=\"ds-read\" dir=\"rtl\"><h2 class=\"ds-read-head\">چطور کار می‌کند</h2><ol class=\"ds-read-list\"><li><span class=\"ds-read-n\">۱</span><p>وزنهٔ نیم‌دایره با هر حرکت دست می‌چرخد و فنر اصلی را آرام‌آرام کوک می‌کند.</p></li><li><span class=\"ds-read-n\">۲</span><p>چرخ‌دنده‌ها حرکت کند فنر را قدم‌به‌قدم سریع می‌کنند تا به چرخ اسکیپمنت برسد.</p></li></ol></section>",
-      "css": ".ds-read { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; display: flex; flex-direction: column; gap: 24px; color: var(--foreground); } .ds-read-head { margin: 0; padding-bottom: 16px; border-bottom: 1px solid; border-color: color-mix(in oklab, var(--metal) 45%, transparent); font-size: 0.75rem; font-weight: 400; color: var(--muted-foreground); } .ds-read-list { list-style: none; margin: 0; padding: 0; max-width: 65ch; display: flex; flex-direction: column; gap: 24px; } .ds-read-list li { display: grid; grid-template-columns: 1.5rem 1fr; gap: 16px; line-height: 2; } .ds-read-n { font-size: 0.75rem; line-height: 2rem; color: var(--metal); font-variant-numeric: tabular-nums; } .ds-read-list p { margin: 0; color: color-mix(in oklab, var(--foreground) 85%, transparent); }"
+      "description": "Video and scroll-scrubbed film as a 16:9 plate; the caption bar counts frames or time.",
+      "html": "<figure class=\"ds-film\" dir=\"rtl\"><div class=\"ds-film-well\"></div><figcaption><span>فیلم یک موومنت اتوماتیک که باز و دوباره بسته می‌شود</span><span class=\"ds-film-count\" dir=\"ltr\">Frame 001 / 240</span></figcaption><ol class=\"ds-film-bars\"><li class=\"is-active\"></li><li></li><li></li><li></li><li></li></ol></figure>",
+      "css": ".ds-film { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: flex; flex-direction: column; margin: 0; max-width: 36rem; background: var(--card); border: 1px solid var(--border); } .ds-film-well { aspect-ratio: 16 / 9; background: var(--secondary); } .ds-film figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.625rem 1rem; font-size: 0.875rem; border-top: 1px solid var(--border); } .ds-film-count { font-family: var(--font-plex-mono), ui-monospace, monospace; font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted-foreground); flex-shrink: 0; font-variant-numeric: tabular-nums; } .ds-film-bars { display: flex; gap: 0.375rem; margin: 0; padding: 0.75rem 1rem; list-style: none; border-top: 1px solid var(--border); } .ds-film-bars li { flex: 1; height: 2px; background: var(--border); transition: background-color 500ms; } .ds-film-bars li.is-active { background: var(--metal); }"
     },
     {
-      "name": "Custom Cursor (label state)",
+      "name": "Calibre Dossier Tabs",
       "kind": "custom",
-      "refersTo": "cursor-ring",
-      "description": "The ring cursor over an element with data-cursor: 96px, metal border, naming the action.",
-      "html": "<div class=\"ds-cursor\" dir=\"rtl\"><span>ورود</span></div>",
-      "css": ".ds-cursor { font-family: var(--font-jost), var(--font-vazirmatn), ui-sans-serif, system-ui, sans-serif; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 9999px; border: 1px solid var(--metal); background: color-mix(in oklab, var(--background) 40%, transparent); backdrop-filter: blur(2px); font-size: 11px; line-height: 20px; color: var(--foreground); transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1), height 500ms cubic-bezier(0.16, 1, 0.3, 1); }"
+      "refersTo": "tab-active",
+      "description": "Equal tab cells divided by hairlines; the active cell in mist with a 1px rose-gold rule.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\" dir=\"rtl\"><button role=\"tab\" aria-selected=\"true\">اتوماتیک</button><button role=\"tab\" aria-selected=\"false\">فوق‌باریک</button><button role=\"tab\" aria-selected=\"false\">کوارتز</button><button role=\"tab\" aria-selected=\"false\">توربیون</button></div>",
+      "css": ".ds-tabs { font-family: var(--font-plex-sans), var(--font-plex-arabic), sans-serif; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 32rem; background: var(--card); border: 1px solid var(--border); } .ds-tabs button { position: relative; padding: 0.75rem 0.5rem; font: inherit; font-size: 0.875rem; color: var(--muted-foreground); background: transparent; border: 0; border-inline-end: 1px solid var(--border); cursor: pointer; transition: color 300ms; } .ds-tabs button:last-child { border-inline-end: 0; } .ds-tabs button:hover { color: var(--foreground); } .ds-tabs button[aria-selected=true] { background: var(--secondary); color: var(--foreground); } .ds-tabs button[aria-selected=true]::after { content: ''; position: absolute; inset-inline: 0; bottom: 0; height: 1px; background: var(--metal); } .ds-tabs button:focus-visible { outline: 1px solid var(--foreground); outline-offset: -3px; }"
     }
   ],
   "narrative": {
-    "northStar": "The Empty Vitrine",
-    "overview": "Kronos is set like a museum case at night: one real movement hangs in soft rim light in the middle of a large, quiet room, and everything else on the page stays out of its way. The room is deep monochrome, ivory and stone by day and matte black and charcoal by night. Metal appears only where a watch house would engrave: a hairline, a small caption, an icon. There are no cards, no chips and no badges. Structure comes from 1px rules and from empty space.\n\nThe page is Persian and right to left. Persian display is set in Amiri, a classical Naskh with real thick and thin strokes, as the counterpart of the Latin didone, Bodoni Moda. Text is Vazirmatn for Persian and Jost for Latin. Latin names, references and credits are the only words that ever carry tracked capitals. Each page keeps one display size. Paragraphs are short and widely leaded, and long reading keeps a 65ch measure.\n\nMotion is inertial and slow. Colour and state changes take 500ms on a long glide curve. The header slips away as you read and comes back when you scroll up. Gallery plates sharpen into focus as their neighbours blur, and a small ring cursor follows the pointer with spring lag and names what a drag or click will do. Every scroll effect has a still alternative when reduced motion is requested.",
+    "northStar": "The Atlas of Horology",
+    "overview": "Kronos is set as a museum reference, not a product page. The data leads: a page opens on titles, standfirsts, ruled spec grids and a working dossier, and the photographs and the film arrive as numbered plates mounted in the same ruled frame as the facts. Everything sits on an alabaster ground; every container is a white plate with a 1px cool-grey rule; corners are square throughout. Depth comes from rules and the step between ground and plate, almost never from shadow.\n\nTwo scripts share one voice. Titles are set in Cormorant Garamond for Latin and Amiri for Persian, a garalde and a classical Naskh with real thick and thin strokes. Running text is IBM Plex Sans with its Arabic-script cut, Plex Sans Arabic. Latin references, calibre numbers, figure numbers and measurements are set in Plex Mono, in small tracked capitals when they act as a reference line. Persian is never tracked or uppercased. One colour, rose gold, marks what is live: the active tab, the current chapter, a highlighted wheel, a tolerance band. A graphite night theme keeps the same structure with paler rose gold.\n\nThe density is that of a reference work: generous leading for Persian prose, tight ruled grids for data, a single 80rem container. This world replaces the earlier cinematic black-and-gold look; it does not borrow from it.",
     "keyCharacteristics": [
-      "Deep monochrome room in two themes; bronze (light) or pale gold (dark) metal only as line, small type and icon.",
-      "Square corners everywhere; 1px rules, metal-tinted for section heads and captions.",
-      "One filled control, the primary button, in ink on ivory (or ivory on black).",
-      "One display size per page; titles drop to the display face at 1.875rem or 1.5rem.",
-      "Depth comes from the object: drop shadows and rim light belong to the cut-out movement, never to UI surfaces.",
-      "Generous vertical rhythm (sections of 96 to 192px) inside an 80rem centred container."
+      "Alabaster ground, white plates, 1px cool-grey hairlines, graphite ink.",
+      "Square corners everywhere (radius 0).",
+      "Ruled grids whose 1px gaps are the rules.",
+      "Numbered plates for every photograph, drawing, chart and film, with a caption bar beneath.",
+      "Garalde and Naskh titles, Plex Sans text, Plex Mono caps for Latin references and data.",
+      "Rose gold only as a line, bar, marker or active-tab rule."
     ],
     "rules": [
       {
-        "name": "The Metal Is a Line Rule",
-        "body": "`--metal` draws lines, small type (0.875rem and below) and icons. It never fills a shape, sets a background or colours display type.",
+        "name": "The One Metal Rule",
+        "body": "Rose gold is a line, a bar, a marker or the active tab's rule. It never fills a button, a plate or a section, and small text in rose gold always uses rose-gold-ink.",
         "section": "colors"
       },
       {
-        "name": "The One Filled Control Rule",
-        "body": "Only the primary button is filled, in ink (or ivory at night). Every other control is text, an outline or a rule. The outline button fills only as its hover state.",
+        "name": "The Graphite Action Rule",
+        "body": "The primary action is graphite ink on alabaster, not rose gold. Emphasis comes from weight of ink, not hue.",
         "section": "colors"
-      },
-      {
-        "name": "The Same Room Rule",
-        "body": "Any 3D stage's background is the page's own ivory or matte black, so the stage reads as the same room. Studio light colours inside the scene are physical materials and sit outside the token system.",
-        "section": "colors"
-      },
-      {
-        "name": "The One Display Size Rule",
-        "body": "A page has one display size, the `display` utility. A smaller heading is Title or Title Small in the same face, never a new step of the display clamp.",
-        "section": "typography"
       },
       {
         "name": "The Untracked Persian Rule",
-        "body": "Persian is never letter-spaced, in any size or weight: tracking breaks the joins of the script. Tracked capitals are for Latin words only.",
+        "body": "Persian is never letter-spaced and never uppercased; tracking breaks its joins. Caps is reserved for Latin.",
         "section": "typography"
       },
       {
-        "name": "The Counted Numerals Rule",
-        "body": "Figures that are indexes or measurements use tabular numerals; Persian ordinals in long reading are set at 0.75rem in the metal.",
+        "name": "The Reference Line Rule",
+        "body": "A Latin reference (calibre number, figure number, \"Error 404\") sits below or beside its Persian title in caps, never above it. There are no eyebrows or kickers over headings.",
         "section": "typography"
       },
       {
-        "name": "The Object Casts the Only Shadow Rule",
-        "body": "Soft offset shadows belong to cut-out physical objects. Interface elements stay flat and are separated by rules and space.",
+        "name": "The Mono Measures Rule",
+        "body": "Numbers that are measured or compared (vph, hours, jewels, s/d, teeth) are set in the mono or with tabular figures, so columns align.",
+        "section": "typography"
+      },
+      {
+        "name": "The Measure Rule",
+        "body": "Persian prose never runs wider than 68ch, at line-height 2.",
+        "section": "layout"
+      },
+      {
+        "name": "The Ruled Not Raised Rule",
+        "body": "Plates, cards, tables and figures carry no shadow at rest. A resting shadow means the layer floats above the page.",
         "section": "elevation"
-      },
-      {
-        "name": "The Square Corner Rule",
-        "body": "No radius on any box, button, field, image or sheet. A circle is allowed only for a pointer or loading lens.",
-        "section": "shapes"
       }
     ],
     "dos": [
-      "Do use semantic tokens only (`background`, `foreground`, `surface`, `metal`, `border`); the 3D studio lights are the one physical exception.",
-      "Do keep each page to the one `display` size and cap headings by ch width (12ch to 22ch) instead of resizing them.",
-      "Do set long reading at a 65ch measure, line-height 2, with 24px between paragraphs, and head sections with a 0.75rem muted label over a hairline.",
-      "Do caption media on a hairline top rule: the Persian caption at the start, the Latin credit or index in `caps` with `dir=\"ltr\"` at the end.",
-      "Do give a cut-out object the object shadow and a rim-light glow, and keep every other surface flat.",
-      "Do put `data-cursor` with a short Persian verb on any element where a drag or click does something unusual.",
-      "Do run transitions on `ease-glide` (500ms for colour, 700 to 1000ms for entrances) and provide a still version under reduced motion."
+      "Do mount every photograph, chart, drawing and film in a plate with a ruled caption bar and a caps plate number (\"Fig. 1 · Caseback\", \"Pl. 01\", \"Frame 001 / 240\").",
+      "Do set Latin references, calibre numbers and figure numbers in Plex Mono caps (0.6875rem, 0.16em), left to right, aligned to the end side.",
+      "Do keep Persian prose to 68ch at line-height 2.",
+      "Do use rose-gold-ink, not rose gold, for any small text that needs the accent.",
+      "Do build data as ruled grids whose 1px gaps are the rules.",
+      "Do give every scroll-driven stage a still, readable reduced-motion equivalent."
     ],
     "donts": [
-      "Don't letter-space Persian text at any size; tracking breaks the joins.",
-      "Don't use `caps` or any tracking on Persian words; it is for Latin names, references and credits only.",
-      "Don't fill a control other than the primary button, or fill anything with the metal.",
-      "Don't round a corner on any box, button, image or field.",
-      "Don't put a box shadow on an interface surface; shadows belong to cut-out objects.",
-      "Don't build cards, chips, badges or kicker lines above headings; use ledger rows, hairline section heads and space.",
-      "Don't show a drawn model or illustration as a real calibre; a family without its CAD file gets the status plate."
+      "Don't put eyebrows or kickers above headings; references go beneath or beside the title.",
+      "Don't letter-space or uppercase Persian.",
+      "Don't fill buttons, plates or sections with rose gold, or set small text in it.",
+      "Don't give plates, cards, tables or figures a resting shadow; resting shadows belong to popovers only (and the drop shadow under the cut-out movement).",
+      "Don't round corners.",
+      "Don't float video controls or captions over the picture.",
+      "Don't return to the cinematic black-and-gold product-page look this atlas replaced."
     ]
   }
 }
