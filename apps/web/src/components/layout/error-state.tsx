@@ -20,9 +20,9 @@ export function ErrorState({
   }, [error]);
 
   return (
-    <div className="mx-auto flex max-w-xl flex-col items-center gap-6 px-4 py-40 text-center">
+    <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-24 sm:px-6 lg:py-32">
       <h1 className="display">مشکلی پیش آمد</h1>
-      <p className="leading-7 text-muted-foreground">
+      <p className="max-w-lg leading-8 text-muted-foreground">
         این صفحه بارگذاری نشد. دوباره تلاش کنید؛ اگر مشکل ماند، چند دقیقه بعد سر بزنید.
         {error.digest && (
           <>

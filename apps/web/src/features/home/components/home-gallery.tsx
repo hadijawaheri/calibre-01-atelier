@@ -46,7 +46,7 @@ const PLATES: readonly Plate[] = [
 
 const STEP = 1 / (PLATES.length - 1);
 
-/** The plate nearest the middle of the screen grows and sharpens; its neighbours wait smaller and dimmer. */
+/** The plate nearest the middle of the screen comes forward; its neighbours wait a little smaller and dimmer. */
 function PlateCard({
   plate,
   index,
@@ -59,29 +59,33 @@ function PlateCard({
   const centre = index * STEP;
   // Scroll-linked animations run on the compositor, whose keyframe offsets must stay within 0..1
   const range = [Math.max(0, centre - STEP), centre, Math.min(1, centre + STEP)];
-  const scale = useTransform(progress, range, [0.78, 1, 0.78]);
-  const opacity = useTransform(progress, range, [0.5, 1, 0.5]);
-  // Depth of field: the plate in focus is sharp, the ones waiting either side sit behind the lens's plane
-  const filter = useTransform(progress, range, ["blur(6px)", "blur(0px)", "blur(6px)"]);
+  const scale = useTransform(progress, range, [0.9, 1, 0.9]);
+  const opacity = useTransform(progress, range, [0.55, 1, 0.55]);
   return (
-    <motion.figure style={{ scale }} className="flex w-(--card) shrink-0 flex-col gap-4">
-      {/* Only the photograph dims and blurs; the caption stays legible */}
+    <motion.figure
+      style={{ scale }}
+      className="flex w-(--card) shrink-0 flex-col shadow-plate plate"
+    >
+      {/* Only the photograph dims; the caption stays legible */}
       <motion.div
-        style={{ opacity, filter }}
-        className="relative aspect-[4/5] overflow-hidden bg-surface"
+        style={{ opacity }}
+        className="relative aspect-[4/5] overflow-hidden bg-secondary"
       >
         <Image
           src={plate.src}
           alt={plate.alt}
           fill
-          sizes="(max-width: 1023px) 70vw, 30vw"
+          sizes="(max-width: 1023px) 70vw, 26vw"
           className="object-cover"
         />
       </motion.div>
-      <figcaption className="flex items-baseline justify-between gap-3 border-t hairline pt-3">
+      <figcaption className="flex items-baseline justify-between gap-3 border-t border-border px-4 py-3 text-sm">
         <span>{plate.caption}</span>
-        <span className="caps text-muted-foreground tabular-nums" dir="ltr">
-          {String(index + 1).padStart(2, "0")} / {String(PLATES.length).padStart(2, "0")}
+        <span
+          className="shrink-0 caps whitespace-nowrap text-muted-foreground tabular-nums"
+          dir="ltr"
+        >
+          Pl. {String(index + 1).padStart(2, "0")}
         </span>
       </figcaption>
     </motion.figure>
@@ -89,15 +93,13 @@ function PlateCard({
 }
 
 /**
- * A horizontal strip of the same movement, taken apart and photographed, that slides past as the page
- * scrolls down, like the editorial strip on oryzo.
+ * The plates of the atlas: the same movement, taken apart and photographed, sliding past as the page scrolls.
  */
 export function HomeGallery() {
   const track = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: track, offset: ["start start", "end end"] });
   // RTL: the strip starts at the right edge, so later plates arrive from the left by moving it right
   const x = useTransform(scrollYProgress, (p) => `calc(${p} * var(--travel))`);
-  const words = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   return (
     <section
@@ -105,22 +107,14 @@ export function HomeGallery() {
       data-stage="gallery"
       style={{ ["--steps" as string]: PLATES.length - 1 }}
       aria-labelledby="gallery-title"
-      className="relative h-[420vh] [--card:70vw] [--gap:6vw] [--travel:calc((var(--card)+var(--gap))*var(--steps))] lg:[--card:28vw] lg:[--gap:4vw]"
+      className="relative h-[400vh] bg-secondary/50 [--card:68vw] [--gap:5vw] [--travel:calc((var(--card)+var(--gap))*var(--steps))] sm:[--card:44vw] lg:[--card:24vw] lg:[--gap:2.5vw]"
     >
-      <div className="sticky top-0 flex h-dvh flex-col justify-center gap-10 overflow-hidden">
-        <motion.p
-          aria-hidden
-          style={{ x: words }}
-          dir="ltr"
-          className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 text-center font-display text-[16vw] leading-none tracking-[0.2em] whitespace-nowrap text-foreground/[0.04] uppercase"
-        >
-          Piece by piece
-        </motion.p>
-        <div className="relative mx-auto flex w-full max-w-7xl items-end justify-between gap-6 px-4 sm:px-8">
-          <h2 id="gallery-title" className="display">
+      <div className="sticky top-(--header-height) flex h-[calc(100dvh-var(--header-height))] flex-col justify-center gap-8 overflow-hidden">
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-3 border-b border-border px-4 pb-6 sm:flex-row sm:items-end sm:justify-between sm:px-6">
+          <h2 id="gallery-title" className="title">
             قطعه‌به‌قطعه
           </h2>
-          <p className="max-w-xs text-base leading-8 text-muted-foreground max-sm:hidden">
+          <p className="max-w-sm text-sm leading-7 text-muted-foreground">
             همان موومنتی که بالا دیدید، باز شده و از نزدیک عکاسی شده.
           </p>
         </div>

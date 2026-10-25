@@ -9,7 +9,7 @@ export default function GlobalError({
   reset: () => void;
 }) {
   return (
-    <html lang="fa" dir="rtl" className="dark">
+    <html lang="fa" dir="rtl">
       <body className="flex min-h-dvh items-center justify-center bg-background p-6 font-sans text-foreground">
         <div className="flex max-w-md flex-col items-center gap-4 text-center">
           <h1 className="display">سایت موقتاً در دسترس نیست</h1>

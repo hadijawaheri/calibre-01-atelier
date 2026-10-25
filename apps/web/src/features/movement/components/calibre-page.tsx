@@ -34,7 +34,7 @@ export function CalibrePage({ slug }: { slug: string }) {
   };
 
   return (
-    <div className="pt-16">
+    <div>
       <script
         type="application/ld+json"
         // JSON-LD must be raw JSON; escaping "<" keeps a value from closing the script tag

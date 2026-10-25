@@ -14,6 +14,8 @@ export interface CalibreInfo {
   slug: string;
   family: CalibreFamily;
   name: string;
+  /** The family in one word, for tabs and the header's category row. */
+  shortName: string;
   /** The real calibre (or calibre family) the page describes. */
   reference: string;
   summary: string;
@@ -34,6 +36,7 @@ export const CALIBRES: readonly CalibreInfo[] = [
     slug: "automatic",
     family: "automatic",
     name: "اتوماتیک استاندارد سوئیسی",
+    shortName: "اتوماتیک",
     reference: "ETA 2824-2 / Sellita SW200",
     summary:
       "مشهورترین، قابل‌اعتمادترین و پرکاربردترین موومنت اتوماتیک سوئیسی در دوران معاصر: کوک خودکار با روتور، ثانیه‌شمار مرکزی و فرکانس ۴ هرتز. همان چیزی که در قلب صدها مدل ساعت سوئیسی می‌تپد.",
@@ -89,6 +92,7 @@ export const CALIBRES: readonly CalibreInfo[] = [
     slug: "ultra-thin",
     family: "ultra-thin",
     name: "مکانیکی فوق‌باریک",
+    shortName: "فوق‌باریک",
     reference: "Piaget 430P · JLC 849 · AP 2121 · BVL 138",
     summary:
       "شاهکار مهندسی ظرافت: موومنت‌هایی با ارتفاع حدود ۲ تا ۳ میلی‌متر، گاهی نازک‌تر از یک سکه. هر قطعه نازک‌تر، هر چرخ کم‌ارتفاع‌تر و هر پل ظریف‌تر از یک موومنت معمولی است.",
@@ -140,6 +144,7 @@ export const CALIBRES: readonly CalibreInfo[] = [
     slug: "quartz",
     family: "quartz",
     name: "کوارتز",
+    shortName: "کوارتز",
     reference: "Ronda 515 · ETA F06 · Seiko 9F",
     summary:
       "یک کریستال کوارتز، یک مدار الکترونیکی و یک موتور پله‌ای کوچک. دقتی که هیچ موومنت مکانیکی معمولی به آن نمی‌رسد، با قطعه‌هایی که می‌شود در کف دست شمرد.",
@@ -192,6 +197,7 @@ export const CALIBRES: readonly CalibreInfo[] = [
     slug: "tourbillon",
     family: "tourbillon",
     name: "توربیون",
+    shortName: "توربیون",
     reference: "Breguet · JLC Gyrotourbillon · Heuer 02T",
     summary:
       "کل مجموعهٔ بالانس، فنر موئی، لنگر و چرخ اسکیپمنت داخل یک قفسهٔ چرخان قرار می‌گیرد تا اثر جاذبهٔ زمین بر دقت ساعت میانگین‌گیری و خنثی شود.",

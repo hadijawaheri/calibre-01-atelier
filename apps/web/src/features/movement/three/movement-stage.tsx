@@ -25,9 +25,9 @@ interface MovementStageProps {
   label: string;
 }
 
-// The page's own ivory and matte black, so the stage reads as the same room
-const LIGHT = new THREE.Color("#f6f3ed");
-const DARK = new THREE.Color("#080706");
+// The page's alabaster and graphite, so the stage reads as a plate on the same page
+const LIGHT = new THREE.Color("#f8f8f6");
+const DARK = new THREE.Color("#171716");
 const FLOOR_Z = -4.6;
 
 /** The room behind the movement. Like the reference films, the light studio turns dark while the parts float. */

@@ -2,9 +2,7 @@ import Image from "next/image";
 
 import { cn } from "@/lib/utils";
 
-/**
- * The movement standing still beside a section's text.
- */
+/** The cut-out movement, standing on a plate's white mat. */
 export function StillMovement({
   side = "caseback",
   className,

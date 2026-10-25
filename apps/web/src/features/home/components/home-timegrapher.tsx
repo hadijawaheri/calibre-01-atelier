@@ -44,9 +44,9 @@ export function HomeTimegrapher() {
       ref={ref}
       data-stage="timegrapher"
       aria-labelledby="timegrapher-title"
-      className="mx-auto grid max-w-7xl items-center gap-16 px-4 py-48 sm:px-8 lg:grid-cols-[minmax(0,28rem)_1fr]"
+      className="mx-auto grid max-w-7xl items-start gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16 lg:py-28"
     >
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-5">
         <h2 id="timegrapher-title" className="display">
           دقتی که آزمایش می‌شود
         </h2>
@@ -56,8 +56,14 @@ export function HomeTimegrapher() {
         </p>
       </div>
 
-      <figure className="flex flex-col gap-8">
-        <div className="border-y hairline py-6">
+      <figure className="flex flex-col plate">
+        <div className="flex items-baseline justify-between gap-4 border-b border-border px-5 py-3">
+          <span className="text-sm">تایم‌گرافر</span>
+          <span className="caps text-muted-foreground" dir="ltr">
+            Timegrapher · s/d
+          </span>
+        </div>
+        <div className="px-5 py-6">
           <svg
             viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
             className="h-auto w-full"
@@ -69,7 +75,7 @@ export function HomeTimegrapher() {
                 <motion.rect x={0} y={0} height={HEIGHT} style={{ width: reveal }} />
               </clipPath>
             </defs>
-            <rect x={0} y={COSC_TOP} width={WIDTH} height={COSC_HEIGHT} className="fill-metal/10" />
+            <rect x={0} y={COSC_TOP} width={WIDTH} height={COSC_HEIGHT} className="fill-metal/12" />
             {[-10, -5, 0, 5, 10].map((s) => {
               const y = HEIGHT / 2 - (s / SPAN) * HEIGHT;
               return (
@@ -86,7 +92,7 @@ export function HomeTimegrapher() {
             })}
             <g
               clipPath="url(#timegrapher-reveal)"
-              className="stroke-metal"
+              className="stroke-foreground"
               fill="none"
               strokeLinecap="round"
             >
@@ -95,28 +101,25 @@ export function HomeTimegrapher() {
                 points={TOCK}
                 strokeWidth={3}
                 strokeDasharray="0.1 6"
-                className="opacity-60"
+                className="stroke-metal"
               />
             </g>
           </svg>
         </div>
-        <dl className="grid grid-cols-2 gap-y-8 sm:grid-cols-4">
+        <dl className="grid grid-cols-2 gap-px border-t border-border bg-border sm:grid-cols-4">
           {READINGS.map((reading) => (
-            <div
-              key={reading.label}
-              className="flex flex-col gap-2 border-s border-border ps-5 max-sm:odd:border-s-0 max-sm:odd:ps-0 sm:first:border-s-0 sm:first:ps-0"
-            >
+            <div key={reading.label} className="flex flex-col gap-1.5 bg-card p-4">
               <dt className="caps text-muted-foreground" dir="ltr">
                 {reading.label}
               </dt>
-              <dd className="text-start text-base tabular-nums" dir="ltr">
+              <dd className="text-start font-mono text-base tabular-nums" dir="ltr">
                 {reading.value}
               </dd>
               <dd className="text-xs text-muted-foreground">{reading.note}</dd>
             </div>
           ))}
         </dl>
-        <figcaption className="text-xs leading-6 text-muted-foreground">
+        <figcaption className="border-t border-border px-5 py-3 text-xs leading-6 text-muted-foreground">
           نمودار و عددها نمونهٔ نمایشی‌اند تا شکل یک آزمایش را نشان دهند، نه اندازه‌گیری همین
           موومنت.
         </figcaption>

@@ -6,14 +6,14 @@ import { AppProviders } from "@/components/providers/app-providers";
 import { defaultMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
-import { amiri, bodoni, jost, vazirmatn } from "./fonts";
+import { amiri, cormorant, plexArabic, plexMono, plexSans } from "./fonts";
 
 export const metadata: Metadata = defaultMetadata;
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#080706" },
-    { media: "(prefers-color-scheme: light)", color: "#f6f3ed" },
+    { media: "(prefers-color-scheme: dark)", color: "#141413" },
+    { media: "(prefers-color-scheme: light)", color: "#fbfbfa" },
   ],
 };
 
@@ -26,9 +26,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       suppressHydrationWarning
       className={cn(
         "antialiased",
-        vazirmatn.variable,
-        jost.variable,
-        bodoni.variable,
+        plexSans.variable,
+        plexArabic.variable,
+        plexMono.variable,
+        cormorant.variable,
         amiri.variable,
       )}
     >

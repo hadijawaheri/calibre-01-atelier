@@ -6,6 +6,4 @@ export { HomeGallery } from "./components/home-gallery";
 export { HomeHero } from "./components/home-hero";
 export { HomeStatement } from "./components/home-statement";
 export { HomeTimegrapher } from "./components/home-timegrapher";
-export { HomeWrist } from "./components/home-wrist";
 export { MovementFilm } from "./components/movement-film";
-export { SmoothScroll } from "./components/smooth-scroll";

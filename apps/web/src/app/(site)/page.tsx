@@ -7,20 +7,16 @@ import {
   HomeHero,
   HomeStatement,
   HomeTimegrapher,
-  HomeWrist,
   MovementFilm,
-  SmoothScroll,
 } from "@/features/home";
 
 export default function HomePage() {
   return (
     <>
-      <SmoothScroll />
       <HomeHero />
       <HomeStatement />
-      <HomeWrist />
-      <HomeFeatures />
       <MovementFilm />
+      <HomeFeatures />
       <HomeGallery />
       <HomeTimegrapher />
       <HomeBlueprint />

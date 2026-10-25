@@ -1,6 +1,7 @@
 "use client";
 
 import { Hand, Pause, Play, RotateCcw, Zap } from "lucide-react";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import { useEffect, useRef, useState } from "react";
 
@@ -10,6 +11,7 @@ import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { paths } from "@/lib/paths";
 import { usePrefersReducedMotion } from "@/lib/use-prefers-reduced-motion";
 import { cn } from "@/lib/utils";
 
@@ -174,8 +176,8 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
   const detail = selected ? PART_BY_ID[selected] : null;
 
   return (
-    <div className="grid min-h-[calc(100dvh-4rem)] lg:grid-cols-[minmax(0,1fr)_400px]">
-      <div className="relative h-[58dvh] lg:sticky lg:top-16 lg:h-[calc(100dvh-4rem)]">
+    <div className="grid min-h-[calc(100dvh-var(--header-height))] lg:grid-cols-[minmax(0,1fr)_420px]">
+      <div className="relative h-[58dvh] border-b border-border bg-secondary/50 lg:sticky lg:top-(--header-height) lg:h-[calc(100dvh-var(--header-height))] lg:border-b-0">
         <MovementCanvas
           controls={controls}
           cad={calibre.cad}
@@ -190,21 +192,33 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
           data-cursor="بکشید تا بچرخد"
         />
         {/* Fine pointers get the same words on the cursor itself */}
-        <p className="pointer-events-none absolute inset-x-0 bottom-4 text-center text-xs text-muted-foreground pointer-fine:hidden">
-          بکشید تا بچرخد · روی قطعه‌ها کلیک کنید
-        </p>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-baseline justify-between gap-4 border-t border-border bg-background/85 px-4 py-2.5 text-xs text-muted-foreground backdrop-blur-sm">
+          <span>بکشید تا بچرخد · روی قطعه‌ها کلیک کنید</span>
+          <span className="caps max-sm:hidden" dir="ltr">
+            {calibre.reference} · CAD
+          </span>
+        </div>
       </div>
 
-      <aside aria-label="کنترل‌ها و قطعه‌ها" className="border-border lg:border-s">
+      <aside aria-label="کنترل‌ها و قطعه‌ها" className="border-border bg-background lg:border-s">
         <div className="flex flex-col gap-8 p-6 sm:p-8">
           <header className="flex flex-col gap-3">
-            <h1 className="font-display text-3xl">{calibre.name}</h1>
+            <nav aria-label="مسیر" className="text-xs text-muted-foreground">
+              <Link href={paths.lab} className="hover:text-foreground">
+                آزمایشگاه موومنت
+              </Link>
+              <span aria-hidden className="mx-2">
+                /
+              </span>
+              <span aria-current="page">{calibre.shortName}</span>
+            </nav>
+            <h1 className="title">{calibre.name}</h1>
             <p className="caps text-muted-foreground" dir="ltr">
               {calibre.reference}
             </p>
           </header>
 
-          <section aria-live="polite" className="min-h-44 border-y hairline py-5">
+          <section aria-live="polite" className="min-h-44 p-5 plate">
             {detail ? (
               <div className="flex flex-col gap-3">
                 <div className="flex items-baseline justify-between gap-3">
@@ -213,7 +227,7 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
                     {detail.nameEn}
                   </span>
                 </div>
-                <p className="text-sm text-metal">{detail.role}</p>
+                <p className="text-sm text-metal-ink">{detail.role}</p>
                 <p className="text-sm leading-7 text-muted-foreground">{detail.body}</p>
                 {detail.fact && (
                   <p className="flex items-baseline gap-2 border-t border-border pt-3">
@@ -311,9 +325,7 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
           <nav aria-label="فهرست قطعه‌ها" className="flex flex-col gap-5">
             {GROUP_ORDER.map((group) => (
               <div key={group} className="flex flex-col gap-1">
-                <h3 className="mb-1 border-b border-border pb-2 text-xs text-muted-foreground">
-                  {GROUP_LABELS[group]}
-                </h3>
+                <h3 className="mb-1 border-b border-border pb-2 label">{GROUP_LABELS[group]}</h3>
                 {PARTS.filter((part) => part.group === group).map((part) => (
                   <button
                     key={part.id}
@@ -321,9 +333,9 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
                     onClick={() => select(selected === part.id ? null : part.id)}
                     aria-pressed={selected === part.id}
                     className={cn(
-                      "flex items-center justify-between py-2 text-start text-sm transition-colors duration-500",
+                      "flex items-center justify-between px-2 py-2 text-start text-sm transition-colors duration-300",
                       selected === part.id
-                        ? "text-foreground"
+                        ? "bg-secondary text-foreground"
                         : "text-muted-foreground hover:text-foreground",
                     )}
                   >
@@ -331,7 +343,7 @@ export function MovementLab({ calibre }: { calibre: CalibreInfo }) {
                     <span
                       className={cn(
                         "caps transition-colors duration-500",
-                        selected === part.id ? "text-metal" : "text-muted-foreground",
+                        selected === part.id ? "text-metal-ink" : "text-muted-foreground",
                       )}
                       dir="ltr"
                     >

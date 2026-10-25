@@ -1,4 +1,4 @@
-import { StillMovement } from "./still-movement";
+import { Tag } from "@/components/atlas";
 
 interface Feature {
   stage: string;
@@ -7,7 +7,6 @@ interface Feature {
   chips: string[];
 }
 
-/* Each feature holds the screen beside a photograph of the side the words describe. */
 const FEATURES: readonly Feature[] = [
   {
     stage: "feature-heart",
@@ -35,37 +34,46 @@ const FEATURES: readonly Feature[] = [
   },
 ];
 
+/* Four short entries in one ruled sheet, as the atlas sets its explainers: the gaps are the rules. */
 export function HomeFeatures() {
   return (
-    <section aria-label="ویژگی‌ها" className="mx-auto max-w-7xl px-4 sm:px-8">
-      {FEATURES.map((feature) => (
-        <article
-          key={feature.stage}
-          data-stage={feature.stage}
-          aria-labelledby={`${feature.stage}-title`}
-          className="flex min-h-dvh items-center justify-between gap-12 py-24 max-lg:flex-col-reverse max-lg:items-start max-lg:justify-end max-lg:pt-24"
-        >
-          <div className="flex max-w-lg flex-col gap-6">
-            <h2 id={`${feature.stage}-title`} className="display">
+    <section
+      aria-labelledby="features-title"
+      className="mx-auto flex max-w-7xl flex-col gap-8 px-4 py-20 sm:px-6 lg:py-28"
+    >
+      <div className="flex flex-col gap-3 border-b border-border pb-6 sm:flex-row sm:items-end sm:justify-between">
+        <h2 id="features-title" className="title">
+          موومنت، از نزدیک
+        </h2>
+        <p className="max-w-sm text-sm leading-7 text-muted-foreground">
+          چهار چیز که در یک موومنت اتوماتیک سوئیسی باید دید.
+        </p>
+      </div>
+      <div className="grid gap-px border border-border bg-border md:grid-cols-2">
+        {FEATURES.map((feature) => (
+          <article
+            key={feature.stage}
+            data-stage={feature.stage}
+            aria-labelledby={`${feature.stage}-title`}
+            className="flex flex-col gap-4 bg-card p-6 sm:p-8"
+          >
+            <h3
+              id={`${feature.stage}-title`}
+              className="font-display text-2xl leading-snug sm:text-[1.75rem]"
+            >
               {feature.title}
-            </h2>
-            <p className="leading-8 text-muted-foreground">{feature.body}</p>
-            <ul className="flex flex-wrap gap-x-5 gap-y-1 border-t hairline pt-5 text-xs text-foreground/80">
+            </h3>
+            <p className="max-w-[60ch] leading-8 text-muted-foreground">{feature.body}</p>
+            <ul className="mt-auto flex flex-wrap gap-2 pt-2">
               {feature.chips.map((chip) => (
-                <li key={chip}>{chip}</li>
+                <li key={chip}>
+                  <Tag latin={/^[A-Z]/.test(chip)}>{chip}</Tag>
+                </li>
               ))}
             </ul>
-          </div>
-          <StillMovement
-            side={
-              feature.stage === "feature-heart" || feature.stage === "feature-finish"
-                ? "caseback"
-                : "dial"
-            }
-            className="w-[min(90vw,36rem)] max-lg:self-center"
-          />
-        </article>
-      ))}
+          </article>
+        ))}
+      </div>
     </section>
   );
 }

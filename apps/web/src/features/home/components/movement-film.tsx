@@ -16,7 +16,7 @@ const frameUrl = (size: "lg" | "sm", index: number) =>
   `/media/movement-film/${size}/${String(index + 1).padStart(3, "0")}.webp`;
 
 interface Chapter {
-  eyebrow: string;
+  step: string;
   title: string;
   body: string;
   /** Scroll progress at which the next chapter takes over. */
@@ -26,31 +26,31 @@ interface Chapter {
 /* Timed to the film: assembled on the white table, coming apart, floating in the dark, reassembled. */
 const CHAPTERS: readonly Chapter[] = [
   {
-    eyebrow: "موومنت اتوماتیک سوئیسی",
+    step: "موومنت اتوماتیک سوئیسی",
     title: "قلبی که بی‌وقفه می‌تپد",
     body: "هشت ضربه در هر ثانیه، بدون باتری. فقط یک فنر، چند ده چرخ‌دنده و یاقوت. اسکرول کنید تا جلوی چشمتان باز شود.",
     until: 0.15,
   },
   {
-    eyebrow: "۱ · روتور و پل‌ها",
+    step: "۱ · روتور و پل‌ها",
     title: "انرژی از مچ دست شما",
     body: "وزنهٔ نیم‌دایره با هر حرکت دست می‌چرخد و فنر اصلی را آرام‌آرام کوک می‌کند. زیر آن، پل‌های فولادی محور چرخ‌ها را در یاقوت نگه می‌دارند.",
     until: 0.33,
   },
   {
-    eyebrow: "۲ · قطعه‌به‌قطعه",
+    step: "۲ · قطعه‌به‌قطعه",
     title: "از فنر تا بالانس",
     body: "چرخ‌دنده‌های طلایی حرکت کند فنر را قدم‌به‌قدم سریع می‌کنند تا به چرخ اسکیپمنت برسد. لنگر هر ثانیه هشت بار آن را رها می‌کند و چرخ بالانس، ریتم زمان را می‌سازد.",
     until: 0.52,
   },
   {
-    eyebrow: "۳ · مونتاژ",
+    step: "۳ · مونتاژ",
     title: "کار دست ساعت‌ساز",
     body: "هر قطعه با پنس و ذره‌بین سر جایش می‌نشیند؛ بعضی پیچ‌ها از دانهٔ برنج کوچک‌ترند. یک ذره گرد و غبار کافی است تا ساعت بایستد.",
     until: 0.74,
   },
   {
-    eyebrow: "آزمایشگاه موومنت",
+    step: "آزمایشگاه موومنت",
     title: "حالا خودتان بازش کنید",
     body: "قطعه‌ها را جدا کنید، رویشان کلیک کنید، زمان را کند کنید و ببینید انرژی از فنر تا بالانس چطور جریان دارد.",
     until: 1.01,
@@ -78,6 +78,7 @@ export function MovementFilm() {
   const frames = useRef<(HTMLImageElement | undefined)[]>([]);
   const wanted = useRef(0);
   const drawn = useRef(-1);
+  const counter = useRef<HTMLSpanElement>(null);
   const [active, setActive] = useState(0);
   const [ready, setReady] = useState(false);
   const { scrollYProgress } = useScroll({ target: track, offset: ["start start", "end end"] });
@@ -111,6 +112,8 @@ export function MovementFilm() {
       const h = image.naturalHeight * scale;
       context.drawImage(image, (width - w) / 2, (height - h) / 2, w, h);
       drawn.current = found.index;
+      // Written straight to the node: a state update per frame would re-render the section while scrubbing
+      if (counter.current) counter.current.textContent = String(found.index + 1).padStart(3, "0");
     };
     const schedule = () => {
       if (!raf) raf = requestAnimationFrame(draw);
@@ -175,71 +178,83 @@ export function MovementFilm() {
       ref={track}
       data-stage="film"
       aria-label="داستان یک موومنت"
-      className="relative h-[520vh]"
+      className="relative h-[440vh] border-b border-border"
     >
-      <div className="sticky top-0 flex h-dvh flex-col overflow-hidden lg:block">
-        {/* On wide screens the film is a framed plate beside the words, so neither sits on the other */}
-        <div className="relative mt-16 h-[46dvh] w-full shrink-0 lg:absolute lg:end-[5vw] lg:top-1/2 lg:mt-0 lg:aspect-video lg:h-auto lg:w-[54vw] lg:-translate-y-1/2 xl:w-[62vw]">
-          {/* The first frame paints with the page; the canvas takes over once the film starts loading */}
-          <Image
-            src={frameUrl("lg", 0)}
-            alt=""
-            fill
-            priority
-            unoptimized
-            sizes="100vw"
-            className={cn("object-cover transition-opacity duration-500", ready && "opacity-0")}
-          />
-          <canvas ref={canvas} aria-hidden className="absolute inset-0 size-full" />
-          <ol aria-hidden className="absolute inset-x-0 top-full mt-6 hidden gap-4 lg:flex">
-            {CHAPTERS.map((chapter, index) => (
-              <li
-                key={chapter.title}
-                className={cn(
-                  "flex flex-1 flex-col gap-3 text-xs transition-colors duration-700",
-                  index === active ? "text-foreground" : "text-muted-foreground",
-                )}
-              >
-                <span
+      <div className="sticky top-(--header-height) flex h-[calc(100dvh-var(--header-height))] items-center overflow-hidden">
+        <div className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:items-center lg:gap-14">
+          {/* The film is a plate: hairline frame, a caption bar that counts the frames as you scroll */}
+          <figure className="flex flex-col plate lg:order-last">
+            <div className="relative aspect-video overflow-hidden bg-secondary max-lg:max-h-[42dvh]">
+              {/* The first frame paints with the page; the canvas takes over once the film starts loading */}
+              <Image
+                src={frameUrl("lg", 0)}
+                alt=""
+                fill
+                priority
+                unoptimized
+                sizes="(max-width: 1023px) 100vw, 60vw"
+                className={cn("object-cover transition-opacity duration-500", ready && "opacity-0")}
+              />
+              <canvas ref={canvas} aria-hidden className="absolute inset-0 size-full" />
+            </div>
+            <figcaption className="flex items-baseline justify-between gap-4 border-t border-border px-4 py-2.5 text-sm">
+              <span>فیلم یک موومنت اتوماتیک که باز و دوباره بسته می‌شود</span>
+              <span className="shrink-0 caps text-muted-foreground tabular-nums" dir="ltr">
+                Frame <span ref={counter}>001</span> / {FRAME_COUNT}
+              </span>
+            </figcaption>
+          </figure>
+
+          <div className="flex flex-col gap-6">
+            <ol
+              aria-hidden
+              className="flex gap-1.5 lg:flex-col lg:gap-0 lg:border-y lg:border-border"
+            >
+              {CHAPTERS.map((chapter, index) => (
+                <li
+                  key={chapter.title}
                   className={cn(
-                    "h-px w-full transition-colors duration-700 ease-glide",
-                    index === active ? "bg-metal" : "bg-border",
+                    "flex-1 transition-colors duration-500 lg:flex lg:items-center lg:gap-3 lg:border-b lg:border-border lg:py-2.5 lg:text-sm lg:last:border-b-0",
+                    index === active ? "text-foreground" : "text-muted-foreground",
                   )}
-                />
-                {chapter.eyebrow}
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className="pointer-events-none relative mx-auto flex w-full max-w-7xl flex-1 items-start px-4 pt-6 sm:px-6 lg:absolute lg:inset-0 lg:items-center lg:pt-0">
-          <div className="relative w-full max-w-md lg:max-w-xs">
-            {CHAPTERS.map((chapter, index) => (
-              <article
-                key={chapter.title}
-                aria-hidden={index !== active}
-                className={cn(
-                  "flex flex-col gap-5 transition-[opacity,translate,filter] duration-1000 ease-glide",
-                  index === active
-                    ? "pointer-events-auto translate-y-0 opacity-100"
-                    : "pointer-events-none absolute inset-x-0 top-0 translate-y-6 opacity-0 blur-sm",
-                )}
-              >
-                <h2 className="display">{chapter.title}</h2>
-                <p className="leading-8 text-muted-foreground">{chapter.body}</p>
-                {index === CHAPTERS.length - 1 && (
-                  <Button
-                    asChild
-                    size="lg"
-                    className="self-start"
-                    tabIndex={index === active ? 0 : -1}
-                  >
-                    <Link href={paths.labCalibre("automatic")} data-cursor="ورود">
-                      ورود به آزمایشگاه
-                    </Link>
-                  </Button>
-                )}
-              </article>
-            ))}
+                >
+                  <span
+                    className={cn(
+                      "block h-0.5 transition-colors duration-500 lg:size-1.5 lg:shrink-0",
+                      index === active ? "bg-metal" : "bg-border",
+                    )}
+                  />
+                  <span className="max-lg:sr-only">{chapter.step}</span>
+                </li>
+              ))}
+            </ol>
+            <div className="relative min-h-56">
+              {CHAPTERS.map((chapter, index) => (
+                <article
+                  key={chapter.title}
+                  aria-hidden={index !== active}
+                  className={cn(
+                    "flex flex-col gap-4 transition-[opacity,translate] duration-700 ease-glide",
+                    index === active
+                      ? "pointer-events-auto translate-y-0 opacity-100"
+                      : "pointer-events-none absolute inset-x-0 top-0 translate-y-3 opacity-0",
+                  )}
+                >
+                  <h2 className="title">{chapter.title}</h2>
+                  <p className="leading-8 text-muted-foreground">{chapter.body}</p>
+                  {index === CHAPTERS.length - 1 && (
+                    <Button
+                      asChild
+                      size="lg"
+                      className="mt-2 self-start"
+                      tabIndex={index === active ? 0 : -1}
+                    >
+                      <Link href={paths.labCalibre("automatic")}>ورود به آزمایشگاه</Link>
+                    </Button>
+                  )}
+                </article>
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -1,42 +1,30 @@
-import Link from "next/link";
-
 import { BrandMark } from "./brand-mark";
-import { HeaderReveal } from "./header-reveal";
+import { HeaderNav } from "./header-nav";
 import { MobileNav } from "./mobile-nav";
-import { NAV_LINKS } from "./nav-links";
+import { buildSearchIndex } from "./search-index";
+import { SiteSearch } from "./site-search";
 import { ThemeToggle } from "./theme-toggle";
 
 export function SiteHeader() {
+  const entries = buildSearchIndex();
   return (
-    <HeaderReveal>
-      <header className="border-b border-border/60 bg-background/55 backdrop-blur-xl backdrop-saturate-150">
-        <a
-          href="#main"
-          className="sr-only z-50 bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:start-4 focus:top-2"
-        >
-          رفتن به محتوای اصلی
-        </a>
-        <div className="mx-auto grid h-16 max-w-7xl grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 sm:px-8">
-          <div className="flex items-center">
-            <MobileNav />
-            <nav aria-label="منوی اصلی" className="hidden items-center gap-10 lg:flex">
-              {NAV_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-xs text-muted-foreground transition-colors duration-500 hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-          </div>
-          <BrandMark />
-          <div className="flex justify-end">
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-    </HeaderReveal>
+    <header className="sticky top-0 z-40 border-b border-border bg-background/92 backdrop-blur-md">
+      <a
+        href="#main"
+        className="sr-only z-50 bg-primary px-4 py-2 text-primary-foreground focus:not-sr-only focus:absolute focus:start-4 focus:top-2"
+      >
+        رفتن به محتوای اصلی
+      </a>
+      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
+        <MobileNav />
+        <BrandMark />
+        <SiteSearch entries={entries} className="ms-auto hidden max-w-xl flex-1 md:block" />
+        <ThemeToggle className="ms-auto md:ms-0" />
+      </div>
+      <div className="mx-auto max-w-7xl px-4 pb-3 sm:px-6 md:pb-0">
+        <SiteSearch entries={entries} className="md:hidden" />
+        <HeaderNav className="max-md:hidden" />
+      </div>
+    </header>
   );
 }

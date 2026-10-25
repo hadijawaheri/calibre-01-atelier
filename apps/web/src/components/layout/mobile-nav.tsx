@@ -5,37 +5,42 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 
-import { NAV_LINKS } from "./nav-links";
+import { FAMILY_LINKS, NAV_LINKS } from "./nav-links";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const item = (href: string, label: string) => (
+    <li key={href} className="border-b border-border">
+      <Link
+        href={href}
+        onClick={() => setOpen(false)}
+        className="block py-4 text-base transition-colors duration-300 hover:text-metal-ink"
+      >
+        {label}
+      </Link>
+    </li>
+  );
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="lg:hidden" aria-label="منو">
+        <Button variant="ghost" size="icon" className="-ms-2 md:hidden" aria-label="منو">
           <Menu />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-full max-w-xs">
-        <SheetHeader>
-          <SheetTitle className="font-display text-3xl font-normal">کرونوس</SheetTitle>
+        <SheetHeader className="border-b border-border">
+          <SheetTitle className="font-display text-3xl font-medium">کرونوس</SheetTitle>
         </SheetHeader>
-        <nav aria-label="منوی اصلی" className="flex flex-col px-4">
-          {NAV_LINKS.map((link, index) => (
-            <div key={link.href}>
-              {index > 0 && <Separator />}
-              <Link
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block py-5 text-base transition-colors duration-500 hover:text-metal"
-              >
-                {link.label}
-              </Link>
-            </div>
-          ))}
+        <nav aria-label="منوی اصلی" className="flex flex-col gap-8 px-4">
+          <ul className="border-t border-border">{NAV_LINKS.map((l) => item(l.href, l.label))}</ul>
+          <div className="flex flex-col gap-2">
+            <p className="label">خانواده‌ها</p>
+            <ul className="border-t border-border">
+              {FAMILY_LINKS.map((l) => item(l.href, l.label))}
+            </ul>
+          </div>
         </nav>
       </SheetContent>
     </Sheet>
