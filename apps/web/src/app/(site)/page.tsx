@@ -9,7 +9,6 @@ import {
   HomeTimegrapher,
   HomeWrist,
   MovementFilm,
-  MovementFlight,
   SmoothScroll,
 } from "@/features/home";
 
@@ -17,7 +16,6 @@ export default function HomePage() {
   return (
     <>
       <SmoothScroll />
-      <MovementFlight />
       <HomeHero />
       <HomeStatement />
       <HomeWrist />

@@ -8,5 +8,4 @@ export { HomeStatement } from "./components/home-statement";
 export { HomeTimegrapher } from "./components/home-timegrapher";
 export { HomeWrist } from "./components/home-wrist";
 export { MovementFilm } from "./components/movement-film";
-export { MovementFlight } from "./components/movement-flight";
 export { SmoothScroll } from "./components/smooth-scroll";

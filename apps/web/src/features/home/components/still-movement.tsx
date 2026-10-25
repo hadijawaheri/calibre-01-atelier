@@ -3,8 +3,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * The movement standing still in a section, for visitors who asked for less motion. Once the travelling movement
- * is flying (`data-flight=on`), it takes this place and the still steps aside.
+ * The movement standing still beside a section's text.
  */
 export function StillMovement({
   side = "caseback",
@@ -14,13 +13,7 @@ export function StillMovement({
   className?: string;
 }) {
   return (
-    <div
-      aria-hidden
-      className={cn(
-        "pointer-events-none relative aspect-[1500/635] [[data-flight=on]_&]:hidden",
-        className,
-      )}
-    >
+    <div aria-hidden className={cn("pointer-events-none relative aspect-[1500/635]", className)}>
       <Image
         src={`/media/movement-cutout/${side}.webp`}
         alt=""

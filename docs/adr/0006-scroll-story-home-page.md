@@ -1,6 +1,6 @@
 # 0006. A scroll story home page with a travelling movement
 
-Status: accepted
+Status: superseded in part (2026-10-25)
 
 The owner asked for a home page in the spirit of oryzo.ai: one object that stays on screen and turns, lifts and
 flips as the page scrolls, inertial scrolling, studio light and a lot of empty space.
@@ -16,3 +16,10 @@ flips as the page scrolls, inertial scrolling, studio light and a lot of empty s
 - With reduced motion the flight and Lenis are off and the hero shows the still photograph.
 - The blueprint is drawn from the lab's own arbor positions and pitch radii, so the drawing and the 3D lab are the
   same machine.
+
+## 2026-10-25: the travelling movement is removed
+
+The owner found the flight buggy and not what they had in mind, and asked for it to be taken out ahead of a fuller
+redesign. `MovementFlight` and the hero's photograph are gone; the hero is the headline alone. The sections keep
+their still photographs (`StillMovement`), which used to be the reduced-motion fallback and are now shown to everyone.
+Lenis and the film are unchanged.

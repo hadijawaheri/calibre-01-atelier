@@ -152,13 +152,12 @@ test("unknown calibres are a 404", async ({ page }) => {
   expect(response?.status()).toBe(404);
 });
 
-test("visitors who prefer less motion get the still photograph instead of the travelling one", async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
+test("the hero opens on the headline, with no movement in it", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("img", { name: /موومنت اتوماتیک سوئیسی از سمت پشت/ })).toBeVisible();
-  await expect(page.locator("html")).not.toHaveAttribute("data-flight", "on");
+  await expect(
+    page.getByRole("heading", { level: 1, name: "موومنت واقعی، در حال کار" }),
+  ).toBeVisible();
+  await expect(page.locator('[data-stage="hero"] img')).toHaveCount(0);
   await expectAccessible(page);
 });
 

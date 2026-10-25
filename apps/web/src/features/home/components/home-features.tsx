@@ -7,7 +7,7 @@ interface Feature {
   chips: string[];
 }
 
-/* Each feature holds the screen while the movement beside it shows what the words describe. */
+/* Each feature holds the screen beside a photograph of the side the words describe. */
 const FEATURES: readonly Feature[] = [
   {
     stage: "feature-heart",
@@ -43,7 +43,7 @@ export function HomeFeatures() {
           key={feature.stage}
           data-stage={feature.stage}
           aria-labelledby={`${feature.stage}-title`}
-          className="flex min-h-dvh items-center justify-between gap-12 py-24 max-lg:flex-col-reverse max-lg:items-start max-lg:justify-end max-lg:pt-[52vh] [html:not([data-flight=on])_&]:max-lg:pt-24"
+          className="flex min-h-dvh items-center justify-between gap-12 py-24 max-lg:flex-col-reverse max-lg:items-start max-lg:justify-end max-lg:pt-24"
         >
           <div className="flex max-w-lg flex-col gap-6">
             <h2 id={`${feature.stage}-title`} className="display">
