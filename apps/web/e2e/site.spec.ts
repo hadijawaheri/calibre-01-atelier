@@ -123,6 +123,60 @@ test("the history page tells six brands' stories and is linked from the menu", a
   expect(errors).toEqual([]);
 });
 
+test("the brands page lists the houses by founding year and leads to their watches", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("/");
+  await expect(page.locator('header a[href="/brands"]')).toBeAttached();
+  await page.goto("/brands");
+  await expect(page.getByRole("heading", { level: 1, name: "برندهای ساعت" })).toBeVisible();
+  const houses = page.getByRole("heading", { level: 2 });
+  await expect(houses.first()).toHaveText("بلانپن");
+  await expect(houses).toHaveCount(16);
+  const omega = page.getByRole("article", { name: "امگا" });
+  await expect(omega.getByRole("heading", { name: "منابع" })).toBeAttached();
+  await omega.getByRole("link", { name: "امگا اسپیدمستر" }).click();
+  await expect(page).toHaveURL(/\/watches#omega-speedmaster$/);
+  await expect(page.getByRole("heading", { level: 2, name: "امگا اسپیدمستر" })).toBeVisible();
+  await page.goto("/brands");
+  await expectAccessible(page);
+  expect(errors).toEqual([]);
+});
+
+test("the watches page credits each photo and shows an empty mat where none is free", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("/watches");
+  await expect(page.getByRole("heading", { level: 1, name: "ساعت‌های ماندگار" })).toBeVisible();
+  const submariner = page.getByRole("article", { name: "رولکس سابمرینر" });
+  await expect(submariner.getByRole("img")).toBeAttached();
+  await expect(submariner.getByRole("link", { name: "CC BY-SA 4.0" })).toBeAttached();
+  await expect(submariner.getByText("6204 / 6205")).toBeVisible();
+  const nautilus = page.getByRole("article", { name: "پتک فیلیپ ناتیلوس" });
+  await expect(nautilus.getByRole("img")).toHaveCount(0);
+  await expect(nautilus.getByText("عکسی با مجوز آزاد از این مدل پیدا نشد")).toBeVisible();
+  await submariner.getByRole("link", { name: "Rolex 3235" }).click();
+  await expect(page).toHaveURL(/\/calibres#rolex-3235$/);
+  await page.goto("/watches");
+  await expectAccessible(page);
+  expect(errors).toEqual([]);
+});
+
+test("the calibres page compares the movements and leads into the lab", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/calibres");
+  await expect(page.getByRole("heading", { level: 1, name: "کالیبرها" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "ETA 2824-2" })).toBeAttached();
+  const eta = page.getByRole("article", { name: "ETA 2824-2" });
+  await expect(eta.getByText("۲۵٫۶ میلی‌متر")).toBeVisible();
+  await expectAccessible(page);
+  await eta.getByRole("link", { name: /در آزمایشگاه/ }).click();
+  await expect(page).toHaveURL(/\/lab\/automatic$/, { timeout: 15_000 });
+  expect(errors).toEqual([]);
+});
+
 test("the automatic movement can be explored part by part", async ({ page }) => {
   const errors = watchErrors(page);
   await page.goto("/lab/automatic");

@@ -1,4 +1,5 @@
 import { CALIBRES, PARTS } from "@/features/movement";
+import { BRANDS, CALIBRE_ENTRIES, WATCHES } from "@/features/reference";
 import { paths } from "@/lib/paths";
 
 export interface SearchEntry {
@@ -38,5 +39,25 @@ export function buildSearchIndex(): SearchEntry[] {
     href: paths.labCalibre("automatic"),
     terms: `${part.name} ${part.nameEn} ${part.role}`,
   }));
-  return [...families, ...watches, ...parts];
+  const brands = BRANDS.map((brand) => ({
+    label: brand.name,
+    latin: brand.latinName,
+    kind: "برند",
+    href: `${paths.brands}#${brand.slug}`,
+    terms: `${brand.name} ${brand.latinName} ${brand.founded}`,
+  }));
+  const models = WATCHES.map((watch) => ({
+    label: watch.name,
+    latin: watch.latinName,
+    kind: "ساعت",
+    href: `${paths.watches}#${watch.slug}`,
+    terms: `${watch.name} ${watch.latinName} ${watch.year}`,
+  }));
+  const calibres = CALIBRE_ENTRIES.map((calibre) => ({
+    label: calibre.name,
+    kind: `کالیبر · ${calibre.maker}`,
+    href: `${paths.calibres}#${calibre.slug}`,
+    terms: `${calibre.name} ${calibre.maker} ${calibre.type}`,
+  }));
+  return [...families, ...brands, ...models, ...calibres, ...watches, ...parts];
 }
