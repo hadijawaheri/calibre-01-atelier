@@ -41,7 +41,7 @@ function BrandRow({ brand }: { brand: BrandEntry }) {
             <ul aria-label={`پیوندهای ${brand.name}`} className="flex flex-wrap gap-2">
               {watches.map((watch) => (
                 <li key={watch.slug}>
-                  <Link href={`${paths.watches}#${watch.slug}`} className="group">
+                  <Link href={paths.watch(watch.slug)} className="group">
                     <Tag className="transition-colors duration-300 group-hover:text-foreground">
                       {watch.name}
                     </Tag>
