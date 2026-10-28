@@ -7,6 +7,7 @@ import { paths } from "@/lib/paths";
 
 import { CALIBRE_ENTRIES } from "../calibres";
 import { formatYear } from "../format";
+import { calibreSpecs } from "../specs";
 import type { CalibreEntry } from "../types";
 import { WATCHES } from "../watches";
 
@@ -52,13 +53,13 @@ function CalibreTable() {
               className="align-top transition-colors duration-300 hover:bg-secondary/50"
             >
               <th scope="row" className="px-4 py-4 text-start font-normal">
-                <a
-                  href={`#${calibre.slug}`}
+                <Link
+                  href={paths.calibre(calibre.slug)}
                   className="font-mono underline-offset-4 hover:underline"
                   dir="ltr"
                 >
                   {calibre.name}
-                </a>
+                </Link>
                 <p className="mt-1 text-xs text-muted-foreground">{calibre.type}</p>
               </th>
               <td className="px-4 py-4 tabular-nums">
@@ -81,15 +82,7 @@ function CalibreArticle({ calibre }: { calibre: CalibreEntry }) {
   const titleId = `${calibre.slug}-title`;
   const family = calibre.family ? calibreBySlug(calibre.family) : undefined;
   const watches = WATCHES.filter((watch) => watch.calibreSlug === calibre.slug);
-  const specs = [
-    { label: "سازنده", value: calibre.maker },
-    { label: "نوع", value: calibre.type },
-    calibre.year && { label: "سال معرفی", value: formatYear(calibre.year) },
-    ...COLUMNS.map((column) => {
-      const value = calibre[column.key];
-      return value && { label: column.label, value };
-    }),
-  ].filter((spec) => !!spec);
+  const specs = calibreSpecs(calibre);
   return (
     <article
       id={calibre.slug}
@@ -99,12 +92,17 @@ function CalibreArticle({ calibre }: { calibre: CalibreEntry }) {
       <div className="flex flex-col gap-8">
         <header className="flex flex-col gap-3 border-b border-border pb-4">
           <h2 id={titleId} className="title">
-            <bdi dir="ltr">{calibre.name}</bdi>
+            <Link
+              href={paths.calibre(calibre.slug)}
+              className="transition-colors duration-300 hover:text-metal-ink"
+            >
+              <bdi dir="ltr">{calibre.name}</bdi>
+            </Link>
           </h2>
           <p className="text-sm text-muted-foreground">{calibre.type}</p>
         </header>
         <p className="max-w-[68ch] leading-8 text-foreground/85">{calibre.note}</p>
-        <SpecGrid className="sm:grid-cols-2">
+        <SpecGrid className="sm:grid-cols-2 sm:[&>:last-child:nth-child(odd)]:col-span-2">
           {specs.map((spec) => (
             <Spec key={spec.label} label={spec.label} value={spec.value} />
           ))}
@@ -112,7 +110,7 @@ function CalibreArticle({ calibre }: { calibre: CalibreEntry }) {
         {(watches.length > 0 || family) && (
           <div className="flex flex-wrap items-center gap-2">
             {watches.map((watch) => (
-              <Link key={watch.slug} href={`${paths.watches}#${watch.slug}`} className="group">
+              <Link key={watch.slug} href={paths.watch(watch.slug)} className="group">
                 <Tag className="transition-colors duration-300 group-hover:text-foreground">
                   {watch.name}
                 </Tag>

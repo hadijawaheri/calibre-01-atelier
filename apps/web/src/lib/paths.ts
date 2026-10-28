@@ -5,5 +5,13 @@ export const paths = {
   brands: "/brands",
   watches: "/watches",
   calibres: "/calibres",
+  complications: "/complications",
+  search: "/search",
+  compare: "/compare",
   labCalibre: (slug: string) => `/lab/${slug}`,
+  brand: (slug: string) => `/brands#${slug}`,
+  watch: (slug: string) => `/watches/${slug}`,
+  calibre: (slug: string) => `/calibres/${slug}`,
+  complication: (slug: string) => `/complications#${slug}`,
+  searchFor: (query: string) => `/search?q=${encodeURIComponent(query)}`,
 } as const;

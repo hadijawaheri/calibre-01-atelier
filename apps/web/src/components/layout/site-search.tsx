@@ -4,18 +4,16 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useId, useMemo, useRef, useState } from "react";
 
+import { paths } from "@/lib/paths";
 import { cn } from "@/lib/utils";
 
-import type { SearchEntry } from "./search-index";
+import { search } from "./search-match";
+import type { SearchEntry } from "./search-types";
 
-const LIMIT = 8;
+const LIMIT = 7;
 
-/** Persian has two forms of ye and kaf in the wild; folding them lets "سیکو" find what was typed "سيكو". */
-function fold(text: string) {
-  return text.toLowerCase().replaceAll("ي", "ی").replaceAll("ك", "ک").replaceAll("‌", " ").trim();
-}
-
-/** The atlas's omni-search: families, watches and parts, filtered as the visitor types. */
+/** The atlas's omni-search: watches, calibres, brands, complications and the lab, filtered as the visitor types.
+    The last option opens every result on the search page. */
 export function SiteSearch({ entries, className }: { entries: SearchEntry[]; className?: string }) {
   const router = useRouter();
   const id = useId();
@@ -24,23 +22,18 @@ export function SiteSearch({ entries, className }: { entries: SearchEntry[]; cla
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(0);
 
-  const results = useMemo(() => {
-    const q = fold(query);
-    if (!q) return [];
-    const words = q.split(/\s+/);
-    return entries
-      .filter((entry) => words.every((w) => fold(entry.terms).includes(w)))
-      .slice(0, LIMIT);
-  }, [entries, query]);
+  const matches = useMemo(() => search(entries, query), [entries, query]);
+  const results = matches.slice(0, LIMIT);
+  const trimmed = query.trim();
+  const expanded = open && trimmed.length > 0;
+  // The "every result" option sits after the results, so it is the active one when there are none
+  const allIndex = results.length;
 
-  const expanded = open && query.trim().length > 0;
-
-  const go = (entry: SearchEntry | undefined) => {
-    if (!entry) return;
+  const go = (href: string) => {
     setOpen(false);
     setQuery("");
     input.current?.blur();
-    router.push(entry.href);
+    router.push(href);
   };
 
   return (
@@ -49,7 +42,9 @@ export function SiteSearch({ entries, className }: { entries: SearchEntry[]; cla
       className={cn("relative", className)}
       onSubmit={(event) => {
         event.preventDefault();
-        go(results[active]);
+        if (!trimmed) return;
+        const entry = results[active];
+        go(entry ? entry.href : paths.searchFor(trimmed));
       }}
     >
       <label htmlFor={`${id}-input`} className="sr-only">
@@ -67,7 +62,7 @@ export function SiteSearch({ entries, className }: { entries: SearchEntry[]; cla
         aria-expanded={expanded}
         aria-controls={`${id}-list`}
         aria-autocomplete="list"
-        aria-activedescendant={expanded && results[active] ? `${id}-${active}` : undefined}
+        aria-activedescendant={expanded ? `${id}-${active}` : undefined}
         autoComplete="off"
         value={query}
         placeholder="جستجوی موومنت، ساعت، کالیبر یا قطعه…"
@@ -81,7 +76,7 @@ export function SiteSearch({ entries, className }: { entries: SearchEntry[]; cla
         onKeyDown={(event) => {
           if (event.key === "ArrowDown") {
             event.preventDefault();
-            setActive((i) => Math.min(i + 1, Math.max(results.length - 1, 0)));
+            setActive((i) => Math.min(i + 1, allIndex));
           } else if (event.key === "ArrowUp") {
             event.preventDefault();
             setActive((i) => Math.max(i - 1, 0));
@@ -98,45 +93,60 @@ export function SiteSearch({ entries, className }: { entries: SearchEntry[]; cla
           aria-label="نتیجه‌های جستجو"
           className="absolute inset-x-0 top-full z-50 mt-1 max-h-[70dvh] overflow-y-auto border border-border bg-popover shadow-plate"
         >
-          {results.length === 0 ? (
+          {results.length === 0 && (
             <li
-              role="option"
-              aria-selected={false}
-              aria-disabled
-              className="px-4 py-3 text-sm text-muted-foreground"
+              role="presentation"
+              className="border-b border-border px-4 py-3 text-sm text-muted-foreground"
             >
               چیزی پیدا نشد. نام یک برند، کالیبر یا قطعه را امتحان کنید.
             </li>
-          ) : (
-            results.map((entry, index) => (
-              <li
-                key={`${entry.kind}-${entry.label}`}
-                id={`${id}-${index}`}
-                role="option"
-                aria-selected={index === active}
-                // mousedown, not click: the input's blur would close the list before a click lands
-                onMouseDown={(event) => {
-                  event.preventDefault();
-                  go(entry);
-                }}
-                onMouseEnter={() => setActive(index)}
-                className={cn(
-                  "flex cursor-pointer flex-col gap-0.5 border-b border-border px-4 py-2.5 last:border-b-0",
-                  index === active && "bg-secondary",
-                )}
-              >
-                <span className="flex items-baseline justify-between gap-4 text-sm">
-                  <span>{entry.label}</span>
-                  {entry.latin && (
-                    <span className="truncate font-mono text-xs text-muted-foreground" dir="ltr">
-                      {entry.latin}
-                    </span>
-                  )}
-                </span>
-                <span className="text-xs text-muted-foreground">{entry.kind}</span>
-              </li>
-            ))
           )}
+          {results.map((entry, index) => (
+            <li
+              key={entry.href + entry.label}
+              id={`${id}-${index}`}
+              role="option"
+              aria-selected={index === active}
+              // mousedown, not click: the input's blur would close the list before a click lands
+              onMouseDown={(event) => {
+                event.preventDefault();
+                go(entry.href);
+              }}
+              onMouseEnter={() => setActive(index)}
+              className={cn(
+                "flex cursor-pointer flex-col gap-0.5 border-b border-border px-4 py-2.5",
+                index === active && "bg-secondary",
+              )}
+            >
+              <span className="flex items-baseline justify-between gap-4 text-sm">
+                <span>{entry.label}</span>
+                {entry.latin && (
+                  <span className="truncate font-mono text-xs text-muted-foreground" dir="ltr">
+                    {entry.latin}
+                  </span>
+                )}
+              </span>
+              <span className="text-xs text-muted-foreground">{entry.kind}</span>
+            </li>
+          ))}
+          <li
+            id={`${id}-${allIndex}`}
+            role="option"
+            aria-selected={active === allIndex}
+            onMouseDown={(event) => {
+              event.preventDefault();
+              go(paths.searchFor(trimmed));
+            }}
+            onMouseEnter={() => setActive(allIndex)}
+            className={cn(
+              "cursor-pointer px-4 py-2.5 text-sm text-muted-foreground",
+              active === allIndex && "bg-secondary text-foreground",
+            )}
+          >
+            {matches.length > 0
+              ? `همهٔ ${matches.length.toLocaleString("fa-IR")} نتیجه برای «${trimmed}»`
+              : `جستجوی «${trimmed}» در صفحهٔ جستجو`}
+          </li>
         </ul>
       )}
     </form>

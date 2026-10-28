@@ -137,8 +137,8 @@ test("the brands page lists the houses by founding year and leads to their watch
   const omega = page.getByRole("article", { name: "امگا" });
   await expect(omega.getByRole("heading", { name: "منابع" })).toBeAttached();
   await omega.getByRole("link", { name: "امگا اسپیدمستر" }).click();
-  await expect(page).toHaveURL(/\/watches#omega-speedmaster$/);
-  await expect(page.getByRole("heading", { level: 2, name: "امگا اسپیدمستر" })).toBeVisible();
+  await expect(page).toHaveURL(/\/watches\/omega-speedmaster$/);
+  await expect(page.getByRole("heading", { level: 1, name: "امگا اسپیدمستر" })).toBeVisible();
   await page.goto("/brands");
   await expectAccessible(page);
   expect(errors).toEqual([]);
@@ -158,7 +158,7 @@ test("the watches page credits each photo and shows an empty mat where none is f
   await expect(nautilus.getByRole("img")).toHaveCount(0);
   await expect(nautilus.getByText("عکسی با مجوز آزاد از این مدل پیدا نشد")).toBeVisible();
   await submariner.getByRole("link", { name: "Rolex 3235" }).click();
-  await expect(page).toHaveURL(/\/calibres#rolex-3235$/);
+  await expect(page).toHaveURL(/\/calibres\/rolex-3235$/);
   await page.goto("/watches");
   await expectAccessible(page);
   expect(errors).toEqual([]);
@@ -257,7 +257,7 @@ test("the lab starts with the movement stopped for visitors who prefer less moti
 test("calibre pages describe themselves to search engines and link previews", async ({ page }) => {
   await page.goto("/lab/quartz");
   const jsonLd = JSON.parse(
-    (await page.locator('script[type="application/ld+json"]').textContent()) ?? "{}",
+    (await page.locator('script[type="application/ld+json"]').first().textContent()) ?? "{}",
   ) as { "@type"?: string; headline?: string };
   expect(jsonLd).toMatchObject({ "@type": "TechArticle", headline: "کوارتز" });
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
@@ -288,4 +288,120 @@ test("the home page reads well in the dark theme", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("html")).toHaveClass(/\bdark\b/);
   await expectAccessible(page);
+});
+
+test("a watch has its own page with the calibre inside and the watches around it", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("/watches");
+  await page.getByRole("link", { name: "صفحهٔ کامل امگا اسپیدمستر" }).click();
+  await expect(page).toHaveURL(/\/watches\/omega-speedmaster$/);
+  await expect(page.getByRole("heading", { level: 1, name: "امگا اسپیدمستر" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "مسیر صفحه" })).toContainText("ساعت‌ها");
+  await expect(page.getByRole("heading", { level: 2, name: "قلب ساعت" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "هم‌دوره‌ها" })).toBeVisible();
+  const jsonLd = await page.locator('script[type="application/ld+json"]').allTextContents();
+  const types = jsonLd.map((text) => (JSON.parse(text) as { "@type": string })["@type"]);
+  expect(types).toEqual(expect.arrayContaining(["TechArticle", "BreadcrumbList"]));
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    "href",
+    /\/watches\/omega-speedmaster$/,
+  );
+  await expectAccessible(page);
+  await page.getByRole("link", { name: "Omega 321" }).click();
+  await expect(page).toHaveURL(/\/calibres\/omega-321$/);
+  expect(errors).toEqual([]);
+});
+
+test("a calibre has its own page that lists the watches using it", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/calibres/omega-321");
+  await expect(page.getByRole("heading", { level: 1, name: "Omega 321" })).toBeVisible();
+  const watches = page.getByRole("region", { name: "ساعت‌هایی که با این کالیبر کار می‌کنند" });
+  await expect(watches.getByRole("link", { name: /امگا اسپیدمستر/ })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "کالیبر قبلی و بعدی" })).toBeVisible();
+  await expectAccessible(page);
+  expect(errors).toEqual([]);
+});
+
+test("unknown watches and calibres are a 404", async ({ page }) => {
+  expect((await page.goto("/watches/no-such-watch"))?.status()).toBe(404);
+  expect((await page.goto("/calibres/no-such-calibre"))?.status()).toBe(404);
+});
+
+test("the header search opens every result on the search page", async ({ page }) => {
+  const errors = watchErrors(page);
+  await page.goto("/brands");
+  // Phones and desktops each get their own copy of the field; only one is shown
+  await page.locator('input[role="combobox"]:visible').fill("۱۹۶۹");
+  await expect(page.getByRole("option", { name: /هویر موناکو/ })).toBeVisible();
+  await page.getByRole("option", { name: /همهٔ .* نتیجه برای/ }).click();
+  await expect(page).toHaveURL(/\/search\?q=/);
+  await expect(page.getByRole("heading", { level: 2, name: "ساعت‌ها" })).toBeVisible();
+  await page.getByRole("link", { name: /کالیبرها \(/ }).click();
+  await expect(page).toHaveURL(/group=calibre/);
+  await expect(page.getByRole("heading", { level: 2, name: "ساعت‌ها" })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: /Seiko 35A/ })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expectAccessible(page);
+  expect(errors).toEqual([]);
+});
+
+test("two watches can be compared side by side, and only their differences shown", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("/watches/rolex-submariner");
+  await page.getByRole("link", { name: "مقایسه با ساعتی دیگر" }).click();
+  await expect(page).toHaveURL(/\/compare\?watches=rolex-submariner$/);
+  await expect(page.getByText("یک ساعت دیگر انتخاب کنید")).toBeVisible();
+  await page.getByLabel("ساعت دوم").selectOption("omega-speedmaster");
+  await expect(page).toHaveURL(/watches=rolex-submariner,omega-speedmaster$/);
+  const table = page.getByRole("table", { name: "مقایسهٔ ساعت‌ها" });
+  await expect(table.getByRole("row", { name: /کالیبر/ }).first()).toContainText("Rolex 3235");
+  await expect(table.getByRole("row", { name: /کالیبر/ }).first()).toContainText("Omega 321");
+  await expectAccessible(page);
+  await page.getByRole("switch", { name: "فقط تفاوت‌ها" }).click();
+  await expect(table.getByRole("rowheader", { name: "برند" })).toBeVisible();
+  // The second slot can be cleared again
+  await page.getByLabel("ساعت دوم").selectOption("");
+  await expect(page).toHaveURL(/watches=rolex-submariner$/);
+  await page
+    .getByRole("navigation", { name: "نوع مقایسه" })
+    .getByRole("link", { name: "کالیبرها" })
+    .click();
+  await expect(page.getByLabel("کالیبر اول")).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("the complications page explains each one and links the watches that carry it", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.goto("/");
+  await expect(page.locator('header a[href="/complications"]')).toBeAttached();
+  await page.goto("/complications");
+  await expect(page.getByRole("heading", { level: 1, name: "کمپلیکیشن‌ها" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2 })).toHaveCount(7);
+  const chronograph = page.getByRole("article", { name: "کرونوگراف", exact: true });
+  await expect(chronograph.getByRole("heading", { name: "منابع" })).toBeAttached();
+  await chronograph.getByRole("link", { name: "امگا اسپیدمستر" }).click();
+  await expect(page).toHaveURL(/\/watches\/omega-speedmaster$/);
+  await page.goto("/complications");
+  await expectAccessible(page);
+  await page
+    .getByRole("article", { name: "توربیون" })
+    .getByRole("link", { name: /سه‌بعدی ببینید/ })
+    .click();
+  await expect(page).toHaveURL(/\/lab\/tourbillon$/, { timeout: 15_000 });
+  expect(errors).toEqual([]);
+});
+
+test("the sitemap lists every watch and calibre page", async ({ request }) => {
+  const xml = await (await request.get("/sitemap.xml")).text();
+  expect(xml).toContain("/watches/omega-speedmaster</loc>");
+  expect(xml).toContain("/calibres/eta-2824-2</loc>");
+  expect(xml).toContain("/complications</loc>");
+  expect(xml).not.toContain("/search</loc>");
 });
