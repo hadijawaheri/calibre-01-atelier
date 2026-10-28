@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { JsonLd } from "@/components/layout/json-ld";
 import { paths } from "@/lib/paths";
-import { SITE_NAME, SITE_URL } from "@/lib/seo";
+import { breadcrumbJsonLd, pageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 import { calibreBySlug } from "../calibres";
 import { CalibreProfile } from "./calibre-profile";
@@ -11,11 +12,12 @@ import { MovementLab } from "./movement-lab";
 export function calibreMetadata(slug: string): Metadata {
   const calibre = calibreBySlug(slug);
   if (!calibre) return {};
-  return {
+  return pageMetadata({
     title: `${calibre.name} · آزمایشگاه موومنت`,
     description: calibre.summary,
-    alternates: { canonical: paths.labCalibre(calibre.slug) },
-  };
+    path: paths.labCalibre(calibre.slug),
+    type: "article",
+  });
 }
 
 /** A family with a ready model opens in the lab; the others show their facts until their CAD file arrives. */
@@ -35,10 +37,13 @@ export function CalibrePage({ slug }: { slug: string }) {
 
   return (
     <div>
-      <script
-        type="application/ld+json"
-        // JSON-LD must be raw JSON; escaping "<" keeps a value from closing the script tag
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replaceAll("<", "\\u003c") }}
+      <JsonLd data={jsonLd} />
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "خانه", path: paths.home },
+          { name: "آزمایشگاه موومنت", path: paths.lab },
+          { name: calibre.name, path: paths.labCalibre(calibre.slug) },
+        ])}
       />
       {calibre.hasModel ? <MovementLab calibre={calibre} /> : <CalibreProfile calibre={calibre} />}
     </div>

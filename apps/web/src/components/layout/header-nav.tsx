@@ -11,12 +11,15 @@ import { FAMILY_LINKS, NAV_LINKS } from "./nav-links";
 export function HeaderNav({ className }: { className?: string }) {
   const pathname = usePathname();
   const link = (href: string, label: string) => {
-    const current = href === "/" ? pathname === "/" : pathname === href;
+    const page = pathname === href;
+    // An entry's own page (a watch, a calibre) keeps its section marked, as the section it belongs to
+    const section = href !== "/" && pathname.startsWith(`${href}/`);
+    const current = page || section;
     return (
       <Link
         key={href}
         href={href}
-        aria-current={current ? "page" : undefined}
+        aria-current={page ? "page" : section ? "true" : undefined}
         className={cn(
           "relative flex h-10 items-center text-sm whitespace-nowrap transition-colors duration-300",
           current
