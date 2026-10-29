@@ -4,3 +4,4 @@ export * from "./common/digits";
 export * from "./common/errors";
 export * from "./common/iran";
 export * from "./common/pagination";
+export * from "./reviews/review.schema";

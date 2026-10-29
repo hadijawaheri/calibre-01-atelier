@@ -17,6 +17,7 @@ import { validateEnv } from "./config/env.js";
 import { HealthModule } from "./health/health.module.js";
 import { SmsModule } from "./infra/sms/sms.module.js";
 import { AuthModule } from "./modules/auth/auth.module.js";
+import { ReviewsModule } from "./modules/reviews/reviews.module.js";
 import { UsersModule } from "./modules/users/users.module.js";
 
 @Module({
@@ -65,6 +66,7 @@ import { UsersModule } from "./modules/users/users.module.js";
     HealthModule,
     UsersModule,
     AuthModule,
+    ReviewsModule,
   ],
   providers: [
     { provide: APP_PIPE, useClass: ZodValidationPipe },

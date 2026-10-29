@@ -1,14 +1,26 @@
 import { randomUUID } from "node:crypto";
+import { readdir } from "node:fs/promises";
 
 import { getConnectionToken } from "@nestjs/mongoose";
 import type { Connection } from "mongoose";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
-import { up } from "../migrations/20261022000000-initial-indexes.js";
 import type { TestApp } from "./utils/test-app.js";
 import { createTestApp } from "./utils/test-app.js";
 
 type IndexInfo = Record<string, unknown>;
+type Migration = { up: (db: NonNullable<Connection["db"]>) => Promise<void> };
+
+const migrationsDir = new URL("../migrations/", import.meta.url);
+
+/** Every migration in name order, the order migrate-mongo applies them in. */
+async function migrateUp(db: NonNullable<Connection["db"]>): Promise<void> {
+  const files = (await readdir(migrationsDir)).filter((file) => file.endsWith(".js")).sort();
+  for (const file of files) {
+    const migration = (await import(new URL(file, migrationsDir).href)) as Migration;
+    await migration.up(db);
+  }
+}
 
 function shape(indexes: IndexInfo[]) {
   return indexes
@@ -38,7 +50,7 @@ describe("index migrations", () => {
 
   it("creates every index the schemas declare", async () => {
     const migrated = connection.useDb(`migrated_${randomUUID().replaceAll("-", "")}`);
-    await up(migrated.db!);
+    await migrateUp(migrated.db!);
     try {
       for (const model of Object.values(connection.models)) {
         const name = model.collection.collectionName;
