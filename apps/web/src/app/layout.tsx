@@ -1,8 +1,10 @@
 import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 
 import { AppProviders } from "@/components/providers/app-providers";
+import { NONCE_HEADER } from "@/lib/csp";
 import { defaultMetadata } from "@/lib/seo";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +19,9 @@ export const viewport: Viewport = {
   ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+// Reading the per-request nonce makes every page dynamic, which the CSP requires (ADR 0013)
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const nonce = (await headers()).get(NONCE_HEADER) ?? undefined;
   return (
     <html
       lang="fa"
@@ -34,7 +38,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       )}
     >
       <body className="min-h-dvh bg-background font-sans text-foreground">
-        <AppProviders>{children}</AppProviders>
+        <AppProviders nonce={nonce}>{children}</AppProviders>
       </body>
     </html>
   );
