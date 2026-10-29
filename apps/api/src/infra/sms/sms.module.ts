@@ -4,6 +4,7 @@ import { PinoLogger } from "nestjs-pino";
 
 import type { Env } from "../../config/env.js";
 import { ConsoleSmsProvider } from "./console-sms.provider.js";
+import { DisabledSmsProvider } from "./disabled-sms.provider.js";
 import { SmsProvider } from "./sms.provider.js";
 
 @Global()
@@ -15,6 +16,7 @@ import { SmsProvider } from "./sms.provider.js";
       useFactory: (config: ConfigService<Env, true>, logger: PinoLogger): SmsProvider => {
         const provider = config.get("SMS_PROVIDER", { infer: true });
         if (provider === "console") return new ConsoleSmsProvider(logger);
+        if (provider === "disabled") return new DisabledSmsProvider();
         // Fail at boot instead of silently falling back to the console provider
         throw new Error(`SMS provider "${provider}" is not implemented yet`);
       },

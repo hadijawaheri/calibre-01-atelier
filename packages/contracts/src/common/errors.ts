@@ -9,6 +9,7 @@ export const ERROR_CODES = [
   "OTP_EXPIRED",
   "OUT_OF_STOCK",
   "PAYMENT_FAILED",
+  "SMS_UNAVAILABLE",
   "INTERNAL",
 ] as const;
 
