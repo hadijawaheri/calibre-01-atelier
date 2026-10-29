@@ -23,6 +23,10 @@ export default defineConfig([
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ["apps/web/public/worklets/**/*.js"],
+    languageOptions: { globals: { ...globals.audioWorklet } },
+  },
+  {
     plugins: { "simple-import-sort": simpleImportSort },
     languageOptions: { globals: { ...globals.node } },
     rules: {

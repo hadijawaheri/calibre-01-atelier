@@ -541,3 +541,56 @@ test("an admin publishes a waiting review from the moderation desk", async ({ pa
   await expect(page.getByText("نظری در این فهرست نیست.")).toBeVisible();
   expect(moderated).toEqual({ status: "published" });
 });
+
+test("the timegrapher reads a watch through the microphone", async ({ page, request }) => {
+  const errors = watchErrors(page);
+  const response = await request.get("/tools/timegrapher");
+  expect(response.headers()["permissions-policy"]).toContain("microphone=(self)");
+  const home = await request.get("/");
+  expect(home.headers()["permissions-policy"]).toContain("microphone=()");
+
+  // A stand-in microphone: a watch at 21,600 bph, ticking into a looped two-second recording
+  await page.addInitScript(() => {
+    navigator.mediaDevices.getUserMedia = async () => {
+      const context = new AudioContext();
+      const seconds = 2;
+      const buffer = context.createBuffer(1, seconds * context.sampleRate, context.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let beat = 0; beat < seconds * 6; beat++) {
+        const at = Math.round((beat / 6) * context.sampleRate);
+        for (let i = 0; i < 0.004 * context.sampleRate; i++) {
+          const t = i / context.sampleRate;
+          data[at + i] = 0.6 * Math.exp(-t / 0.0008) * Math.sin(2 * Math.PI * 4000 * t);
+        }
+      }
+      const source = context.createBufferSource();
+      source.buffer = buffer;
+      source.loop = true;
+      const destination = context.createMediaStreamDestination();
+      source.connect(destination);
+      source.start();
+      await context.resume();
+      return destination.stream;
+    };
+  });
+
+  await page.goto("/tools/timegrapher");
+  await expect(page.getByRole("heading", { level: 1, name: "تایم‌گرافر" })).toBeVisible();
+  await page.getByRole("button", { name: "شروع گوش دادن" }).click();
+  await expect(page.getByText("۲۱٬۶۰۰")).toBeVisible({ timeout: 15_000 });
+  await expect(page.getByRole("button", { name: "توقف" })).toBeVisible();
+  await expectAccessible(page);
+  await page.getByRole("button", { name: "توقف" }).click();
+  await expect(page.getByRole("button", { name: "شروع گوش دادن" })).toBeVisible();
+  expect(errors).toEqual([]);
+});
+
+test("the timegrapher explains a refused microphone", async ({ page }) => {
+  await page.addInitScript(() => {
+    navigator.mediaDevices.getUserMedia = () =>
+      Promise.reject(new DOMException("refused", "NotAllowedError"));
+  });
+  await page.goto("/tools/timegrapher");
+  await page.getByRole("button", { name: "شروع گوش دادن" }).click();
+  await expect(page.getByRole("status")).toContainText("اجازهٔ میکروفون داده نشد");
+});

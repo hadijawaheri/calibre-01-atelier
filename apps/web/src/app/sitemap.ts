@@ -24,6 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     entry(paths.complications, 0.7),
     entry(paths.history, 0.7),
     entry(paths.compare, 0.4),
+    entry(paths.timegrapher, 0.6),
     ...CALIBRES.map((calibre) => entry(paths.labCalibre(calibre.slug), 0.8)),
     ...WATCHES.map((watch) => entry(paths.watch(watch.slug), 0.7)),
     ...CALIBRE_ENTRIES.map((calibre) => entry(paths.calibre(calibre.slug), 0.7)),

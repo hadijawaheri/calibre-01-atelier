@@ -28,6 +28,13 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      // Listed after the site-wide rule so its Permissions-Policy wins on the one page that listens
+      {
+        source: "/tools/timegrapher",
+        headers: [
+          { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=()" },
+        ],
+      },
     ];
   },
 };

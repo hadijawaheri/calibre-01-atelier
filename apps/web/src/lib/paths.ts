@@ -9,6 +9,7 @@ export const paths = {
   search: "/search",
   compare: "/compare",
   adminReviews: "/admin/reviews",
+  timegrapher: "/tools/timegrapher",
   labCalibre: (slug: string) => `/lab/${slug}`,
   brand: (slug: string) => `/brands#${slug}`,
   watch: (slug: string) => `/watches/${slug}`,

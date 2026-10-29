@@ -9,6 +9,7 @@ export const NAV_LINKS = [
   { href: paths.brands, label: "برندها" },
   { href: paths.complications, label: "کمپلیکیشن‌ها" },
   { href: paths.compare, label: "مقایسه" },
+  { href: paths.timegrapher, label: "تایم‌گرافر" },
   { href: paths.history, label: "تاریخچه" },
 ] as const;
 
