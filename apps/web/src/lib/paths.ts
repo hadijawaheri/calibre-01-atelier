@@ -8,6 +8,7 @@ export const paths = {
   complications: "/complications",
   search: "/search",
   compare: "/compare",
+  adminReviews: "/admin/reviews",
   labCalibre: (slug: string) => `/lab/${slug}`,
   brand: (slug: string) => `/brands#${slug}`,
   watch: (slug: string) => `/watches/${slug}`,
