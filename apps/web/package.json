@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 7782",
-    "build": "pnpm --filter @kronos/contracts build && next build",
+    "build": "(test -f ../../packages/contracts/dist/index.d.ts || pnpm --filter @kronos/contracts build) && next build",
     "postbuild": "node scripts/copy-standalone-assets.mjs",
     "start": "node .next/standalone/apps/web/server.js",
     "typecheck": "next typegen && tsc --noEmit",

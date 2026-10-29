@@ -1,7 +1,11 @@
 "use client";
 
+import { ArrowLeft } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
+import Link from "next/link";
 import { useRef } from "react";
+
+import { paths } from "@/lib/paths";
 
 const WIDTH = 600;
 const HEIGHT = 240;
@@ -54,6 +58,13 @@ export function HomeTimegrapher() {
           عنوان کرونومتر را مؤسسهٔ COSC می‌دهد: پانزده روز آزمایش در پنج وضعیت و سه دما. میانگین
           خطای روزانه باید درون نوار روشن بماند، بین ۴ ثانیه عقب و ۶ ثانیه جلو.
         </p>
+        <Link
+          href={paths.timegrapher}
+          className="inline-flex items-center gap-1.5 self-start text-sm underline decoration-border underline-offset-4 transition-colors duration-300 hover:text-metal-ink"
+        >
+          ساعت خودتان را با میکروفون بسنجید
+          <ArrowLeft aria-hidden className="size-3.5" />
+        </Link>
       </div>
 
       <figure className="flex flex-col plate">
