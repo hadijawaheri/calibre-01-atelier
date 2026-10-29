@@ -22,6 +22,35 @@ async function expectAccessible(page: Page) {
 
 test.setTimeout(60_000);
 
+const emptyReviews = {
+  data: [],
+  meta: { page: 1, limit: 10, totalItems: 0, totalPages: 1, average: null },
+};
+
+const reader = {
+  id: "u1",
+  mobile: "09120000001",
+  firstName: "مریم",
+  lastName: "کاظمی",
+  email: null,
+  role: "user",
+  createdAt: "2026-10-01T08:00:00.000Z",
+};
+
+function review(id: string, rating: number, status = "published") {
+  return {
+    id,
+    watchSlug: "omega-speedmaster",
+    rating,
+    text: "روی مچ سبک است و کرونوگرافش هنوز بی‌نقص کار می‌کند.",
+    ownership: "owner",
+    authorName: "مریم ک.",
+    status,
+    createdAt: "2026-10-20T08:00:00.000Z",
+    updatedAt: "2026-10-20T08:00:00.000Z",
+  };
+}
+
 // Credited photos come from Wikimedia Commons; a local stand-in keeps the suite independent of the network
 test.beforeEach(async ({ page }) => {
   await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//, (route) =>
@@ -29,6 +58,13 @@ test.beforeEach(async ({ page }) => {
       path: "public/media/movement-photos/balance-detail.webp",
       contentType: "image/webp",
     }),
+  );
+  // No API runs beside the e2e build; a watch with no reviews is the default answer
+  await page.route("**/api/**", (route) =>
+    route.request().method() === "GET" &&
+    /\/api\/watches\/[^/]+\/reviews\?/.test(route.request().url())
+      ? route.fulfill({ json: emptyReviews })
+      : route.fulfill({ status: 404, json: { statusCode: 404, code: "NOT_FOUND", message: "x" } }),
   );
 });
 
@@ -404,4 +440,104 @@ test("the sitemap lists every watch and calibre page", async ({ request }) => {
   expect(xml).toContain("/calibres/eta-2824-2</loc>");
   expect(xml).toContain("/complications</loc>");
   expect(xml).not.toContain("/search</loc>");
+});
+
+test("a watch page shows readers' reviews and asks a guest to sign in to write one", async ({
+  page,
+}) => {
+  const errors = watchErrors(page);
+  await page.route(/\/api\/watches\/omega-speedmaster\/reviews\?/, (route) =>
+    route.fulfill({
+      json: {
+        data: [review("r1", 5), review("r2", 4)],
+        meta: { page: 1, limit: 10, totalItems: 3, totalPages: 1, average: 4.3 },
+      },
+    }),
+  );
+  await page.goto("/watches/omega-speedmaster");
+  const section = page.getByRole("region", { name: "نظر خوانندگان" });
+  await expect(section.getByText("۴٫۳", { exact: true })).toBeVisible();
+  await expect(section.getByText("از ۳ نظر")).toBeVisible();
+  await expect(section.getByRole("listitem")).toHaveCount(2);
+  await expect(section.getByText("این ساعت را دارم").first()).toBeVisible();
+  await expect(section.getByRole("button", { name: "ورود و نوشتن نظر" })).toBeVisible();
+  await expectAccessible(page);
+  expect(errors).toEqual([]);
+});
+
+test("a reader signs in by code, writes a review and sees it waiting for approval", async ({
+  page,
+}) => {
+  let saved: unknown;
+  await page.route("**/api/auth/otp/request", (route) => route.fulfill({ status: 204 }));
+  await page.route("**/api/auth/otp/verify", (route) =>
+    route.fulfill({ json: { data: { user: reader } } }),
+  );
+  await page.route("**/api/watches/omega-speedmaster/reviews/mine", (route) => {
+    if (route.request().method() === "PUT") {
+      saved = route.request().postDataJSON();
+      return route.fulfill({ json: { data: review("mine", 4, "pending") } });
+    }
+    return route.fulfill({ json: { data: null } });
+  });
+
+  await page.goto("/watches/omega-speedmaster");
+  const section = page.getByRole("region", { name: "نظر خوانندگان" });
+  await expect(
+    section.getByText("هنوز نظری برای این ساعت منتشر نشده است.", { exact: false }),
+  ).toBeVisible();
+  await section.getByRole("button", { name: "ورود و نوشتن نظر" }).click();
+
+  const dialog = page.getByRole("dialog", { name: "ورود به کرونوس" });
+  await dialog.getByLabel("شمارهٔ موبایل").fill("۰۹۱۲۰۰۰۰۰۰۱");
+  await dialog.getByRole("button", { name: "فرستادن کد" }).click();
+  await dialog.getByLabel("کد ۶ رقمی").fill("123456");
+  await dialog.getByRole("button", { name: "ورود" }).click();
+  await expect(dialog).toBeHidden();
+
+  await section.getByRole("button", { name: "ثبت نظر" }).click();
+  await expect(section.getByText("امتیاز از ۱ تا ۵ است")).toBeVisible();
+  await expect(section.getByText("دست‌کم ۲۰ حرف بنویسید")).toBeVisible();
+
+  await section.getByRole("radio", { name: "۴ از ۵" }).click();
+  await section.getByLabel("این ساعت را دارم").check();
+  await section.getByLabel("نظر شما").fill("روی مچ سبک است و کرونوگرافش هنوز بی‌نقص کار می‌کند.");
+  await section.getByRole("button", { name: "ثبت نظر" }).click();
+
+  await expect(section.getByText("در انتظار تأیید")).toBeVisible();
+  expect(saved).toEqual({
+    rating: 4,
+    ownership: "owner",
+    text: "روی مچ سبک است و کرونوگرافش هنوز بی‌نقص کار می‌کند.",
+  });
+});
+
+test("an admin publishes a waiting review from the moderation desk", async ({ page, context }) => {
+  await context.addCookies([
+    { name: "kronos_signed_in", value: "1", url: "http://127.0.0.1:7782" },
+    { name: "kronos_signed_in", value: "1", url: "http://localhost:7782" },
+  ]);
+  let moderated: unknown;
+  await page.route("**/api/auth/me", (route) =>
+    route.fulfill({ json: { data: { user: { ...reader, role: "admin" } } } }),
+  );
+  await page.route(/\/api\/admin\/reviews\?/, (route) =>
+    route.fulfill({
+      json: {
+        data: [review("r9", 2, "pending")],
+        meta: { page: 1, limit: 10, totalItems: 1, totalPages: 1 },
+      },
+    }),
+  );
+  await page.route("**/api/admin/reviews/r9", (route) => {
+    moderated = route.request().postDataJSON();
+    return route.fulfill({ json: { data: review("r9", 2, "published") } });
+  });
+
+  await page.goto("/admin/reviews");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+  await expect(page.getByRole("link", { name: "امگا اسپیدمستر" })).toBeVisible();
+  await page.getByRole("button", { name: "انتشار" }).click();
+  await expect(page.getByText("نظری در این فهرست نیست.")).toBeVisible();
+  expect(moderated).toEqual({ status: "published" });
 });

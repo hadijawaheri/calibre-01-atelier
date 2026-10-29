@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 7782",
-    "build": "next build",
+    "build": "pnpm --filter @kronos/contracts build && next build",
     "postbuild": "node scripts/copy-standalone-assets.mjs",
     "start": "node .next/standalone/apps/web/server.js",
     "typecheck": "next typegen && tsc --noEmit",
@@ -11,6 +11,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@hookform/resolvers": "^6.0.0",
+    "@kronos/contracts": "workspace:*",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
     "class-variance-authority": "^0.7.1",
@@ -23,6 +25,7 @@
     "radix-ui": "^1.8.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "react-hook-form": "^7.91.0",
     "server-only": "^0.0.1",
     "sonner": "^2.0.8",
     "tailwind-merge": "^3.7.0",

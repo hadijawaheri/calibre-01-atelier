@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import { EntryPager, SourceList, Spec, SpecGrid, Tag, Trail } from "@/components/atlas";
 import { JsonLd } from "@/components/layout/json-ld";
 import { calibreBySlug } from "@/features/movement/calibres";
+import { ReviewsSection } from "@/features/reviews";
 import { paths } from "@/lib/paths";
 import { absoluteUrl, breadcrumbJsonLd, pageMetadata, SITE_NAME } from "@/lib/seo";
 
@@ -264,6 +265,8 @@ export function WatchPage({ slug }: { slug: string }) {
       )}
 
       <Related id="era-title" title="هم‌دوره‌ها" watches={contemporaries(watch)} />
+
+      <ReviewsSection slug={watch.slug} watchName={watch.name} />
 
       <EntryPager
         label="ساعت قبلی و بعدی"
