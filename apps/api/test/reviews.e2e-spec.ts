@@ -1,3 +1,4 @@
+import type TestAgent from "supertest/lib/agent.js";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 
 import { createTestApp, type TestApp } from "./utils/test-app.js";
@@ -7,9 +8,12 @@ const TEXT = "روی مچ سبک است و کرونوگرافش هنوز بی‌
 
 describe("reviews (e2e)", () => {
   let t: TestApp;
+  // One admin session for the whole file: a second login would hit the OTP resend cooldown
+  let admin: TestAgent;
 
   beforeAll(async () => {
     t = await createTestApp();
+    admin = await t.login("09121000099", "admin");
   });
   afterAll(async () => {
     await t.close();
@@ -75,7 +79,6 @@ describe("reviews (e2e)", () => {
     // A normal account cannot reach the moderation queue
     await author.get("/v1/admin/reviews").expect(403);
 
-    const admin = await t.login("09121000099", "admin");
     const queue = await admin.get("/v1/admin/reviews").expect(200);
     expect(queue.body.data.map((review: { id: string }) => review.id)).toContain(
       written.body.data.id,
@@ -101,7 +104,6 @@ describe("reviews (e2e)", () => {
 
   it("averages the published ratings only, to one decimal", async () => {
     const slug = "rolex-submariner";
-    const admin = await t.login("09121000099", "admin");
     const ratings = [5, 4, 4];
     for (const [index, rating] of ratings.entries()) {
       const agent = await t.login(`0912200000${index}`);
@@ -142,7 +144,6 @@ describe("reviews (e2e)", () => {
 
   it("takes an account's reviews down when the account is deleted", async () => {
     const slug = "cartier-tank";
-    const admin = await t.login("09121000099", "admin");
     const agent = await t.login("09124000001");
     const res = await agent
       .put(`/v1/watches/${slug}/reviews/mine`)
@@ -158,7 +159,6 @@ describe("reviews (e2e)", () => {
   });
 
   it("answers moderation of an unknown review with 404", async () => {
-    const admin = await t.login("09121000099", "admin");
     await admin
       .patch("/v1/admin/reviews/0123456789abcdef01234567")
       .send({ status: "published" })
