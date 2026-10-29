@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildCsp, createNonce } from "./csp";
+import { buildCsp, createNonce, CSP_RESPONSE_HEADER } from "./csp";
 
 describe("buildCsp", () => {
   it("allows only scripts carrying this request's nonce", () => {
@@ -16,6 +16,11 @@ describe("buildCsp", () => {
     expect(csp).toContain("'unsafe-eval'");
     expect(csp).toContain("ws:");
     expect(csp).not.toContain("upgrade-insecure-requests");
+  });
+
+  it("leaves out upgrade-insecure-requests while the policy is report-only", () => {
+    expect(CSP_RESPONSE_HEADER).toBe("content-security-policy-report-only");
+    expect(buildCsp("abc", false)).not.toContain("upgrade-insecure-requests");
   });
 
   it("keeps the Wikimedia photographs and the 3D blob URLs working", () => {

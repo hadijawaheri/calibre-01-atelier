@@ -2,7 +2,10 @@
 export const NONCE_HEADER = "x-nonce";
 
 // Report-only until a week of production traffic shows no violations (ADR 0013)
-export const CSP_RESPONSE_HEADER = "content-security-policy-report-only";
+const REPORT_ONLY = true;
+export const CSP_RESPONSE_HEADER = REPORT_ONLY
+  ? "content-security-policy-report-only"
+  : "content-security-policy";
 
 export function createNonce(): string {
   return btoa(crypto.randomUUID());
@@ -26,7 +29,8 @@ export function buildCsp(nonce: string, isDev: boolean): string {
     "base-uri 'self'",
     "form-action 'self'",
     "frame-ancestors 'none'",
-    ...(isDev ? [] : ["upgrade-insecure-requests"]),
+    // Browsers ignore it in a report-only policy and log an error saying so
+    ...(isDev || REPORT_ONLY ? [] : ["upgrade-insecure-requests"]),
   ];
   return directives.join("; ");
 }

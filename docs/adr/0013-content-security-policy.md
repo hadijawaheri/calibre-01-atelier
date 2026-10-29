@@ -12,5 +12,9 @@ Status: accepted
 - The root layout reads the nonce with `headers()`, so every page renders per request instead of at build time. That
   is the cost of a nonce; the pages stay fast because the data is bundled, and `dynamicParams = false` still 404s
   unknown slugs (ADR 0012).
-- One report is expected and harmless: Zod 4 probes for JIT support with `Function("")` inside a `try`, falls back
-  when the CSP refuses it, and the browser logs the refusal.
+- Zod 4 probes for eval support with `Function("")`; the providers set `z.config({ jitless: true })` so it never
+  asks. `upgrade-insecure-requests` is added only once the policy is enforced, since browsers reject it in a
+  report-only policy. Both would otherwise log console errors, which the e2e suite fails on.
+- Rendering per request also means the `(site)` loading shell is streamed with a 200 before a page can call
+  `notFound()`. `src/proxy.ts` therefore checks `/lab`, `/calibres` and `/watches` slugs against the same data the
+  pages use and rewrites unknown ones to an unmatched path, which Next answers with the root 404 page.
