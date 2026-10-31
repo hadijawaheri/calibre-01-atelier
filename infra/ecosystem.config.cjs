@@ -9,10 +9,10 @@ module.exports = {
       name: "kronos-api",
       cwd: path.join(root, "apps/api"), // the API reads its secrets from apps/api/.env
       script: "dist/main.js",
-      // cluster x2 gives zero-downtime reloads. The in-memory rate limiter is per worker,
-      // so the effective OTP limit is limit x instances; move the throttler to Redis for strict limits.
-      exec_mode: "cluster",
-      instances: 2,
+      // The rate limits (OTP 3/min) live in this process's memory, so one worker keeps them exact.
+      // A second instance is the point to move the throttler to Redis.
+      exec_mode: "fork",
+      instances: 1,
       env: { NODE_ENV: "production" },
       max_memory_restart: "512M",
       kill_timeout: 10_000, // lets Nest finish in-flight requests (enableShutdownHooks)
