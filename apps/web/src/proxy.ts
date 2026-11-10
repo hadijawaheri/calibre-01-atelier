@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import { CALIBRES } from "@/features/movement/calibres";
 import { CALIBRE_ENTRIES } from "@/features/reference/calibres";
 import { WATCHES } from "@/features/reference/watches";
+import { withClientIp } from "@/lib/api/client-ip";
 import { buildCsp, createNonce, CSP_RESPONSE_HEADER, NONCE_HEADER } from "@/lib/csp";
 
 // Pages render per request for the nonce, so a page's notFound() would arrive after the (site) loading shell
@@ -21,6 +22,11 @@ function isUnknownEntry(pathname: string): boolean {
 }
 
 export function proxy(request: NextRequest): NextResponse {
+  // The /api rewrite in next.config.ts forwards these headers to the API
+  if (request.nextUrl.pathname.startsWith("/api/")) {
+    return NextResponse.next({ request: { headers: withClientIp(request.headers) } });
+  }
+
   const nonce = createNonce();
   const csp = buildCsp(nonce, process.env.NODE_ENV === "development");
   // Next reads the nonce from the request's CSP header and adds it to its inline scripts
@@ -37,5 +43,6 @@ export function proxy(request: NextRequest): NextResponse {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\..*).*)"],
+  // /api/* only to tell the API who the visitor is (see lib/api/client-ip.ts)
+  matcher: ["/api/:path*", "/((?!api|_next/static|_next/image|.*\\..*).*)"],
 };
