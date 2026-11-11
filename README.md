@@ -81,7 +81,9 @@ pnpm dev                      # http://localhost:7782
 ```
 
 در حالت توسعه کد ورود در لاگ API چاپ می‌شود (یا اگر `OTP_FIXED_CODE` را بدهید، همان کد است). هر دو در
-`NODE_ENV=production` ممنوع‌اند و اپ بدون سرویس پیامک واقعی بالا نمی‌آید.
+`NODE_ENV=production` ممنوع‌اند. در production یا `SMS_PROVIDER=disabled` است (سایت کار می‌کند و ورود پیام «فعال
+نشده» می‌دهد) یا `SMS_PROVIDER=melipayamak` با `MELIPAYAMAK_API_KEY` و `MELIPAYAMAK_OTP_BODY_ID` (شناسه‌ی الگوی
+خدماتی تأییدشده با یک متغیر برای کد؛ ADR 0017).
 
 ایندکس‌های دیتابیس در production با `pnpm --filter @kronos/api migrate` ساخته می‌شوند (`scripts/deploy.sh` این را
 خودش اجرا می‌کند). کامپوننت‌های shadcn با سبک `new-york` و RTL هستند (`apps/web/components.json`، ADR 0003).
@@ -98,4 +100,4 @@ pnpm --filter @kronos/web test:e2e    # Playwright روی سایت در حال �
 `scripts/deploy.sh` روی سرور: نصب، بیلد و reload با PM2؛ Caddy جلوی وب است و TLS را خودکار می‌گیرد. جزئیات در بخش
 ۱۳ بلوپرینت و `infra/`.
 
-پیش از اولین استقرار باید یک `SmsProvider` و یک `PaymentProvider` واقعی (مثلاً زرین‌پال) پیاده شوند.
+ارسال پیامک با ملی‌پیامک پیاده شده و تا وقتی `SMS_PROVIDER=melipayamak` گذاشته نشود خاموش است.

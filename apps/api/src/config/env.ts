@@ -17,6 +17,9 @@ const envSchema = z
       .transform((value) => value.split(",").map((origin) => origin.trim())),
     // disabled: production before an SMS vendor exists; sign-in answers 503 SMS_UNAVAILABLE
     SMS_PROVIDER: z.enum(["console", "melipayamak", "disabled"]).default("console"),
+    // melipayamak: API key from console.melipayamak.com and the id of an approved OTP pattern
+    MELIPAYAMAK_API_KEY: z.string().min(8).optional(),
+    MELIPAYAMAK_OTP_BODY_ID: z.coerce.number().int().positive().optional(),
     OTP_FIXED_CODE: z
       .string()
       .regex(/^\d{6}$/)
@@ -38,6 +41,12 @@ const envSchema = z
     {
       message: "OTP_FIXED_CODE and the console SMS provider are forbidden in production",
     },
+  )
+  .refine(
+    (env) =>
+      env.SMS_PROVIDER !== "melipayamak" ||
+      (env.MELIPAYAMAK_API_KEY !== undefined && env.MELIPAYAMAK_OTP_BODY_ID !== undefined),
+    { message: "SMS_PROVIDER=melipayamak needs MELIPAYAMAK_API_KEY and MELIPAYAMAK_OTP_BODY_ID" },
   );
 
 export type Env = z.infer<typeof envSchema>;

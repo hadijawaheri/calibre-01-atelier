@@ -23,4 +23,26 @@ describe("validateEnv", () => {
   it("still requires secrets left blank", () => {
     expect(() => validateEnv({ ...base, JWT_ACCESS_SECRET: "" })).toThrow();
   });
+
+  it("needs a key and a pattern id for Melipayamak", () => {
+    expect(() => validateEnv({ ...base, SMS_PROVIDER: "melipayamak" })).toThrow(/MELIPAYAMAK/);
+    const env = validateEnv({
+      ...base,
+      SMS_PROVIDER: "melipayamak",
+      MELIPAYAMAK_API_KEY: "key-12345678",
+      MELIPAYAMAK_OTP_BODY_ID: "42",
+    });
+    expect(env.MELIPAYAMAK_OTP_BODY_ID).toBe(42);
+  });
+
+  it("allows Melipayamak in production", () => {
+    const env = validateEnv({
+      ...base,
+      NODE_ENV: "production",
+      SMS_PROVIDER: "melipayamak",
+      MELIPAYAMAK_API_KEY: "key-12345678",
+      MELIPAYAMAK_OTP_BODY_ID: "42",
+    });
+    expect(env.SMS_PROVIDER).toBe("melipayamak");
+  });
 });
