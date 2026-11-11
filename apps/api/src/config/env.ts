@@ -24,6 +24,8 @@ const envSchema = z
       .string()
       .regex(/^\d{6}$/)
       .optional(),
+    // Shared with the web app on Vercel; with it, rate limits follow the visitor's x-client-ip
+    API_PROXY_SECRET: secret.optional(),
     THROTTLE_ENABLED: z
       .enum(["true", "false"])
       .default("true")

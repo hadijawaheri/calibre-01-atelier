@@ -38,6 +38,8 @@ describe("toErrorBody", () => {
   });
 
   it("translates Nest's English route-not-found message", () => {
-    expect(toErrorBody(new NotFoundException("Cannot GET /x")).message).toBe("مورد درخواستی یافت نشد");
+    expect(toErrorBody(new NotFoundException("Cannot GET /x")).message).toBe(
+      "مورد درخواستی یافت نشد",
+    );
   });
 });
